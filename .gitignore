@@ -1,0 +1,54 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Production and test build outputs
+dist/
+build/win-unpacked/
+release/
+*.tmp
+*.log
+
+# Environment variables and cryptographic secrets
+.env
+.env.*
+*.pem
+*.key
+
+# Archive and large binary files (prevents GitHub 100MB file limit rejection)
+*.zip
+*.tar
+*.gz
+*.7z
+*.img
+*.pt
+*.pth
+*.bin
+*.onnx
+scripts/output/
+
+# Python / AI cache files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+lunar-ai-sidecar/__pycache__/
+lunar-ai-sidecar/models/yolov5-moon/.cache/
+
+# Temporary scratch media & recordings
+scratch/
+scratch_*
+user_prompt_*
+
+# System / Editor files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.vscode/
+.idea/

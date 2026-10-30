@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>LunarSafe — Ground Truth Hazard Labeling Tool</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #090d16;
+      color: #e2e8f0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, monospace;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow: hidden;
+    }
+    header {
+      background: #0f172a;
+      border-bottom: 1px solid #1e293b;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    h1 { font-size: 15px; font-weight: 700; letter-spacing: 0.5px; color: #38bdf8; }
+    .badge {
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: #1e293b;
+      color: #94a3b8;
+      border: 1px solid #334155;
+    }
+    .main-container {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+    .canvas-panel {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #000;
+      position: relative;
+      overflow: auto;
+    }
+    #canvas-container {
+      position: relative;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.8);
+      border: 1px solid #334155;
+    }
+    canvas {
+      display: block;
+      cursor: crosshair;
+    }
+    .sidebar {
+      width: 380px;
+      background: #0f172a;
+      border-left: 1px solid #1e293b;
+      display: flex;
+      flex-direction: column;
+      padding: 16px;
+      gap: 16px;
+      overflow-y: auto;
+    }
+    .tool-section {
+      background: #1e293b;
+      border-radius: 8px;
+      padding: 14px;
+      border: 1px solid #334155;
+    }
+    .section-title {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 10px;
+      color: #cbd5e1;
+      display: flex;
+      justify-content: space-between;
+    }
+    .btn-group {
+      display: flex;
+      gap: 8px;
+    }
+    button {
+      flex: 1;
+      padding: 8px 12px;
+      border-radius: 6px;
+      border: 1px solid #475569;
+      background: #334155;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    button:hover { background: #475569; border-color: #64748b; }
+    button.active-crater {
+      background: #0284c7;
+      border-color: #38bdf8;
+      box-shadow: 0 0 10px rgba(56, 189, 248, 0.4);
+    }
+    button.active-boulder {
+      background: #d97706;
+      border-color: #f59e0b;
+      box-shadow: 0 0 10px rgba(245, 158, 11, 0.4);
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-cols: 1fr 1fr 1fr;
+      gap: 8px;
+      text-align: center;
+    }
+    .stat-card {
+      background: #0f172a;
+      border: 1px solid #334155;
+      padding: 8px;
+      border-radius: 6px;
+    }
+    .stat-val { font-size: 18px; font-weight: 700; color: #fff; }
+    .stat-label { font-size: 10px; color: #94a3b8; text-transform: uppercase; }
+    .feature-list {
+      max-height: 240px;
+      overflow-y: auto;
+      font-size: 11px;
+      font-family: monospace;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .feature-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 4px 8px;
+      background: #0f172a;
+      border-radius: 4px;
+      border-left: 3px solid #64748b;
+    }
+    .feature-item.crater { border-left-color: #38bdf8; }
+    .feature-item.boulder { border-left-color: #f59e0b; }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1>LUNARSAFE GROUND TRUTH HAZARD LABELING TOOL</h1>
+      <span style="font-size: 11px; color: #94a3b8;">ISRO TMC-2 South Pole Calibration Data (512x512 px)</span>
+    </div>
+    <div style="display: flex; gap: 8px; align-items: center;">
+      <span class="badge" id="zoom-badge">Zoom: 100%</span>
+      <span class="badge" style="color: #4ade80; border-color: #22c55e;">STATUS: READY</span>
+    </div>
+  </header>
+
+  <div class="main-container">
+    <div class="canvas-panel">
+      <div id="canvas-container">
+        <canvas id="labelCanvas" width="512" height="512"></canvas>
+      </div>
+      <div style="position: absolute; bottom: 16px; left: 16px; font-size: 11px; color: #64748b;">
+        Click & Drag to mark circle · Press 'C' for Crater · Press 'B' for Boulder · Ctrl+Z to Undo
+      </div>
+    </div>
+
+    <div class="sidebar">
+      <div class="tool-section">
+        <div class="section-title">Annotation Mode</div>
+        <div class="btn-group">
+          <button id="btn-crater" class="active-crater">CRATER (Cyan)</button>
+          <button id="btn-boulder">BOULDER (Amber)</button>
+        </div>
+      </div>
+
+      <div class="tool-section">
+        <div class="section-title">Annotated Counts</div>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-val" id="count-craters" style="color: #38bdf8;">0</div>
+            <div class="stat-label">Craters</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-val" id="count-boulders" style="color: #f59e0b;">0</div>
+            <div class="stat-label">Boulders</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-val" id="count-total">0</div>
+            <div class="stat-label">Total</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tool-section">
+        <div class="section-title">Actions</div>
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+          <div class="btn-group">
+            <button id="btn-undo">Undo Last</button>
+            <button id="btn-clear" style="color: #f87171;">Clear All</button>
+          </div>
+          <div class="btn-group">
+            <button id="btn-export" style="background: #059669; border-color: #10b981;">Export JSON</button>
+            <button id="btn-import">Import JSON</button>
+          </div>
+          <input type="file" id="file-import" accept=".json" style="display: none;">
+        </div>
+      </div>
+
+      <div class="tool-section" style="flex: 1; display: flex; flex-direction: column;">
+        <div class="section-title">Feature Catalog</div>
+        <div class="feature-list" id="feature-list"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('labelCanvas');
+    const ctx = canvas.getContext('2d');
+
+    let currentMode = 'crater'; // 'crater' | 'boulder'
+    let features = []; // { x, y, radius, type, id }
+    let isDrawing = false;
+    let startX = 0, startY = 0;
+    let currentRadius = 0;
+
+    const baseImage = new Image();
+    baseImage.src = '../src/assets/samples/ch2_tmc2_south_pole.png';
+    baseImage.onload = () => redraw();
+
+    // Mode buttons
+    const btnCrater = document.getElementById('btn-crater');
+    const btnBoulder = document.getElementById('btn-boulder');
+    btnCrater.onclick = () => setMode('crater');
+    btnBoulder.onclick = () => setMode('boulder');
+
+    function setMode(mode) {
+      currentMode = mode;
+      if (mode === 'crater') {
+        btnCrater.className = 'active-crater';
+        btnBoulder.className = '';
+      } else {
+        btnCrater.className = '';
+        btnBoulder.className = 'active-boulder';
+      }
+    }
+
+    // Keyboard shortcuts
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'c' || e.key === 'C') setMode('crater');
+      if (e.key === 'b' || e.key === 'B') setMode('boulder');
+      if ((e.ctrlKey || e.metaKey) && e.key === 'z') undo();
+    });
+
+    canvas.addEventListener('mousedown', (e) => {
+      const rect = canvas.getBoundingClientRect();
+      startX = e.clientX - rect.left;
+      startY = e.clientY - rect.top;
+      isDrawing = true;
+      currentRadius = currentMode === 'boulder' ? 3 : 6;
+    });
+
+    canvas.addEventListener('mousemove', (e) => {
+      if (!isDrawing) return;
+      const rect = canvas.getBoundingClientRect();
+      const curX = e.clientX - rect.left;
+      const curY = e.clientY - rect.top;
+      currentRadius = Math.max(2, Math.round(Math.hypot(curX - startX, curY - startY)));
+      redraw();
+      drawCircle(startX, startY, currentRadius, currentMode, true);
+    });
+
+    canvas.addEventListener('mouseup', () => {
+      if (!isDrawing) return;
+      isDrawing = false;
+      const id = `${currentMode}-${Date.now()}`;
+      features.push({
+        x: Math.round(startX),
+        y: Math.round(startY),
+        radius: currentRadius,
+        type: currentMode,
+        id
+      });
+      updateStats();
+      redraw();
+    });
+
+    function undo() {
+      if (features.length > 0) {
+        features.pop();
+        updateStats();
+        redraw();
+      }
+    }
+    document.getElementById('btn-undo').onclick = undo;
+
+    document.getElementById('btn-clear').onclick = () => {
+      if (confirm('Clear all labels?')) {
+        features = [];
+        updateStats();
+        redraw();
+      }
+    };
+
+    function drawCircle(x, y, radius, type, isPreview = false) {
+      ctx.beginPath();
+      ctx.arc(x, y, radius, 0, Math.PI * 2);
+      ctx.strokeStyle = type === 'crater' ? '#38bdf8' : '#f59e0b';
+      ctx.lineWidth = isPreview ? 2 : 1.5;
+      if (isPreview) ctx.setLineDash([4, 4]);
+      else ctx.setLineDash([]);
+      ctx.stroke();
+
+      // Center crosshair
+      ctx.fillStyle = type === 'crater' ? '#38bdf8' : '#f59e0b';
+      ctx.fillRect(x - 1, y - 1, 2, 2);
+    }
+
+    function redraw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      if (baseImage.complete && baseImage.naturalWidth !== 0) {
+        ctx.drawImage(baseImage, 0, 0, canvas.width, canvas.height);
+      } else {
+        ctx.fillStyle = '#1e293b';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+      }
+      for (const f of features) {
+        drawCircle(f.x, f.y, f.radius, f.type);
+      }
+    }
+
+    function updateStats() {
+      const craters = features.filter(f => f.type === 'crater');
+      const boulders = features.filter(f => f.type === 'boulder');
+      document.getElementById('count-craters').innerText = craters.length;
+      document.getElementById('count-boulders').innerText = boulders.length;
+      document.getElementById('count-total').innerText = features.length;
+
+      const list = document.getElementById('feature-list');
+      list.innerHTML = features.slice().reverse().map(f => `
+        <div class="feature-item ${f.type}">
+          <span>[${f.type.toUpperCase()}] (${f.x}, ${f.y})</span>
+          <span>r=${f.radius}px</span>
+        </div>
+      `).join('');
+    }
+
+    // Export JSON
+    document.getElementById('btn-export').onclick = () => {
+      const craters = features.filter(f => f.type === 'crater').map(f => ({ x: f.x, y: f.y, radius: f.radius }));
+      const boulders = features.filter(f => f.type === 'boulder').map(f => ({ x: f.x, y: f.y, radius: f.radius }));
+      const data = {
+        dataset: "ISRO Chandrayaan-2 TMC-2 South Pole",
+        image: "src/assets/samples/ch2_tmc2_south_pole.png",
+        total_features: features.length,
+        craters,
+        boulders
+      };
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'tmc2_south_pole_labels.json';
+      a.click();
+    };
+
+    // Import JSON
+    const fileImport = document.getElementById('file-import');
+    document.getElementById('btn-import').onclick = () => fileImport.click();
+    fileImport.onchange = (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        try {
+          const json = JSON.parse(reader.result);
+          features = [];
+          if (json.craters) {
+            for (const c of json.craters) features.push({ x: c.x, y: c.y, radius: c.radius, type: 'crater', id: `c-${Date.now()}` });
+          }
+          if (json.boulders) {
+            for (const b of json.boulders) features.push({ x: b.x, y: b.y, radius: b.radius, type: 'boulder', id: `b-${Date.now()}` });
+          }
+          updateStats();
+          redraw();
+        } catch (err) {
+          alert('Failed to parse JSON: ' + err.message);
+        }
+      };
+      reader.readAsText(file);
+    };
+
+    // Load initial labels if available
+    fetch('../src/assets/validation/tmc2_south_pole_labels.json')
+      .then(res => res.json())
+      .then(json => {
+        features = [];
+        if (json.craters) {
+          for (const c of json.craters) features.push({ x: c.x, y: c.y, radius: c.radius, type: 'crater', id: c.id || `c-${Math.random()}` });
+        }
+        if (json.boulders) {
+          for (const b of json.boulders) features.push({ x: b.x, y: b.y, radius: b.radius, type: 'boulder', id: b.id || `b-${Math.random()}` });
+        }
+        updateStats();
+        redraw();
+      })
+      .catch(() => {});
+  </script>
+</body>
+</html>

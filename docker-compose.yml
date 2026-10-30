@@ -1,0 +1,18 @@
+﻿version: '3.8'
+
+services:
+  lunarsafe:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: lunarsafe:1.0.0
+    ports:
+      - "5000:5000"
+      - "3000:3000"
+    environment:
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
+      - GEMINI_MODEL=${GEMINI_MODEL:-gemini-1.5-flash}
+      - PORT=5000
+    volumes:
+      - ./data:/app/data
+    restart: unless-stopped

@@ -1,0 +1,17 @@
+{
+  "site": "Apollo 11 Tranquility Base",
+  "coordinates": {
+    "lat": 0.674,
+    "lon": 23.473
+  },
+  "pdsSourceUrl": "https://imbrium.mit.edu/DATA/LOLA_GDR/CYLINDRICAL/FLOAT_IMG/LDEM_512_00N_45N_000_090_FLOAT.IMG",
+  "pdsLabelUrl": "https://imbrium.mit.edu/DATA/LOLA_GDR/CYLINDRICAL/FLOAT_IMG/LDEM_512_00N_45N_000_090_FLOAT.LBL",
+  "publishedSlopeDeg": 1.3,
+  "publishedCitation": "Rosenburg et al. (2011, JGR Planets, doi:10.1029/2010JE003716, Table 1 mare plains 1.1°–1.5° midpoint: 1.30°); NASA Apollo 11 Press Kit (1969)",
+  "publishedUrl": "https://doi.org/10.1029/2010JE003716",
+  "width": 64,
+  "height": 64,
+  "gsdMetersPerPixel": 59.225,
+  "minElevMeters": -1962.6007080078125,
+  "maxElevMeters": -1880.234375
+}

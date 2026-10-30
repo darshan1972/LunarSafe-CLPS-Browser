@@ -1,0 +1,11 @@
+{
+  "minElevMeters": -1190.5359029769897,
+  "maxElevMeters": 1486.0321283340454,
+  "meanElevMeters": 127.2737513993475,
+  "gsdMetersPerPixel": 80,
+  "width": 128,
+  "height": 128,
+  "lolaMeanSlopeDeg": 14.74,
+  "lolaMaxSlopeDeg": 35.82,
+  "source": "NASA LRO LOLA GDR LDEM_80S_80M_FLOAT"
+}

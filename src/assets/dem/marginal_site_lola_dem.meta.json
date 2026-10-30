@@ -1,0 +1,18 @@
+{
+  "site": "Apollo 17 South Massif Rim (Marginal Site)",
+  "coordinates": {
+    "lat": 20.01,
+    "lon": 30.66
+  },
+  "pdsSourceUrl": "https://imbrium.mit.edu/DATA/LOLA_GDR/CYLINDRICAL/FLOAT_IMG/LDEM_512_00N_45N_000_090_FLOAT.IMG",
+  "pdsLabelUrl": "https://imbrium.mit.edu/DATA/LOLA_GDR/CYLINDRICAL/FLOAT_IMG/LDEM_512_00N_45N_000_090_FLOAT.LBL",
+  "description": "NASA LOLA GDR DEM tile over South Massif rim / valley flank (Apollo 17 Taurus-Littrow highland boundary), exhibiting marginal terrain slope ~10° for uncertainty sensitivity benchmarking.",
+  "targetSlopeRangeDeg": "8.0 - 12.0",
+  "publishedSlopeDeg": 10.0,
+  "publishedCitation": "Smith et al. (2010, GRL 37, L02201); Schmitt et al. (1973, Apollo 17 Preliminary Science Report, NASA SP-330)",
+  "width": 64,
+  "height": 64,
+  "gsdMetersPerPixel": 57.38,
+  "minElevMeters": -2663.185546875,
+  "maxElevMeters": -1778.547607421875
+}

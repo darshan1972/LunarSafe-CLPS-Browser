@@ -1,0 +1,664 @@
+%PDF-1.3
+%ºß¬à
+3 0 obj
+<</Type /Page
+/Parent 1 0 R
+/Resources 2 0 R
+/MediaBox [0 0 595.2799999999999727 841.8899999999999864]
+/Contents 4 0 R
+>>
+endobj
+4 0 obj
+<<
+/Length 11313
+>>
+stream
+0.5670000000000001 w
+0 G
+0.06 0.09 0.16 rg
+39.6850393700787407 802.2049606299211746 515.9055118110236435 -68.031496062992133 re
+f
+BT
+/F2 11 Tf
+12.6499999999999986 TL
+1. g
+53.8582677165354369 780.9451181102361943 Td
+(LUNARSAFE // AUTONOMOUS HAZARD DETECTION METHODOLOGY) Tj
+ET
+BT
+/F2 7.5 Tf
+8.625 TL
+0.008 0.518 0.78 rg
+53.8582677165354369 763.9372440944881646 Td
+(AEROSPACE RESEARCH & ENGINEERING · TEAM ROCKET · PARUL UNIVERSITY, VADODARA) Tj
+ET
+BT
+/F1 7 Tf
+8.0499999999999989 TL
+0.706 0.765 0.843 rg
+53.8582677165354369 746.9293700787401349 Td
+(STANDARD: ISRO Chandrayaan-3 LHDAC & NASA PDS4 Guidelines | Project Head: Darshan Patil) Tj
+ET
+0.95 0.96 0.98 rg
+39.6850393700787407 722.8348818897637784 515.9055118110236435 -17.0078740157480333 re
+f
+BT
+/F2 8.5 Tf
+9.7749999999999986 TL
+0.059 0.09 0.165 rg
+48.1889763779527627 710.0789763779526993 Td
+(EXECUTIVE ABSTRACT) Tj
+ET
+BT
+/F1 7.5 Tf
+8.625 TL
+0.176 0.216 0.282 rg
+39.6850393700787407 698.7403937007873083 Td
+(This technical document formalizes the autonomous lunar landing hazard detection, slope quantification, and candidate touchdown site selection) Tj
+T* (methodology implemented in LunarSafe. Lunar landing safe zones require strict topography tolerances to avoid mechanical lander tip-over, chassis) Tj
+T* (structural collapse, or propulsion plume re-impingement. LunarSafe establishes a fully deterministic, zero-hallucination processing pipeline capable of) Tj
+T* (ingesting high-resolution planetary data from NASA LOLA digital elevation models \(Float32 rasters\) and ISRO Chandrayaan-2/3 Terrain Mapping Camera 2) Tj
+T* (\(TMC-2\) and Orbiter High Resolution Camera \(OHRC\) panchromatic products. The core engine applies Horn's \(1981\) third-order finite difference operator) Tj
+T* (with 8*GSD stencil weighting for genuine physical slope quantification, accompanied by first-order analytical error propagation that models altimetric laser) Tj
+T* (error \(sigma_z = 1.0m\) to enforce a conservative 2-sigma safety filter. Candidate terrain is partitioned into standard 24m x 24m ISRO landing grid cells,) Tj
+T* (ensuring verifiable compliance with ISRO LHDAC mission thresholds \(slope <= 10.0 deg, crater depth <= 1.0m, boulder height <= 0.30m\). All computational) Tj
+T* (decisions are bound to an immutable 5-stage SHA-256 evidence chain, guaranteed by Ed25519 digital signatures and AES-256-GCM encryption for) Tj
+T* (complete post-flight mission auditability.) Tj
+ET
+0.95 0.96 0.98 rg
+39.6850393700787407 589.6065354330708033 515.9055118110236435 -17.0078740157480333 re
+f
+BT
+/F2 8.5 Tf
+9.7749999999999986 TL
+0.059 0.09 0.165 rg
+48.1889763779527627 576.8506299212597241 Td
+(SECTION 1 — INTRODUCTION & CHANDRAYAAN-2 FAILURE ANALYSIS) Tj
+ET
+BT
+/F1 7.5 Tf
+8.625 TL
+0.176 0.216 0.282 rg
+39.6850393700787407 565.5120472440944468 Td
+(The terminal descent of a lunar lander represents one of the most mission-critical phases in planetary exploration. In September 2019, the Chandrayaan-2) Tj
+T* (Vikram lander experienced an off-nominal trajectory deviation during its fine-braking phase. Subsequent failure analysis conducted by the National Expert) Tj
+T* (Committee identified that tight thruster throttling limits combined with unexpected trajectory dispersion forced the guidance system to attempt rapid attitude) Tj
+T* (corrections, resulting in high horizontal velocity at touchdown beyond the capability of the landing legs. This historic failure highlighted the paramount) Tj
+T* (necessity of onboard autonomous real-time hazard detection with absolute determinism, wide safe-zone search radii, and mathematically bounded) Tj
+T* (uncertainty margins.) Tj
+ET
+BT
+/F1 7.5 Tf
+8.625 TL
+0.176 0.216 0.282 rg
+39.6850393700787407 497.1970866141732017 Td
+(LunarSafe addresses this challenge by providing pre-landing terrain qualification and onboard hazard map synthesis. Unlike deep learning black-box models) Tj
+T* (that suffer from stochastic unpredictability and out-of-distribution hallucinations under varying solar illumination, LunarSafe relies on closed-form geometric) Tj
+T* (algorithms that produce 100% bit-identical results across all computing platforms.) Tj
+ET
+0.95 0.96 0.98 rg
+39.6850393700787407 459.4962992125983305 515.9055118110236435 -17.0078740157480333 re
+f
+BT
+/F2 8.5 Tf
+9.7749999999999986 TL
+0.059 0.09 0.165 rg
+48.1889763779527627 446.7403937007873083 Td
+(SECTION 2 — SYSTEM ARCHITECTURE OVERVIEW) Tj
+ET
+BT
+/F1 7.5 Tf
+8.625 TL
+0.176 0.216 0.282 rg
+39.6850393700787407 435.4018110236219741 Td
+(The LunarSafe system is organized into a modular, decoupled architecture consisting of four integrated layers: \(1\) The Ingestion & Pre-Processing Engine,) Tj
+T* (\(2\) The Frozen Deterministic Core \(DeterministicLunarEngine\), \(3\) The Uncertainty & Conservative Hazard Classifier, and \(4\) The Cryptographic Audit and) Tj
+T* (Dossier Packaging Layer. This separation guarantees that core physical determinations remain completely isolated from telemetry visualization, network) Tj
+T* (transport, or secondary reporting services.) Tj
+ET
+0.95 0.96 0.98 rg
+39.6850393700787407 387.4962992125983305 515.9055118110236435 -17.0078740157480333 re
+f
+BT
+/F2 8.5 Tf
+9.7749999999999986 TL
+0.059 0.09 0.165 rg
+48.1889763779527627 374.7403937007873083 Td
+(SECTION 3 — THE 5-STEP DETERMINISTIC PROCESSING PIPELINE) Tj
+ET
+0.97 0.98 0.99 rg
+39.6850393700787407 363.4018110236219172 141.7322834645669332 -13.6062992125984259 re
+f
+0.8 0.84 0.88 RG
+39.6850393700787407 363.4018110236219172 141.7322834645669332 -13.6062992125984259 re
+S
+181.4173228346456881 363.4018110236219172 374.1732283464567104 -13.6062992125984259 re
+S
+BT
+/F2 7.2 Tf
+8.2799999999999994 TL
+0.059 0.09 0.165 rg
+45.354330708661422 353.7640157480313974 Td
+(Step 1: Input Ingestion) Tj
+ET
+BT
+/F1 7.2 Tf
+8.2799999999999994 TL
+0.157 g
+187.0866141732283552 353.7640157480313974 Td
+(Streams raw IEEE 754 Float32 DEM elevation matrices or 16-bit PDS4 panchromatic rasters into contiguous buffers.) Tj
+ET
+0.97 0.98 0.99 rg
+39.6850393700787407 349.7955118110234594 141.7322834645669332 -13.6062992125984259 re
+f
+0.8 0.84 0.88 RG
+39.6850393700787407 349.7955118110234594 141.7322834645669332 -13.6062992125984259 re
+S
+181.4173228346456881 349.7955118110234594 374.1732283464567104 -13.6062992125984259 re
+S
+BT
+/F2 7.2 Tf
+8.2799999999999994 TL
+0.059 0.09 0.165 rg
+45.354330708661422 340.1577165354329395 Td
+(Step 2: Panchromatic Filter) Tj
+ET
+BT
+/F1 7.2 Tf
+8.2799999999999994 TL
+0.157 g
+187.0866141732283552 340.1577165354329395 Td
+(Validates authentic grayscale lunar reflectance \(< 0.1% chromatic pixels\) to reject stock or corrupt data.) Tj
+ET
+0.97 0.98 0.99 rg
+39.6850393700787407 336.1892125984250015 141.7322834645669332 -13.6062992125984259 re
+f
+0.8 0.84 0.88 RG
+39.6850393700787407 336.1892125984250015 141.7322834645669332 -13.6062992125984259 re
+S
+181.4173228346456881 336.1892125984250015 374.1732283464567104 -13.6062992125984259 re
+S
+BT
+/F2 7.2 Tf
+8.2799999999999994 TL
+0.059 0.09 0.165 rg
+45.354330708661422 326.5514173228344816 Td
+(Step 3: Horn \(1981\) Slope Engine) Tj
+ET
+BT
+/F1 7.2 Tf
+8.2799999999999994 TL
+0.157 g
+187.0866141732283552 326.5514173228344816 Td
+(Computes physical surface gradient using 3rd-order weighted 3x3 finite-difference stencils anchored to true GSD.) Tj
+ET
+0.97 0.98 0.99 rg
+39.6850393700787407 322.5829133858265436 141.7322834645669332 -13.6062992125984259 re
+f
+0.8 0.84 0.88 RG
+39.6850393700787407 322.5829133858265436 141.7322834645669332 -13.6062992125984259 re
+S
+181.4173228346456881 322.5829133858265436 374.1732283464567104 -13.6062992125984259 re
+S
+BT
+/F2 7.2 Tf
+8.2799999999999994 TL
+0.059 0.09 0.165 rg
+45.354330708661422 312.9451181102359669 Td
+(Step 4: Morphological Hazard Profiling) Tj
+ET
+BT
+/F1 7.2 Tf
+8.2799999999999994 TL
+0.157 g
+187.0866141732283552 312.9451181102359669 Td
+(Identifies crater depression profiles and boulder highlight-shadow pairs via Sobel edge magnitude.) Tj
+ET
+0.97 0.98 0.99 rg
+39.6850393700787407 308.9766141732280857 141.7322834645669332 -13.6062992125984259 re
+f
+0.8 0.84 0.88 RG
+39.6850393700787407 308.9766141732280857 141.7322834645669332 -13.6062992125984259 re
+S
+181.4173228346456881 308.9766141732280857 374.1732283464567104 -13.6062992125984259 re
+S
+BT
+/F2 7.2 Tf
+8.2799999999999994 TL
+0.059 0.09 0.165 rg
+45.354330708661422 299.3388188976375659 Td
+(Step 5: ISRO 24m Grid & Audit Seal) Tj
+ET
+BT
+/F1 7.2 Tf
+8.2799999999999994 TL
+0.157 g
+187.0866141732283552 299.3388188976375659 Td
+(Discretizes terrain into 24m cells, applies 2-sigma safety culling, and computes cryptographic hash chains.) Tj
+ET
+0.95 0.96 0.98 rg
+39.6850393700787407 286.866377952755613 515.9055118110236435 -17.0078740157480333 re
+f
+BT
+/F2 8.5 Tf
+9.7749999999999986 TL
+0.059 0.09 0.165 rg
+48.1889763779527627 274.1104724409445907 Td
+(SECTION 4 — INPUT DATA FORMATS \(NASA LOLA & ISRO TMC-2\)) Tj
+ET
+BT
+/F1 7.5 Tf
+8.625 TL
+0.176 0.216 0.282 rg
+39.6850393700787407 262.7718897637793134 Td
+(1. NASA LOLA Gridded Data Record \(GDR\): Single-band IEEE 754 Float32 raster representing topocentric elevation in meters relative to the reference) Tj
+T* (lunar sphere \(R = 1737.4 km\). Typical resolution ranges from 20.0m \(polar tiles\) to 59.225m \(equatorial maria\).) Tj
+ET
+BT
+/F1 7.5 Tf
+8.625 TL
+0.176 0.216 0.282 rg
+39.6850393700787407 235.2758267716533283 Td
+(2. ISRO Chandrayaan-2/3 TMC-2 & OHRC: Planetary Data System version 4 \(PDS4\) standard format comprising an XML label \(*.xml\) and an) Tj
+T* (uncompressed 16-bit Little-Endian \(UnsignedLSB2\) raw raster \(*.img\). Raster line and sample counts are parsed dynamically from the PDS4 label to) Tj
+T* (prevent geometry mismatches across instruments. The bug was a dynamic-range assumption error. The loader divided raw pixel values by 65,535, but the) Tj
+T* (sensor's actual dynamic range for this observation was only ~9–455. This crushed all pixels to near-zero, producing a blank image. The fix applies a 2-sigma) Tj
+T* (dynamic-range stretch with gamma correction \(gamma = 0.43\), computed from the tile's actual mean and standard deviation.) Tj
+ET
+0.95 0.96 0.98 rg
+39.6850393700787407 177.1655905511808555 515.9055118110236435 -17.0078740157480333 re
+f
+BT
+/F2 8.5 Tf
+9.7749999999999986 TL
+0.059 0.09 0.165 rg
+48.1889763779527627 164.4096850393698332 Td
+(SECTION 5 — PROCESSING PIPELINE SPECIFICATION) Tj
+ET
+BT
+/F1 7.5 Tf
+8.625 TL
+0.176 0.216 0.282 rg
+39.6850393700787407 153.0711023622044422 Td
+(Contrast normalization is performed via physical exposure scaling without non-linear tone mapping. High-pass Laplacian unsharp masking enhances) Tj
+T* (micro-relief boundaries and boulder ejecta rims without altering planar surface trends. The resulting gradient field is classified into safe, marginal, and) Tj
+T* (hazardous terrain based on strict mission thresholds.) Tj
+ET
+0.95 0.96 0.98 rg
+39.6850393700787407 115.3703149606296279 515.9055118110236435 -17.0078740157480333 re
+f
+BT
+/F2 8.5 Tf
+9.7749999999999986 TL
+0.059 0.09 0.165 rg
+48.1889763779527627 102.6144094488186056 Td
+(SECTION 6 — MISSION OUTPUT FORMATS) Tj
+ET
+BT
+/F1 7 Tf
+8.0499999999999989 TL
+0.51 0.549 0.588 rg
+39.6850393700787407 22.6774015748030706 Td
+(LunarSafe // Methodology & System Architecture · Page 1) Tj
+ET
+BT
+/F1 7 Tf
+8.0499999999999989 TL
+0.51 0.549 0.588 rg
+342.9921259842520271 22.6774015748030706 Td
+(LunarSafe Autonomous Hazard Suite · Team Rocket · Parul University) Tj
+ET
+endstream
+endobj
+5 0 obj
+<</Type /Page
+/Parent 1 0 R
+/Resources 2 0 R
+/MediaBox [0 0 595.2799999999999727 841.8899999999999864]
+/Contents 6 0 R
+>>
+endobj
+6 0 obj
+<<
+/Length 3316
+>>
+stream
+0.5670000000000001 w
+0.8 0.84 0.88 RG
+0.06 0.09 0.16 rg
+39.6850393700787407 802.2049606299211746 515.9055118110236435 -25.5118110236220517 re
+f
+BT
+/F2 8 Tf
+9.1999999999999993 TL
+1. g
+51.0236220472441033 785.1970866141732586 Td
+(LunarSafe // Methodology & System Architecture) Tj
+ET
+BT
+/F1 7 Tf
+8.0499999999999989 TL
+0.706 0.824 0.941 rg
+308.9763779527559109 785.1970866141732586 Td
+(TEAM ROCKET · PARUL UNIVERSITY · ISRO SUBMISSION DOSSIER) Tj
+ET
+0.97 0.98 0.99 rg
+39.6850393700787407 762.5199212598424765 141.7322834645669332 -13.6062992125984259 re
+f
+0.8 0.84 0.88 RG
+39.6850393700787407 762.5199212598424765 141.7322834645669332 -13.6062992125984259 re
+S
+181.4173228346456881 762.5199212598424765 374.1732283464567104 -13.6062992125984259 re
+S
+BT
+/F2 7.2 Tf
+8.2799999999999994 TL
+0.059 0.09 0.165 rg
+45.354330708661422 752.8821259842519567 Td
+(Vector PDF Mission Dossier) Tj
+ET
+BT
+/F1 7.2 Tf
+8.2799999999999994 TL
+0.157 g
+187.0866141732283552 752.8821259842519567 Td
+(Multi-page flight briefing containing topography maps, safe zones, telemetry, and evidence hashes.) Tj
+ET
+0.97 0.98 0.99 rg
+39.6850393700787407 748.9136220472440755 141.7322834645669332 -13.6062992125984259 re
+f
+0.8 0.84 0.88 RG
+39.6850393700787407 748.9136220472440755 141.7322834645669332 -13.6062992125984259 re
+S
+181.4173228346456881 748.9136220472440755 374.1732283464567104 -13.6062992125984259 re
+S
+BT
+/F2 7.2 Tf
+8.2799999999999994 TL
+0.059 0.09 0.165 rg
+45.354330708661422 739.2758267716535556 Td
+(CSV Audit Matrix) Tj
+ET
+BT
+/F1 7.2 Tf
+8.2799999999999994 TL
+0.157 g
+187.0866141732283552 739.2758267716535556 Td
+(Per-cell structured table reporting column, row, mean slope, sigma, safe/hazard flag, and coordinates.) Tj
+ET
+0.97 0.98 0.99 rg
+39.6850393700787407 735.3073228346456744 141.7322834645669332 -13.6062992125984259 re
+f
+0.8 0.84 0.88 RG
+39.6850393700787407 735.3073228346456744 141.7322834645669332 -13.6062992125984259 re
+S
+181.4173228346456881 735.3073228346456744 374.1732283464567104 -13.6062992125984259 re
+S
+BT
+/F2 7.2 Tf
+8.2799999999999994 TL
+0.059 0.09 0.165 rg
+45.354330708661422 725.6695275590551546 Td
+(JSON Telemetry Payload) Tj
+ET
+BT
+/F1 7.2 Tf
+8.2799999999999994 TL
+0.157 g
+187.0866141732283552 725.6695275590551546 Td
+(Machine-readable stream with full module execution logs, timings, SHA-256 hashes, and A* rover trajectories.) Tj
+ET
+0.97 0.98 0.99 rg
+39.6850393700787407 721.7010236220472734 141.7322834645669332 -13.6062992125984259 re
+f
+0.8 0.84 0.88 RG
+39.6850393700787407 721.7010236220472734 141.7322834645669332 -13.6062992125984259 re
+S
+181.4173228346456881 721.7010236220472734 374.1732283464567104 -13.6062992125984259 re
+S
+BT
+/F2 7.2 Tf
+8.2799999999999994 TL
+0.059 0.09 0.165 rg
+45.354330708661422 712.0632283464567536 Td
+(Visual Hazard Maps) Tj
+ET
+BT
+/F1 7.2 Tf
+8.2799999999999994 TL
+0.157 g
+187.0866141732283552 712.0632283464567536 Td
+(Calibrated 8-bit RGBA overlays indicating safe zones \(green\), slopes >10° \(red\), and culled marginal cells \(yellow\).) Tj
+ET
+BT
+/F1 7 Tf
+8.0499999999999989 TL
+0.51 0.549 0.588 rg
+39.6850393700787407 22.6774015748030706 Td
+(LunarSafe // Methodology & System Architecture · Page 2) Tj
+ET
+BT
+/F1 7 Tf
+8.0499999999999989 TL
+0.51 0.549 0.588 rg
+342.9921259842520271 22.6774015748030706 Td
+(LunarSafe Autonomous Hazard Suite · Team Rocket · Parul University) Tj
+ET
+endstream
+endobj
+1 0 obj
+<</Type /Pages
+/Kids [3 0 R 5 0 R ]
+/Count 2
+>>
+endobj
+7 0 obj
+<<
+/Type /Font
+/BaseFont /Helvetica
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+8 0 obj
+<<
+/Type /Font
+/BaseFont /Helvetica-Bold
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+9 0 obj
+<<
+/Type /Font
+/BaseFont /Helvetica-Oblique
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+10 0 obj
+<<
+/Type /Font
+/BaseFont /Helvetica-BoldOblique
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+11 0 obj
+<<
+/Type /Font
+/BaseFont /Courier
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+12 0 obj
+<<
+/Type /Font
+/BaseFont /Courier-Bold
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+13 0 obj
+<<
+/Type /Font
+/BaseFont /Courier-Oblique
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+14 0 obj
+<<
+/Type /Font
+/BaseFont /Courier-BoldOblique
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+15 0 obj
+<<
+/Type /Font
+/BaseFont /Times-Roman
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+16 0 obj
+<<
+/Type /Font
+/BaseFont /Times-Bold
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+17 0 obj
+<<
+/Type /Font
+/BaseFont /Times-Italic
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+18 0 obj
+<<
+/Type /Font
+/BaseFont /Times-BoldItalic
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+19 0 obj
+<<
+/Type /Font
+/BaseFont /ZapfDingbats
+/Subtype /Type1
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+20 0 obj
+<<
+/Type /Font
+/BaseFont /Symbol
+/Subtype /Type1
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+2 0 obj
+<<
+/ProcSet [/PDF /Text /ImageB /ImageC /ImageI]
+/Font <<
+/F1 7 0 R
+/F2 8 0 R
+/F3 9 0 R
+/F4 10 0 R
+/F5 11 0 R
+/F6 12 0 R
+/F7 13 0 R
+/F8 14 0 R
+/F9 15 0 R
+/F10 16 0 R
+/F11 17 0 R
+/F12 18 0 R
+/F13 19 0 R
+/F14 20 0 R
+>>
+/XObject <<
+>>
+>>
+endobj
+21 0 obj
+<<
+/Producer (jsPDF 4.2.1)
+/CreationDate (D:20261007200153+05'30')
+>>
+endobj
+22 0 obj
+<<
+/Type /Catalog
+/Pages 1 0 R
+/OpenAction [3 0 R /FitH null]
+/PageLayout /OneColumn
+>>
+endobj
+xref
+0 23
+0000000000 65535 f 
+0000015023 00000 n 
+0000016848 00000 n 
+0000000015 00000 n 
+0000000152 00000 n 
+0000011518 00000 n 
+0000011655 00000 n 
+0000015086 00000 n 
+0000015211 00000 n 
+0000015341 00000 n 
+0000015474 00000 n 
+0000015612 00000 n 
+0000015736 00000 n 
+0000015865 00000 n 
+0000015997 00000 n 
+0000016133 00000 n 
+0000016261 00000 n 
+0000016388 00000 n 
+0000016517 00000 n 
+0000016650 00000 n 
+0000016752 00000 n 
+0000017098 00000 n 
+0000017184 00000 n 
+trailer
+<<
+/Size 23
+/Root 22 0 R
+/Info 21 0 R
+/ID [ <8BF21DFEB26251A57FC7AF1EE95DDF66> <8BF21DFEB26251A57FC7AF1EE95DDF66> ]
+>>
+startxref
+17288
+%%EOF

@@ -1,0 +1,17 @@
+{
+  "site": "Shackleton Crater Rim",
+  "coordinates": {
+    "lat": -89.9,
+    "lon": 0
+  },
+  "pdsSourceUrl": "https://imbrium.mit.edu/DATA/LOLA_GDR/POLAR/FLOAT_IMG/LDEM_875S_20M_FLOAT.IMG",
+  "pdsLabelUrl": "https://imbrium.mit.edu/DATA/LOLA_GDR/POLAR/FLOAT_IMG/LDEM_875S_20M_FLOAT.LBL",
+  "publishedSlopeDeg": 31,
+  "publishedCitation": "Zuber et al. (Nature 2012, 486, 478-481, doi:10.1038/nature11216)",
+  "publishedUrl": "https://www.nature.com/articles/nature11216",
+  "width": 64,
+  "height": 64,
+  "gsdMetersPerPixel": 20,
+  "minElevMeters": 81.7588119506836,
+  "maxElevMeters": 1108.2593994140625
+}

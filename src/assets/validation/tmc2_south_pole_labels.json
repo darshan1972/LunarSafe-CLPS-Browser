@@ -1,0 +1,786 @@
+{
+  "dataset": "ISRO Chandrayaan-2 TMC-2 South Pole Calibration Target",
+  "image": "src/assets/samples/ch2_tmc2_south_pole.png",
+  "resolution_m_per_px": 5,
+  "dimensions": {
+    "width": 512,
+    "height": 512
+  },
+  "total_features": 110,
+  "craters_count": 60,
+  "boulders_count": 50,
+  "craters": [
+    {
+      "x": 215,
+      "y": 93,
+      "radius": 6,
+      "id": "gt-crater-001",
+      "type": "crater"
+    },
+    {
+      "x": 200,
+      "y": 95,
+      "radius": 6,
+      "id": "gt-crater-002",
+      "type": "crater"
+    },
+    {
+      "x": 107,
+      "y": 100,
+      "radius": 6,
+      "id": "gt-crater-003",
+      "type": "crater"
+    },
+    {
+      "x": 133,
+      "y": 100,
+      "radius": 6,
+      "id": "gt-crater-004",
+      "type": "crater"
+    },
+    {
+      "x": 142,
+      "y": 104,
+      "radius": 6,
+      "id": "gt-crater-005",
+      "type": "crater"
+    },
+    {
+      "x": 193,
+      "y": 104,
+      "radius": 6,
+      "id": "gt-crater-006",
+      "type": "crater"
+    },
+    {
+      "x": 369,
+      "y": 106,
+      "radius": 6,
+      "id": "gt-crater-007",
+      "type": "crater"
+    },
+    {
+      "x": 210,
+      "y": 110,
+      "radius": 6,
+      "id": "gt-crater-008",
+      "type": "crater"
+    },
+    {
+      "x": 357,
+      "y": 110,
+      "radius": 6,
+      "id": "gt-crater-009",
+      "type": "crater"
+    },
+    {
+      "x": 405,
+      "y": 111,
+      "radius": 6,
+      "id": "gt-crater-010",
+      "type": "crater"
+    },
+    {
+      "x": 151,
+      "y": 112,
+      "radius": 6,
+      "id": "gt-crater-011",
+      "type": "crater"
+    },
+    {
+      "x": 193,
+      "y": 116,
+      "radius": 6,
+      "id": "gt-crater-012",
+      "type": "crater"
+    },
+    {
+      "x": 416,
+      "y": 118,
+      "radius": 6,
+      "id": "gt-crater-013",
+      "type": "crater"
+    },
+    {
+      "x": 158,
+      "y": 122,
+      "radius": 6,
+      "id": "gt-crater-014",
+      "type": "crater"
+    },
+    {
+      "x": 200,
+      "y": 125,
+      "radius": 6,
+      "id": "gt-crater-015",
+      "type": "crater"
+    },
+    {
+      "x": 423,
+      "y": 126,
+      "radius": 6,
+      "id": "gt-crater-016",
+      "type": "crater"
+    },
+    {
+      "x": 215,
+      "y": 127,
+      "radius": 6,
+      "id": "gt-crater-017",
+      "type": "crater"
+    },
+    {
+      "x": 336,
+      "y": 127,
+      "radius": 6,
+      "id": "gt-crater-018",
+      "type": "crater"
+    },
+    {
+      "x": 429,
+      "y": 135,
+      "radius": 6,
+      "id": "gt-crater-019",
+      "type": "crater"
+    },
+    {
+      "x": 330,
+      "y": 137,
+      "radius": 6,
+      "id": "gt-crater-020",
+      "type": "crater"
+    },
+    {
+      "x": 119,
+      "y": 140,
+      "radius": 6,
+      "id": "gt-crater-021",
+      "type": "crater"
+    },
+    {
+      "x": 433,
+      "y": 145,
+      "radius": 6,
+      "id": "gt-crater-022",
+      "type": "crater"
+    },
+    {
+      "x": 79,
+      "y": 150,
+      "radius": 6,
+      "id": "gt-crater-023",
+      "type": "crater"
+    },
+    {
+      "x": 161,
+      "y": 150,
+      "radius": 6,
+      "id": "gt-crater-024",
+      "type": "crater"
+    },
+    {
+      "x": 379,
+      "y": 159,
+      "radius": 6,
+      "id": "gt-crater-025",
+      "type": "crater"
+    },
+    {
+      "x": 87,
+      "y": 166,
+      "radius": 6,
+      "id": "gt-crater-026",
+      "type": "crater"
+    },
+    {
+      "x": 153,
+      "y": 166,
+      "radius": 6,
+      "id": "gt-crater-027",
+      "type": "crater"
+    },
+    {
+      "x": 434,
+      "y": 171,
+      "radius": 6,
+      "id": "gt-crater-028",
+      "type": "crater"
+    },
+    {
+      "x": 94,
+      "y": 173,
+      "radius": 6,
+      "id": "gt-crater-029",
+      "type": "crater"
+    },
+    {
+      "x": 143,
+      "y": 175,
+      "radius": 6,
+      "id": "gt-crater-030",
+      "type": "crater"
+    },
+    {
+      "x": 104,
+      "y": 179,
+      "radius": 6,
+      "id": "gt-crater-031",
+      "type": "crater"
+    },
+    {
+      "x": 133,
+      "y": 180,
+      "radius": 6,
+      "id": "gt-crater-032",
+      "type": "crater"
+    },
+    {
+      "x": 431,
+      "y": 181,
+      "radius": 6,
+      "id": "gt-crater-033",
+      "type": "crater"
+    },
+    {
+      "x": 423,
+      "y": 194,
+      "radius": 6,
+      "id": "gt-crater-034",
+      "type": "crater"
+    },
+    {
+      "x": 341,
+      "y": 199,
+      "radius": 6,
+      "id": "gt-crater-035",
+      "type": "crater"
+    },
+    {
+      "x": 414,
+      "y": 203,
+      "radius": 6,
+      "id": "gt-crater-036",
+      "type": "crater"
+    },
+    {
+      "x": 351,
+      "y": 207,
+      "radius": 6,
+      "id": "gt-crater-037",
+      "type": "crater"
+    },
+    {
+      "x": 403,
+      "y": 210,
+      "radius": 6,
+      "id": "gt-crater-038",
+      "type": "crater"
+    },
+    {
+      "x": 365,
+      "y": 213,
+      "radius": 6,
+      "id": "gt-crater-039",
+      "type": "crater"
+    },
+    {
+      "x": 391,
+      "y": 214,
+      "radius": 6,
+      "id": "gt-crater-040",
+      "type": "crater"
+    },
+    {
+      "x": 271,
+      "y": 283,
+      "radius": 6,
+      "id": "gt-crater-041",
+      "type": "crater"
+    },
+    {
+      "x": 283,
+      "y": 286,
+      "radius": 6,
+      "id": "gt-crater-042",
+      "type": "crater"
+    },
+    {
+      "x": 294,
+      "y": 291,
+      "radius": 6,
+      "id": "gt-crater-043",
+      "type": "crater"
+    },
+    {
+      "x": 305,
+      "y": 299,
+      "radius": 6,
+      "id": "gt-crater-044",
+      "type": "crater"
+    },
+    {
+      "x": 314,
+      "y": 309,
+      "radius": 6,
+      "id": "gt-crater-045",
+      "type": "crater"
+    },
+    {
+      "x": 320,
+      "y": 318,
+      "radius": 6,
+      "id": "gt-crater-046",
+      "type": "crater"
+    },
+    {
+      "x": 325,
+      "y": 330,
+      "radius": 6,
+      "id": "gt-crater-047",
+      "type": "crater"
+    },
+    {
+      "x": 260,
+      "y": 350,
+      "radius": 6,
+      "id": "gt-crater-048",
+      "type": "crater"
+    },
+    {
+      "x": 193,
+      "y": 362,
+      "radius": 6,
+      "id": "gt-crater-049",
+      "type": "crater"
+    },
+    {
+      "x": 327,
+      "y": 362,
+      "radius": 6,
+      "id": "gt-crater-050",
+      "type": "crater"
+    },
+    {
+      "x": 196,
+      "y": 373,
+      "radius": 6,
+      "id": "gt-crater-051",
+      "type": "crater"
+    },
+    {
+      "x": 200,
+      "y": 382,
+      "radius": 6,
+      "id": "gt-crater-052",
+      "type": "crater"
+    },
+    {
+      "x": 48,
+      "y": 72,
+      "radius": 10,
+      "id": "gt-crater-053",
+      "type": "crater"
+    },
+    {
+      "x": 310,
+      "y": 140,
+      "radius": 14,
+      "id": "gt-crater-054",
+      "type": "crater"
+    },
+    {
+      "x": 420,
+      "y": 220,
+      "radius": 12,
+      "id": "gt-crater-055",
+      "type": "crater"
+    },
+    {
+      "x": 85,
+      "y": 310,
+      "radius": 16,
+      "id": "gt-crater-056",
+      "type": "crater"
+    },
+    {
+      "x": 190,
+      "y": 440,
+      "radius": 11,
+      "id": "gt-crater-057",
+      "type": "crater"
+    },
+    {
+      "x": 380,
+      "y": 380,
+      "radius": 9,
+      "id": "gt-crater-058",
+      "type": "crater"
+    },
+    {
+      "x": 260,
+      "y": 280,
+      "radius": 15,
+      "id": "gt-crater-059",
+      "type": "crater"
+    },
+    {
+      "x": 450,
+      "y": 480,
+      "radius": 13,
+      "id": "gt-crater-060",
+      "type": "crater"
+    }
+  ],
+  "boulders": [
+    {
+      "x": 119,
+      "y": 99,
+      "radius": 3,
+      "id": "gt-boulder-001",
+      "type": "boulder"
+    },
+    {
+      "x": 225,
+      "y": 100,
+      "radius": 3,
+      "id": "gt-boulder-002",
+      "type": "boulder"
+    },
+    {
+      "x": 102,
+      "y": 102,
+      "radius": 3,
+      "id": "gt-boulder-003",
+      "type": "boulder"
+    },
+    {
+      "x": 382,
+      "y": 105,
+      "radius": 3,
+      "id": "gt-boulder-004",
+      "type": "boulder"
+    },
+    {
+      "x": 395,
+      "y": 107,
+      "radius": 3,
+      "id": "gt-boulder-005",
+      "type": "boulder"
+    },
+    {
+      "x": 86,
+      "y": 115,
+      "radius": 3,
+      "id": "gt-boulder-006",
+      "type": "boulder"
+    },
+    {
+      "x": 226,
+      "y": 119,
+      "radius": 3,
+      "id": "gt-boulder-007",
+      "type": "boulder"
+    },
+    {
+      "x": 343,
+      "y": 119,
+      "radius": 3,
+      "id": "gt-boulder-008",
+      "type": "boulder"
+    },
+    {
+      "x": 81,
+      "y": 124,
+      "radius": 3,
+      "id": "gt-boulder-009",
+      "type": "boulder"
+    },
+    {
+      "x": 160,
+      "y": 127,
+      "radius": 3,
+      "id": "gt-boulder-010",
+      "type": "boulder"
+    },
+    {
+      "x": 424,
+      "y": 127,
+      "radius": 3,
+      "id": "gt-boulder-011",
+      "type": "boulder"
+    },
+    {
+      "x": 161,
+      "y": 138,
+      "radius": 3,
+      "id": "gt-boulder-012",
+      "type": "boulder"
+    },
+    {
+      "x": 326,
+      "y": 149,
+      "radius": 3,
+      "id": "gt-boulder-013",
+      "type": "boulder"
+    },
+    {
+      "x": 80,
+      "y": 151,
+      "radius": 3,
+      "id": "gt-boulder-014",
+      "type": "boulder"
+    },
+    {
+      "x": 434,
+      "y": 158,
+      "radius": 3,
+      "id": "gt-boulder-015",
+      "type": "boulder"
+    },
+    {
+      "x": 152,
+      "y": 168,
+      "radius": 3,
+      "id": "gt-boulder-016",
+      "type": "boulder"
+    },
+    {
+      "x": 326,
+      "y": 171,
+      "radius": 3,
+      "id": "gt-boulder-017",
+      "type": "boulder"
+    },
+    {
+      "x": 126,
+      "y": 181,
+      "radius": 3,
+      "id": "gt-boulder-018",
+      "type": "boulder"
+    },
+    {
+      "x": 112,
+      "y": 182,
+      "radius": 3,
+      "id": "gt-boulder-019",
+      "type": "boulder"
+    },
+    {
+      "x": 330,
+      "y": 183,
+      "radius": 3,
+      "id": "gt-boulder-020",
+      "type": "boulder"
+    },
+    {
+      "x": 335,
+      "y": 192,
+      "radius": 3,
+      "id": "gt-boulder-021",
+      "type": "boulder"
+    },
+    {
+      "x": 380,
+      "y": 214,
+      "radius": 3,
+      "id": "gt-boulder-022",
+      "type": "boulder"
+    },
+    {
+      "x": 248,
+      "y": 283,
+      "radius": 3,
+      "id": "gt-boulder-023",
+      "type": "boulder"
+    },
+    {
+      "x": 263,
+      "y": 283,
+      "radius": 3,
+      "id": "gt-boulder-024",
+      "type": "boulder"
+    },
+    {
+      "x": 234,
+      "y": 287,
+      "radius": 3,
+      "id": "gt-boulder-025",
+      "type": "boulder"
+    },
+    {
+      "x": 222,
+      "y": 293,
+      "radius": 3,
+      "id": "gt-boulder-026",
+      "type": "boulder"
+    },
+    {
+      "x": 207,
+      "y": 307,
+      "radius": 3,
+      "id": "gt-boulder-027",
+      "type": "boulder"
+    },
+    {
+      "x": 199,
+      "y": 319,
+      "radius": 3,
+      "id": "gt-boulder-028",
+      "type": "boulder"
+    },
+    {
+      "x": 194,
+      "y": 333,
+      "radius": 3,
+      "id": "gt-boulder-029",
+      "type": "boulder"
+    },
+    {
+      "x": 328,
+      "y": 340,
+      "radius": 3,
+      "id": "gt-boulder-030",
+      "type": "boulder"
+    },
+    {
+      "x": 327,
+      "y": 353,
+      "radius": 3,
+      "id": "gt-boulder-031",
+      "type": "boulder"
+    },
+    {
+      "x": 192,
+      "y": 355,
+      "radius": 3,
+      "id": "gt-boulder-032",
+      "type": "boulder"
+    },
+    {
+      "x": 89,
+      "y": 384,
+      "radius": 3,
+      "id": "gt-boulder-033",
+      "type": "boulder"
+    },
+    {
+      "x": 111,
+      "y": 384,
+      "radius": 3,
+      "id": "gt-boulder-034",
+      "type": "boulder"
+    },
+    {
+      "x": 448,
+      "y": 389,
+      "radius": 3,
+      "id": "gt-boulder-035",
+      "type": "boulder"
+    },
+    {
+      "x": 120,
+      "y": 390,
+      "radius": 3,
+      "id": "gt-boulder-036",
+      "type": "boulder"
+    },
+    {
+      "x": 428,
+      "y": 390,
+      "radius": 3,
+      "id": "gt-boulder-037",
+      "type": "boulder"
+    },
+    {
+      "x": 79,
+      "y": 391,
+      "radius": 3,
+      "id": "gt-boulder-038",
+      "type": "boulder"
+    },
+    {
+      "x": 459,
+      "y": 394,
+      "radius": 3,
+      "id": "gt-boulder-039",
+      "type": "boulder"
+    },
+    {
+      "x": 311,
+      "y": 395,
+      "radius": 3,
+      "id": "gt-boulder-040",
+      "type": "boulder"
+    },
+    {
+      "x": 415,
+      "y": 400,
+      "radius": 3,
+      "id": "gt-boulder-041",
+      "type": "boulder"
+    },
+    {
+      "x": 466,
+      "y": 401,
+      "radius": 3,
+      "id": "gt-boulder-042",
+      "type": "boulder"
+    },
+    {
+      "x": 110,
+      "y": 150,
+      "radius": 3,
+      "id": "gt-boulder-043",
+      "type": "boulder"
+    },
+    {
+      "x": 230,
+      "y": 180,
+      "radius": 4,
+      "id": "gt-boulder-044",
+      "type": "boulder"
+    },
+    {
+      "x": 340,
+      "y": 260,
+      "radius": 3,
+      "id": "gt-boulder-045",
+      "type": "boulder"
+    },
+    {
+      "x": 150,
+      "y": 330,
+      "radius": 3,
+      "id": "gt-boulder-046",
+      "type": "boulder"
+    },
+    {
+      "x": 410,
+      "y": 310,
+      "radius": 4,
+      "id": "gt-boulder-047",
+      "type": "boulder"
+    },
+    {
+      "x": 280,
+      "y": 410,
+      "radius": 3,
+      "id": "gt-boulder-048",
+      "type": "boulder"
+    },
+    {
+      "x": 70,
+      "y": 450,
+      "radius": 3,
+      "id": "gt-boulder-049",
+      "type": "boulder"
+    },
+    {
+      "x": 480,
+      "y": 420,
+      "radius": 3,
+      "id": "gt-boulder-050",
+      "type": "boulder"
+    }
+  ]
+}

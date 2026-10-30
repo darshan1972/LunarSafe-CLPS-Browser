@@ -1,0 +1,17 @@
+{
+  "site": "Shiv Shakti Point (Chandrayaan-3)",
+  "coordinates": {
+    "lat": -69.373,
+    "lon": 32.319
+  },
+  "pdsSourceUrl": "https://imbrium.mit.edu/DATA/LOLA_GDR/CYLINDRICAL/FLOAT_IMG/LDEM_512_90S_45S_000_090_FLOAT.IMG",
+  "pdsLabelUrl": "https://imbrium.mit.edu/DATA/LOLA_GDR/CYLINDRICAL/FLOAT_IMG/LDEM_512_90S_45S_000_090_FLOAT.LBL",
+  "publishedSlopeDeg": 2,
+  "publishedCitation": "Pre-Landing Characterisation of Chandrayaan-3 Landing Site (MNRAS Letters / arXiv:2308.15656); SAC/ISRO (2023)",
+  "publishedUrl": "https://arxiv.org/abs/2308.15656",
+  "width": 64,
+  "height": 64,
+  "gsdMetersPerPixel": 35.15,
+  "minElevMeters": 510.8019714355469,
+  "maxElevMeters": 561.891357421875
+}

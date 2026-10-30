@@ -1,0 +1,4617 @@
+{
+  "rawCraterPatches": 846253,
+  "distinctCraters": 1064,
+  "rawBoulderPatches": 8771,
+  "distinctBoulders": 6098,
+  "consolidationRatio": 795.35,
+  "tileDistinctMap": {
+    "0": {
+      "craters": 1526,
+      "distinctCraters": 1,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "1": {
+      "craters": 1505,
+      "distinctCraters": 1,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "2": {
+      "craters": 1493,
+      "distinctCraters": 1,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "3": {
+      "craters": 1503,
+      "distinctCraters": 1,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "4": {
+      "craters": 1520,
+      "distinctCraters": 1,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "5": {
+      "craters": 1518,
+      "distinctCraters": 1,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "6": {
+      "craters": 1514,
+      "distinctCraters": 1,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "7": {
+      "craters": 1220,
+      "distinctCraters": 1,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "8": {
+      "craters": 1506,
+      "distinctCraters": 1,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "9": {
+      "craters": 1519,
+      "distinctCraters": 1,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "10": {
+      "craters": 1497,
+      "distinctCraters": 1,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "11": {
+      "craters": 1516,
+      "distinctCraters": 1,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "12": {
+      "craters": 1523,
+      "distinctCraters": 1,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "13": {
+      "craters": 1502,
+      "distinctCraters": 1,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "14": {
+      "craters": 1513,
+      "distinctCraters": 1,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "15": {
+      "craters": 1244,
+      "distinctCraters": 1,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "16": {
+      "craters": 1517,
+      "distinctCraters": 1,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "17": {
+      "craters": 1507,
+      "distinctCraters": 1,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "18": {
+      "craters": 1514,
+      "distinctCraters": 1,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "19": {
+      "craters": 1498,
+      "distinctCraters": 1,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "20": {
+      "craters": 1525,
+      "distinctCraters": 1,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "21": {
+      "craters": 1526,
+      "distinctCraters": 1,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "22": {
+      "craters": 1509,
+      "distinctCraters": 1,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "23": {
+      "craters": 1225,
+      "distinctCraters": 1,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "24": {
+      "craters": 1516,
+      "distinctCraters": 1,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "25": {
+      "craters": 1494,
+      "distinctCraters": 1,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "26": {
+      "craters": 1516,
+      "distinctCraters": 1,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "27": {
+      "craters": 1517,
+      "distinctCraters": 1,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "28": {
+      "craters": 1501,
+      "distinctCraters": 1,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "29": {
+      "craters": 1506,
+      "distinctCraters": 1,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "30": {
+      "craters": 1488,
+      "distinctCraters": 1,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "31": {
+      "craters": 308,
+      "distinctCraters": 1,
+      "boulders": 24,
+      "distinctBoulders": 16
+    },
+    "32": {
+      "craters": 227,
+      "distinctCraters": 3,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "33": {
+      "craters": 1496,
+      "distinctCraters": 1,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "34": {
+      "craters": 1488,
+      "distinctCraters": 1,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "35": {
+      "craters": 1519,
+      "distinctCraters": 1,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "36": {
+      "craters": 1512,
+      "distinctCraters": 1,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "37": {
+      "craters": 1507,
+      "distinctCraters": 1,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "38": {
+      "craters": 163,
+      "distinctCraters": 17,
+      "boulders": 27,
+      "distinctBoulders": 9
+    },
+    "39": {
+      "craters": 987,
+      "distinctCraters": 1,
+      "boulders": 50,
+      "distinctBoulders": 30
+    },
+    "40": {
+      "craters": 935,
+      "distinctCraters": 3,
+      "boulders": 9,
+      "distinctBoulders": 6
+    },
+    "41": {
+      "craters": 587,
+      "distinctCraters": 8,
+      "boulders": 2,
+      "distinctBoulders": 2
+    },
+    "42": {
+      "craters": 498,
+      "distinctCraters": 28,
+      "boulders": 5,
+      "distinctBoulders": 3
+    },
+    "43": {
+      "craters": 1502,
+      "distinctCraters": 1,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "44": {
+      "craters": 1496,
+      "distinctCraters": 1,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "45": {
+      "craters": 395,
+      "distinctCraters": 1,
+      "boulders": 65,
+      "distinctBoulders": 19
+    },
+    "46": {
+      "craters": 1159,
+      "distinctCraters": 1,
+      "boulders": 37,
+      "distinctBoulders": 31
+    },
+    "47": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "48": {
+      "craters": 682,
+      "distinctCraters": 2,
+      "boulders": 32,
+      "distinctBoulders": 13
+    },
+    "49": {
+      "craters": 446,
+      "distinctCraters": 9,
+      "boulders": 41,
+      "distinctBoulders": 7
+    },
+    "50": {
+      "craters": 419,
+      "distinctCraters": 13,
+      "boulders": 37,
+      "distinctBoulders": 16
+    },
+    "51": {
+      "craters": 674,
+      "distinctCraters": 1,
+      "boulders": 18,
+      "distinctBoulders": 14
+    },
+    "52": {
+      "craters": 1066,
+      "distinctCraters": 3,
+      "boulders": 52,
+      "distinctBoulders": 31
+    },
+    "53": {
+      "craters": 1332,
+      "distinctCraters": 1,
+      "boulders": 32,
+      "distinctBoulders": 26
+    },
+    "54": {
+      "craters": 1400,
+      "distinctCraters": 1,
+      "boulders": 4,
+      "distinctBoulders": 3
+    },
+    "55": {
+      "craters": 1180,
+      "distinctCraters": 1,
+      "boulders": 9,
+      "distinctBoulders": 8
+    },
+    "56": {
+      "craters": 1284,
+      "distinctCraters": 2,
+      "boulders": 26,
+      "distinctBoulders": 22
+    },
+    "57": {
+      "craters": 1332,
+      "distinctCraters": 1,
+      "boulders": 44,
+      "distinctBoulders": 34
+    },
+    "58": {
+      "craters": 1435,
+      "distinctCraters": 1,
+      "boulders": 26,
+      "distinctBoulders": 23
+    },
+    "59": {
+      "craters": 1449,
+      "distinctCraters": 1,
+      "boulders": 6,
+      "distinctBoulders": 5
+    },
+    "60": {
+      "craters": 1392,
+      "distinctCraters": 1,
+      "boulders": 22,
+      "distinctBoulders": 13
+    },
+    "61": {
+      "craters": 1263,
+      "distinctCraters": 1,
+      "boulders": 93,
+      "distinctBoulders": 40
+    },
+    "62": {
+      "craters": 1419,
+      "distinctCraters": 1,
+      "boulders": 10,
+      "distinctBoulders": 8
+    },
+    "63": {
+      "craters": 1118,
+      "distinctCraters": 1,
+      "boulders": 15,
+      "distinctBoulders": 9
+    },
+    "64": {
+      "craters": 1131,
+      "distinctCraters": 2,
+      "boulders": 41,
+      "distinctBoulders": 31
+    },
+    "65": {
+      "craters": 1435,
+      "distinctCraters": 1,
+      "boulders": 33,
+      "distinctBoulders": 21
+    },
+    "66": {
+      "craters": 1300,
+      "distinctCraters": 1,
+      "boulders": 17,
+      "distinctBoulders": 13
+    },
+    "67": {
+      "craters": 1406,
+      "distinctCraters": 1,
+      "boulders": 43,
+      "distinctBoulders": 31
+    },
+    "68": {
+      "craters": 1368,
+      "distinctCraters": 1,
+      "boulders": 9,
+      "distinctBoulders": 7
+    },
+    "69": {
+      "craters": 1421,
+      "distinctCraters": 1,
+      "boulders": 3,
+      "distinctBoulders": 3
+    },
+    "70": {
+      "craters": 1379,
+      "distinctCraters": 1,
+      "boulders": 20,
+      "distinctBoulders": 20
+    },
+    "71": {
+      "craters": 1079,
+      "distinctCraters": 1,
+      "boulders": 21,
+      "distinctBoulders": 16
+    },
+    "72": {
+      "craters": 1463,
+      "distinctCraters": 1,
+      "boulders": 14,
+      "distinctBoulders": 10
+    },
+    "73": {
+      "craters": 1429,
+      "distinctCraters": 1,
+      "boulders": 12,
+      "distinctBoulders": 10
+    },
+    "74": {
+      "craters": 1445,
+      "distinctCraters": 1,
+      "boulders": 3,
+      "distinctBoulders": 3
+    },
+    "75": {
+      "craters": 1355,
+      "distinctCraters": 1,
+      "boulders": 65,
+      "distinctBoulders": 44
+    },
+    "76": {
+      "craters": 1375,
+      "distinctCraters": 1,
+      "boulders": 56,
+      "distinctBoulders": 35
+    },
+    "77": {
+      "craters": 1275,
+      "distinctCraters": 1,
+      "boulders": 60,
+      "distinctBoulders": 36
+    },
+    "78": {
+      "craters": 1380,
+      "distinctCraters": 1,
+      "boulders": 19,
+      "distinctBoulders": 16
+    },
+    "79": {
+      "craters": 1189,
+      "distinctCraters": 1,
+      "boulders": 12,
+      "distinctBoulders": 10
+    },
+    "80": {
+      "craters": 1473,
+      "distinctCraters": 1,
+      "boulders": 8,
+      "distinctBoulders": 7
+    },
+    "81": {
+      "craters": 1411,
+      "distinctCraters": 1,
+      "boulders": 17,
+      "distinctBoulders": 13
+    },
+    "82": {
+      "craters": 1429,
+      "distinctCraters": 1,
+      "boulders": 6,
+      "distinctBoulders": 6
+    },
+    "83": {
+      "craters": 1384,
+      "distinctCraters": 1,
+      "boulders": 25,
+      "distinctBoulders": 12
+    },
+    "84": {
+      "craters": 1404,
+      "distinctCraters": 1,
+      "boulders": 12,
+      "distinctBoulders": 9
+    },
+    "85": {
+      "craters": 1396,
+      "distinctCraters": 1,
+      "boulders": 9,
+      "distinctBoulders": 7
+    },
+    "86": {
+      "craters": 1386,
+      "distinctCraters": 1,
+      "boulders": 12,
+      "distinctBoulders": 10
+    },
+    "87": {
+      "craters": 1158,
+      "distinctCraters": 1,
+      "boulders": 10,
+      "distinctBoulders": 9
+    },
+    "88": {
+      "craters": 1468,
+      "distinctCraters": 1,
+      "boulders": 23,
+      "distinctBoulders": 15
+    },
+    "89": {
+      "craters": 1272,
+      "distinctCraters": 1,
+      "boulders": 9,
+      "distinctBoulders": 7
+    },
+    "90": {
+      "craters": 1437,
+      "distinctCraters": 1,
+      "boulders": 7,
+      "distinctBoulders": 4
+    },
+    "91": {
+      "craters": 1118,
+      "distinctCraters": 3,
+      "boulders": 7,
+      "distinctBoulders": 4
+    },
+    "92": {
+      "craters": 364,
+      "distinctCraters": 12,
+      "boulders": 5,
+      "distinctBoulders": 4
+    },
+    "93": {
+      "craters": 1321,
+      "distinctCraters": 1,
+      "boulders": 12,
+      "distinctBoulders": 9
+    },
+    "94": {
+      "craters": 1322,
+      "distinctCraters": 1,
+      "boulders": 23,
+      "distinctBoulders": 15
+    },
+    "95": {
+      "craters": 1070,
+      "distinctCraters": 1,
+      "boulders": 47,
+      "distinctBoulders": 31
+    },
+    "96": {
+      "craters": 1385,
+      "distinctCraters": 1,
+      "boulders": 16,
+      "distinctBoulders": 12
+    },
+    "97": {
+      "craters": 1317,
+      "distinctCraters": 1,
+      "boulders": 69,
+      "distinctBoulders": 42
+    },
+    "98": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "99": {
+      "craters": 317,
+      "distinctCraters": 1,
+      "boulders": 7,
+      "distinctBoulders": 5
+    },
+    "100": {
+      "craters": 652,
+      "distinctCraters": 1,
+      "boulders": 32,
+      "distinctBoulders": 25
+    },
+    "101": {
+      "craters": 1428,
+      "distinctCraters": 1,
+      "boulders": 1,
+      "distinctBoulders": 1
+    },
+    "102": {
+      "craters": 1432,
+      "distinctCraters": 1,
+      "boulders": 5,
+      "distinctBoulders": 5
+    },
+    "103": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "104": {
+      "craters": 1376,
+      "distinctCraters": 1,
+      "boulders": 21,
+      "distinctBoulders": 16
+    },
+    "105": {
+      "craters": 1416,
+      "distinctCraters": 1,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "106": {
+      "craters": 1350,
+      "distinctCraters": 1,
+      "boulders": 39,
+      "distinctBoulders": 11
+    },
+    "107": {
+      "craters": 533,
+      "distinctCraters": 5,
+      "boulders": 25,
+      "distinctBoulders": 17
+    },
+    "108": {
+      "craters": 1186,
+      "distinctCraters": 1,
+      "boulders": 32,
+      "distinctBoulders": 27
+    },
+    "109": {
+      "craters": 1458,
+      "distinctCraters": 1,
+      "boulders": 1,
+      "distinctBoulders": 1
+    },
+    "110": {
+      "craters": 1466,
+      "distinctCraters": 1,
+      "boulders": 8,
+      "distinctBoulders": 5
+    },
+    "111": {
+      "craters": 1157,
+      "distinctCraters": 1,
+      "boulders": 18,
+      "distinctBoulders": 13
+    },
+    "112": {
+      "craters": 1339,
+      "distinctCraters": 1,
+      "boulders": 50,
+      "distinctBoulders": 27
+    },
+    "113": {
+      "craters": 1455,
+      "distinctCraters": 1,
+      "boulders": 1,
+      "distinctBoulders": 1
+    },
+    "114": {
+      "craters": 1472,
+      "distinctCraters": 1,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "115": {
+      "craters": 1200,
+      "distinctCraters": 1,
+      "boulders": 7,
+      "distinctBoulders": 7
+    },
+    "116": {
+      "craters": 1421,
+      "distinctCraters": 1,
+      "boulders": 17,
+      "distinctBoulders": 12
+    },
+    "117": {
+      "craters": 1481,
+      "distinctCraters": 1,
+      "boulders": 6,
+      "distinctBoulders": 5
+    },
+    "118": {
+      "craters": 1475,
+      "distinctCraters": 1,
+      "boulders": 22,
+      "distinctBoulders": 8
+    },
+    "119": {
+      "craters": 1199,
+      "distinctCraters": 1,
+      "boulders": 7,
+      "distinctBoulders": 7
+    },
+    "120": {
+      "craters": 1391,
+      "distinctCraters": 1,
+      "boulders": 23,
+      "distinctBoulders": 21
+    },
+    "121": {
+      "craters": 1458,
+      "distinctCraters": 1,
+      "boulders": 6,
+      "distinctBoulders": 6
+    },
+    "122": {
+      "craters": 1470,
+      "distinctCraters": 1,
+      "boulders": 10,
+      "distinctBoulders": 9
+    },
+    "123": {
+      "craters": 1479,
+      "distinctCraters": 1,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "124": {
+      "craters": 1455,
+      "distinctCraters": 1,
+      "boulders": 4,
+      "distinctBoulders": 4
+    },
+    "125": {
+      "craters": 1395,
+      "distinctCraters": 1,
+      "boulders": 74,
+      "distinctBoulders": 33
+    },
+    "126": {
+      "craters": 1429,
+      "distinctCraters": 1,
+      "boulders": 18,
+      "distinctBoulders": 13
+    },
+    "127": {
+      "craters": 1176,
+      "distinctCraters": 1,
+      "boulders": 6,
+      "distinctBoulders": 5
+    },
+    "128": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "129": {
+      "craters": 1469,
+      "distinctCraters": 1,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "130": {
+      "craters": 1466,
+      "distinctCraters": 1,
+      "boulders": 1,
+      "distinctBoulders": 1
+    },
+    "131": {
+      "craters": 1491,
+      "distinctCraters": 1,
+      "boulders": 2,
+      "distinctBoulders": 2
+    },
+    "132": {
+      "craters": 1463,
+      "distinctCraters": 1,
+      "boulders": 3,
+      "distinctBoulders": 3
+    },
+    "133": {
+      "craters": 1476,
+      "distinctCraters": 1,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "134": {
+      "craters": 1454,
+      "distinctCraters": 1,
+      "boulders": 7,
+      "distinctBoulders": 5
+    },
+    "135": {
+      "craters": 1182,
+      "distinctCraters": 1,
+      "boulders": 26,
+      "distinctBoulders": 21
+    },
+    "136": {
+      "craters": 1422,
+      "distinctCraters": 1,
+      "boulders": 6,
+      "distinctBoulders": 6
+    },
+    "137": {
+      "craters": 1477,
+      "distinctCraters": 1,
+      "boulders": 2,
+      "distinctBoulders": 2
+    },
+    "138": {
+      "craters": 1488,
+      "distinctCraters": 1,
+      "boulders": 4,
+      "distinctBoulders": 4
+    },
+    "139": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "140": {
+      "craters": 1497,
+      "distinctCraters": 1,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "141": {
+      "craters": 1272,
+      "distinctCraters": 1,
+      "boulders": 18,
+      "distinctBoulders": 13
+    },
+    "142": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "143": {
+      "craters": 1216,
+      "distinctCraters": 1,
+      "boulders": 2,
+      "distinctBoulders": 2
+    },
+    "144": {
+      "craters": 1411,
+      "distinctCraters": 1,
+      "boulders": 5,
+      "distinctBoulders": 4
+    },
+    "145": {
+      "craters": 1441,
+      "distinctCraters": 1,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "146": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "147": {
+      "craters": 1438,
+      "distinctCraters": 1,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "148": {
+      "craters": 1427,
+      "distinctCraters": 1,
+      "boulders": 1,
+      "distinctBoulders": 1
+    },
+    "149": {
+      "craters": 1289,
+      "distinctCraters": 1,
+      "boulders": 27,
+      "distinctBoulders": 19
+    },
+    "150": {
+      "craters": 1351,
+      "distinctCraters": 1,
+      "boulders": 11,
+      "distinctBoulders": 6
+    },
+    "151": {
+      "craters": 1194,
+      "distinctCraters": 1,
+      "boulders": 1,
+      "distinctBoulders": 1
+    },
+    "152": {
+      "craters": 1471,
+      "distinctCraters": 1,
+      "boulders": 10,
+      "distinctBoulders": 7
+    },
+    "153": {
+      "craters": 1479,
+      "distinctCraters": 1,
+      "boulders": 2,
+      "distinctBoulders": 1
+    },
+    "154": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "155": {
+      "craters": 1429,
+      "distinctCraters": 1,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "156": {
+      "craters": 1410,
+      "distinctCraters": 1,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "157": {
+      "craters": 1424,
+      "distinctCraters": 1,
+      "boulders": 2,
+      "distinctBoulders": 2
+    },
+    "158": {
+      "craters": 1471,
+      "distinctCraters": 1,
+      "boulders": 1,
+      "distinctBoulders": 1
+    },
+    "159": {
+      "craters": 1198,
+      "distinctCraters": 1,
+      "boulders": 3,
+      "distinctBoulders": 3
+    },
+    "160": {
+      "craters": 1456,
+      "distinctCraters": 1,
+      "boulders": 7,
+      "distinctBoulders": 5
+    },
+    "161": {
+      "craters": 1384,
+      "distinctCraters": 1,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "162": {
+      "craters": 1500,
+      "distinctCraters": 1,
+      "boulders": 1,
+      "distinctBoulders": 1
+    },
+    "163": {
+      "craters": 1465,
+      "distinctCraters": 1,
+      "boulders": 4,
+      "distinctBoulders": 3
+    },
+    "164": {
+      "craters": 1444,
+      "distinctCraters": 1,
+      "boulders": 9,
+      "distinctBoulders": 7
+    },
+    "165": {
+      "craters": 1446,
+      "distinctCraters": 1,
+      "boulders": 6,
+      "distinctBoulders": 5
+    },
+    "166": {
+      "craters": 1455,
+      "distinctCraters": 1,
+      "boulders": 4,
+      "distinctBoulders": 2
+    },
+    "167": {
+      "craters": 1173,
+      "distinctCraters": 1,
+      "boulders": 15,
+      "distinctBoulders": 9
+    },
+    "168": {
+      "craters": 1468,
+      "distinctCraters": 1,
+      "boulders": 4,
+      "distinctBoulders": 4
+    },
+    "169": {
+      "craters": 1390,
+      "distinctCraters": 1,
+      "boulders": 7,
+      "distinctBoulders": 5
+    },
+    "170": {
+      "craters": 1387,
+      "distinctCraters": 1,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "171": {
+      "craters": 1438,
+      "distinctCraters": 1,
+      "boulders": 2,
+      "distinctBoulders": 2
+    },
+    "172": {
+      "craters": 1436,
+      "distinctCraters": 1,
+      "boulders": 17,
+      "distinctBoulders": 14
+    },
+    "173": {
+      "craters": 1469,
+      "distinctCraters": 1,
+      "boulders": 5,
+      "distinctBoulders": 5
+    },
+    "174": {
+      "craters": 1435,
+      "distinctCraters": 1,
+      "boulders": 3,
+      "distinctBoulders": 3
+    },
+    "175": {
+      "craters": 1152,
+      "distinctCraters": 1,
+      "boulders": 8,
+      "distinctBoulders": 5
+    },
+    "176": {
+      "craters": 1459,
+      "distinctCraters": 1,
+      "boulders": 3,
+      "distinctBoulders": 3
+    },
+    "177": {
+      "craters": 1376,
+      "distinctCraters": 1,
+      "boulders": 3,
+      "distinctBoulders": 3
+    },
+    "178": {
+      "craters": 1384,
+      "distinctCraters": 1,
+      "boulders": 5,
+      "distinctBoulders": 5
+    },
+    "179": {
+      "craters": 1415,
+      "distinctCraters": 1,
+      "boulders": 2,
+      "distinctBoulders": 1
+    },
+    "180": {
+      "craters": 1452,
+      "distinctCraters": 1,
+      "boulders": 5,
+      "distinctBoulders": 3
+    },
+    "181": {
+      "craters": 1460,
+      "distinctCraters": 1,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "182": {
+      "craters": 1345,
+      "distinctCraters": 1,
+      "boulders": 8,
+      "distinctBoulders": 7
+    },
+    "183": {
+      "craters": 1148,
+      "distinctCraters": 1,
+      "boulders": 8,
+      "distinctBoulders": 5
+    },
+    "184": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "185": {
+      "craters": 1052,
+      "distinctCraters": 1,
+      "boulders": 4,
+      "distinctBoulders": 3
+    },
+    "186": {
+      "craters": 1246,
+      "distinctCraters": 1,
+      "boulders": 45,
+      "distinctBoulders": 36
+    },
+    "187": {
+      "craters": 1467,
+      "distinctCraters": 1,
+      "boulders": 5,
+      "distinctBoulders": 5
+    },
+    "188": {
+      "craters": 1418,
+      "distinctCraters": 1,
+      "boulders": 5,
+      "distinctBoulders": 3
+    },
+    "189": {
+      "craters": 1456,
+      "distinctCraters": 1,
+      "boulders": 2,
+      "distinctBoulders": 2
+    },
+    "190": {
+      "craters": 1462,
+      "distinctCraters": 1,
+      "boulders": 2,
+      "distinctBoulders": 2
+    },
+    "191": {
+      "craters": 1153,
+      "distinctCraters": 1,
+      "boulders": 6,
+      "distinctBoulders": 6
+    },
+    "192": {
+      "craters": 1074,
+      "distinctCraters": 1,
+      "boulders": 5,
+      "distinctBoulders": 4
+    },
+    "193": {
+      "craters": 843,
+      "distinctCraters": 1,
+      "boulders": 5,
+      "distinctBoulders": 3
+    },
+    "194": {
+      "craters": 1324,
+      "distinctCraters": 1,
+      "boulders": 35,
+      "distinctBoulders": 25
+    },
+    "195": {
+      "craters": 1448,
+      "distinctCraters": 1,
+      "boulders": 5,
+      "distinctBoulders": 4
+    },
+    "196": {
+      "craters": 1440,
+      "distinctCraters": 1,
+      "boulders": 14,
+      "distinctBoulders": 9
+    },
+    "197": {
+      "craters": 1279,
+      "distinctCraters": 1,
+      "boulders": 3,
+      "distinctBoulders": 2
+    },
+    "198": {
+      "craters": 1452,
+      "distinctCraters": 1,
+      "boulders": 2,
+      "distinctBoulders": 2
+    },
+    "199": {
+      "craters": 1177,
+      "distinctCraters": 1,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "200": {
+      "craters": 1384,
+      "distinctCraters": 1,
+      "boulders": 17,
+      "distinctBoulders": 7
+    },
+    "201": {
+      "craters": 1076,
+      "distinctCraters": 2,
+      "boulders": 25,
+      "distinctBoulders": 19
+    },
+    "202": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "203": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "204": {
+      "craters": 1370,
+      "distinctCraters": 1,
+      "boulders": 12,
+      "distinctBoulders": 10
+    },
+    "205": {
+      "craters": 1461,
+      "distinctCraters": 1,
+      "boulders": 2,
+      "distinctBoulders": 2
+    },
+    "206": {
+      "craters": 1423,
+      "distinctCraters": 1,
+      "boulders": 3,
+      "distinctBoulders": 3
+    },
+    "207": {
+      "craters": 1162,
+      "distinctCraters": 1,
+      "boulders": 5,
+      "distinctBoulders": 3
+    },
+    "208": {
+      "craters": 1203,
+      "distinctCraters": 1,
+      "boulders": 11,
+      "distinctBoulders": 7
+    },
+    "209": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "210": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "211": {
+      "craters": 1471,
+      "distinctCraters": 1,
+      "boulders": 1,
+      "distinctBoulders": 1
+    },
+    "212": {
+      "craters": 1451,
+      "distinctCraters": 1,
+      "boulders": 4,
+      "distinctBoulders": 2
+    },
+    "213": {
+      "craters": 1401,
+      "distinctCraters": 1,
+      "boulders": 7,
+      "distinctBoulders": 7
+    },
+    "214": {
+      "craters": 1384,
+      "distinctCraters": 1,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "215": {
+      "craters": 1150,
+      "distinctCraters": 1,
+      "boulders": 1,
+      "distinctBoulders": 1
+    },
+    "216": {
+      "craters": 846,
+      "distinctCraters": 3,
+      "boulders": 5,
+      "distinctBoulders": 4
+    },
+    "217": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "218": {
+      "craters": 1324,
+      "distinctCraters": 1,
+      "boulders": 20,
+      "distinctBoulders": 16
+    },
+    "219": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "220": {
+      "craters": 1477,
+      "distinctCraters": 1,
+      "boulders": 1,
+      "distinctBoulders": 1
+    },
+    "221": {
+      "craters": 1377,
+      "distinctCraters": 1,
+      "boulders": 22,
+      "distinctBoulders": 15
+    },
+    "222": {
+      "craters": 1350,
+      "distinctCraters": 1,
+      "boulders": 6,
+      "distinctBoulders": 3
+    },
+    "223": {
+      "craters": 1092,
+      "distinctCraters": 1,
+      "boulders": 22,
+      "distinctBoulders": 18
+    },
+    "224": {
+      "craters": 1346,
+      "distinctCraters": 1,
+      "boulders": 3,
+      "distinctBoulders": 3
+    },
+    "225": {
+      "craters": 1210,
+      "distinctCraters": 1,
+      "boulders": 56,
+      "distinctBoulders": 35
+    },
+    "226": {
+      "craters": 1337,
+      "distinctCraters": 1,
+      "boulders": 45,
+      "distinctBoulders": 20
+    },
+    "227": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "228": {
+      "craters": 1480,
+      "distinctCraters": 1,
+      "boulders": 4,
+      "distinctBoulders": 3
+    },
+    "229": {
+      "craters": 1453,
+      "distinctCraters": 1,
+      "boulders": 9,
+      "distinctBoulders": 6
+    },
+    "230": {
+      "craters": 1454,
+      "distinctCraters": 1,
+      "boulders": 4,
+      "distinctBoulders": 4
+    },
+    "231": {
+      "craters": 1159,
+      "distinctCraters": 1,
+      "boulders": 1,
+      "distinctBoulders": 1
+    },
+    "232": {
+      "craters": 1446,
+      "distinctCraters": 1,
+      "boulders": 8,
+      "distinctBoulders": 5
+    },
+    "233": {
+      "craters": 1217,
+      "distinctCraters": 1,
+      "boulders": 5,
+      "distinctBoulders": 4
+    },
+    "234": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "235": {
+      "craters": 1482,
+      "distinctCraters": 1,
+      "boulders": 12,
+      "distinctBoulders": 8
+    },
+    "236": {
+      "craters": 1438,
+      "distinctCraters": 1,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "237": {
+      "craters": 1391,
+      "distinctCraters": 1,
+      "boulders": 2,
+      "distinctBoulders": 2
+    },
+    "238": {
+      "craters": 1457,
+      "distinctCraters": 1,
+      "boulders": 8,
+      "distinctBoulders": 7
+    },
+    "239": {
+      "craters": 1044,
+      "distinctCraters": 1,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "240": {
+      "craters": 1415,
+      "distinctCraters": 1,
+      "boulders": 38,
+      "distinctBoulders": 32
+    },
+    "241": {
+      "craters": 1306,
+      "distinctCraters": 1,
+      "boulders": 24,
+      "distinctBoulders": 13
+    },
+    "242": {
+      "craters": 1483,
+      "distinctCraters": 1,
+      "boulders": 11,
+      "distinctBoulders": 10
+    },
+    "243": {
+      "craters": 1484,
+      "distinctCraters": 1,
+      "boulders": 5,
+      "distinctBoulders": 5
+    },
+    "244": {
+      "craters": 1462,
+      "distinctCraters": 1,
+      "boulders": 5,
+      "distinctBoulders": 5
+    },
+    "245": {
+      "craters": 1461,
+      "distinctCraters": 1,
+      "boulders": 3,
+      "distinctBoulders": 3
+    },
+    "246": {
+      "craters": 1437,
+      "distinctCraters": 1,
+      "boulders": 5,
+      "distinctBoulders": 5
+    },
+    "247": {
+      "craters": 1153,
+      "distinctCraters": 1,
+      "boulders": 9,
+      "distinctBoulders": 6
+    },
+    "248": {
+      "craters": 1262,
+      "distinctCraters": 1,
+      "boulders": 38,
+      "distinctBoulders": 23
+    },
+    "249": {
+      "craters": 1427,
+      "distinctCraters": 1,
+      "boulders": 25,
+      "distinctBoulders": 14
+    },
+    "250": {
+      "craters": 1439,
+      "distinctCraters": 1,
+      "boulders": 13,
+      "distinctBoulders": 7
+    },
+    "251": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "252": {
+      "craters": 1439,
+      "distinctCraters": 1,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "253": {
+      "craters": 1460,
+      "distinctCraters": 1,
+      "boulders": 3,
+      "distinctBoulders": 3
+    },
+    "254": {
+      "craters": 1443,
+      "distinctCraters": 1,
+      "boulders": 1,
+      "distinctBoulders": 1
+    },
+    "255": {
+      "craters": 1154,
+      "distinctCraters": 1,
+      "boulders": 4,
+      "distinctBoulders": 4
+    },
+    "256": {
+      "craters": 1477,
+      "distinctCraters": 1,
+      "boulders": 4,
+      "distinctBoulders": 3
+    },
+    "257": {
+      "craters": 1398,
+      "distinctCraters": 1,
+      "boulders": 41,
+      "distinctBoulders": 15
+    },
+    "258": {
+      "craters": 1422,
+      "distinctCraters": 1,
+      "boulders": 25,
+      "distinctBoulders": 17
+    },
+    "259": {
+      "craters": 1412,
+      "distinctCraters": 1,
+      "boulders": 6,
+      "distinctBoulders": 6
+    },
+    "260": {
+      "craters": 1405,
+      "distinctCraters": 1,
+      "boulders": 6,
+      "distinctBoulders": 5
+    },
+    "261": {
+      "craters": 1453,
+      "distinctCraters": 1,
+      "boulders": 25,
+      "distinctBoulders": 15
+    },
+    "262": {
+      "craters": 1455,
+      "distinctCraters": 1,
+      "boulders": 2,
+      "distinctBoulders": 2
+    },
+    "263": {
+      "craters": 1203,
+      "distinctCraters": 1,
+      "boulders": 4,
+      "distinctBoulders": 4
+    },
+    "264": {
+      "craters": 1477,
+      "distinctCraters": 1,
+      "boulders": 4,
+      "distinctBoulders": 4
+    },
+    "265": {
+      "craters": 1451,
+      "distinctCraters": 1,
+      "boulders": 3,
+      "distinctBoulders": 3
+    },
+    "266": {
+      "craters": 1404,
+      "distinctCraters": 1,
+      "boulders": 21,
+      "distinctBoulders": 14
+    },
+    "267": {
+      "craters": 1404,
+      "distinctCraters": 1,
+      "boulders": 8,
+      "distinctBoulders": 8
+    },
+    "268": {
+      "craters": 1409,
+      "distinctCraters": 1,
+      "boulders": 3,
+      "distinctBoulders": 1
+    },
+    "269": {
+      "craters": 1444,
+      "distinctCraters": 1,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "270": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "271": {
+      "craters": 1150,
+      "distinctCraters": 1,
+      "boulders": 3,
+      "distinctBoulders": 1
+    },
+    "272": {
+      "craters": 1473,
+      "distinctCraters": 1,
+      "boulders": 17,
+      "distinctBoulders": 13
+    },
+    "273": {
+      "craters": 1421,
+      "distinctCraters": 1,
+      "boulders": 33,
+      "distinctBoulders": 19
+    },
+    "274": {
+      "craters": 1398,
+      "distinctCraters": 1,
+      "boulders": 11,
+      "distinctBoulders": 10
+    },
+    "275": {
+      "craters": 1332,
+      "distinctCraters": 1,
+      "boulders": 29,
+      "distinctBoulders": 23
+    },
+    "276": {
+      "craters": 1337,
+      "distinctCraters": 1,
+      "boulders": 26,
+      "distinctBoulders": 20
+    },
+    "277": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "278": {
+      "craters": 1385,
+      "distinctCraters": 1,
+      "boulders": 9,
+      "distinctBoulders": 8
+    },
+    "279": {
+      "craters": 1200,
+      "distinctCraters": 1,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "280": {
+      "craters": 1455,
+      "distinctCraters": 1,
+      "boulders": 9,
+      "distinctBoulders": 7
+    },
+    "281": {
+      "craters": 1470,
+      "distinctCraters": 1,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "282": {
+      "craters": 1393,
+      "distinctCraters": 1,
+      "boulders": 7,
+      "distinctBoulders": 6
+    },
+    "283": {
+      "craters": 1396,
+      "distinctCraters": 1,
+      "boulders": 5,
+      "distinctBoulders": 5
+    },
+    "284": {
+      "craters": 1396,
+      "distinctCraters": 1,
+      "boulders": 19,
+      "distinctBoulders": 16
+    },
+    "285": {
+      "craters": 1339,
+      "distinctCraters": 1,
+      "boulders": 5,
+      "distinctBoulders": 5
+    },
+    "286": {
+      "craters": 1241,
+      "distinctCraters": 2,
+      "boulders": 35,
+      "distinctBoulders": 24
+    },
+    "287": {
+      "craters": 1162,
+      "distinctCraters": 1,
+      "boulders": 9,
+      "distinctBoulders": 4
+    },
+    "288": {
+      "craters": 1387,
+      "distinctCraters": 1,
+      "boulders": 3,
+      "distinctBoulders": 3
+    },
+    "289": {
+      "craters": 1417,
+      "distinctCraters": 1,
+      "boulders": 4,
+      "distinctBoulders": 4
+    },
+    "290": {
+      "craters": 1372,
+      "distinctCraters": 2,
+      "boulders": 26,
+      "distinctBoulders": 20
+    },
+    "291": {
+      "craters": 1413,
+      "distinctCraters": 1,
+      "boulders": 17,
+      "distinctBoulders": 13
+    },
+    "292": {
+      "craters": 1431,
+      "distinctCraters": 1,
+      "boulders": 7,
+      "distinctBoulders": 7
+    },
+    "293": {
+      "craters": 1443,
+      "distinctCraters": 1,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "294": {
+      "craters": 1388,
+      "distinctCraters": 1,
+      "boulders": 7,
+      "distinctBoulders": 3
+    },
+    "295": {
+      "craters": 1190,
+      "distinctCraters": 1,
+      "boulders": 13,
+      "distinctBoulders": 7
+    },
+    "296": {
+      "craters": 470,
+      "distinctCraters": 3,
+      "boulders": 14,
+      "distinctBoulders": 8
+    },
+    "297": {
+      "craters": 1406,
+      "distinctCraters": 1,
+      "boulders": 31,
+      "distinctBoulders": 13
+    },
+    "298": {
+      "craters": 1231,
+      "distinctCraters": 1,
+      "boulders": 61,
+      "distinctBoulders": 42
+    },
+    "299": {
+      "craters": 1341,
+      "distinctCraters": 1,
+      "boulders": 45,
+      "distinctBoulders": 30
+    },
+    "300": {
+      "craters": 1431,
+      "distinctCraters": 1,
+      "boulders": 3,
+      "distinctBoulders": 2
+    },
+    "301": {
+      "craters": 1373,
+      "distinctCraters": 2,
+      "boulders": 8,
+      "distinctBoulders": 5
+    },
+    "302": {
+      "craters": 1396,
+      "distinctCraters": 1,
+      "boulders": 30,
+      "distinctBoulders": 13
+    },
+    "303": {
+      "craters": 1166,
+      "distinctCraters": 1,
+      "boulders": 4,
+      "distinctBoulders": 4
+    },
+    "304": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "305": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "306": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "307": {
+      "craters": 1309,
+      "distinctCraters": 1,
+      "boulders": 26,
+      "distinctBoulders": 16
+    },
+    "308": {
+      "craters": 1412,
+      "distinctCraters": 1,
+      "boulders": 6,
+      "distinctBoulders": 6
+    },
+    "309": {
+      "craters": 1389,
+      "distinctCraters": 1,
+      "boulders": 43,
+      "distinctBoulders": 21
+    },
+    "310": {
+      "craters": 1225,
+      "distinctCraters": 3,
+      "boulders": 22,
+      "distinctBoulders": 17
+    },
+    "311": {
+      "craters": 1166,
+      "distinctCraters": 1,
+      "boulders": 5,
+      "distinctBoulders": 5
+    },
+    "312": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "313": {
+      "craters": 1381,
+      "distinctCraters": 1,
+      "boulders": 18,
+      "distinctBoulders": 14
+    },
+    "314": {
+      "craters": 1397,
+      "distinctCraters": 1,
+      "boulders": 17,
+      "distinctBoulders": 12
+    },
+    "315": {
+      "craters": 1323,
+      "distinctCraters": 1,
+      "boulders": 11,
+      "distinctBoulders": 6
+    },
+    "316": {
+      "craters": 1369,
+      "distinctCraters": 2,
+      "boulders": 6,
+      "distinctBoulders": 6
+    },
+    "317": {
+      "craters": 1406,
+      "distinctCraters": 1,
+      "boulders": 11,
+      "distinctBoulders": 8
+    },
+    "318": {
+      "craters": 1457,
+      "distinctCraters": 1,
+      "boulders": 10,
+      "distinctBoulders": 3
+    },
+    "319": {
+      "craters": 1143,
+      "distinctCraters": 1,
+      "boulders": 20,
+      "distinctBoulders": 8
+    },
+    "320": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "321": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "322": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "323": {
+      "craters": 1431,
+      "distinctCraters": 1,
+      "boulders": 9,
+      "distinctBoulders": 7
+    },
+    "324": {
+      "craters": 1169,
+      "distinctCraters": 2,
+      "boulders": 10,
+      "distinctBoulders": 8
+    },
+    "325": {
+      "craters": 1278,
+      "distinctCraters": 1,
+      "boulders": 8,
+      "distinctBoulders": 7
+    },
+    "326": {
+      "craters": 1398,
+      "distinctCraters": 1,
+      "boulders": 7,
+      "distinctBoulders": 7
+    },
+    "327": {
+      "craters": 1126,
+      "distinctCraters": 1,
+      "boulders": 3,
+      "distinctBoulders": 3
+    },
+    "328": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "329": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "330": {
+      "craters": 1330,
+      "distinctCraters": 1,
+      "boulders": 2,
+      "distinctBoulders": 2
+    },
+    "331": {
+      "craters": 1437,
+      "distinctCraters": 1,
+      "boulders": 18,
+      "distinctBoulders": 11
+    },
+    "332": {
+      "craters": 1445,
+      "distinctCraters": 1,
+      "boulders": 11,
+      "distinctBoulders": 9
+    },
+    "333": {
+      "craters": 1436,
+      "distinctCraters": 1,
+      "boulders": 12,
+      "distinctBoulders": 10
+    },
+    "334": {
+      "craters": 1440,
+      "distinctCraters": 1,
+      "boulders": 11,
+      "distinctBoulders": 9
+    },
+    "335": {
+      "craters": 1178,
+      "distinctCraters": 1,
+      "boulders": 9,
+      "distinctBoulders": 7
+    },
+    "336": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "337": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "338": {
+      "craters": 1461,
+      "distinctCraters": 1,
+      "boulders": 13,
+      "distinctBoulders": 9
+    },
+    "339": {
+      "craters": 1472,
+      "distinctCraters": 1,
+      "boulders": 4,
+      "distinctBoulders": 4
+    },
+    "340": {
+      "craters": 1414,
+      "distinctCraters": 1,
+      "boulders": 7,
+      "distinctBoulders": 6
+    },
+    "341": {
+      "craters": 1430,
+      "distinctCraters": 1,
+      "boulders": 18,
+      "distinctBoulders": 12
+    },
+    "342": {
+      "craters": 1377,
+      "distinctCraters": 1,
+      "boulders": 17,
+      "distinctBoulders": 12
+    },
+    "343": {
+      "craters": 1143,
+      "distinctCraters": 1,
+      "boulders": 4,
+      "distinctBoulders": 4
+    },
+    "344": {
+      "craters": 659,
+      "distinctCraters": 3,
+      "boulders": 12,
+      "distinctBoulders": 8
+    },
+    "345": {
+      "craters": 1101,
+      "distinctCraters": 1,
+      "boulders": 13,
+      "distinctBoulders": 11
+    },
+    "346": {
+      "craters": 1370,
+      "distinctCraters": 1,
+      "boulders": 42,
+      "distinctBoulders": 31
+    },
+    "347": {
+      "craters": 1450,
+      "distinctCraters": 1,
+      "boulders": 10,
+      "distinctBoulders": 9
+    },
+    "348": {
+      "craters": 1390,
+      "distinctCraters": 1,
+      "boulders": 9,
+      "distinctBoulders": 9
+    },
+    "349": {
+      "craters": 1403,
+      "distinctCraters": 1,
+      "boulders": 3,
+      "distinctBoulders": 3
+    },
+    "350": {
+      "craters": 1432,
+      "distinctCraters": 2,
+      "boulders": 18,
+      "distinctBoulders": 11
+    },
+    "351": {
+      "craters": 1191,
+      "distinctCraters": 1,
+      "boulders": 14,
+      "distinctBoulders": 7
+    },
+    "352": {
+      "craters": 1422,
+      "distinctCraters": 1,
+      "boulders": 20,
+      "distinctBoulders": 14
+    },
+    "353": {
+      "craters": 1333,
+      "distinctCraters": 1,
+      "boulders": 29,
+      "distinctBoulders": 20
+    },
+    "354": {
+      "craters": 1443,
+      "distinctCraters": 1,
+      "boulders": 10,
+      "distinctBoulders": 7
+    },
+    "355": {
+      "craters": 1447,
+      "distinctCraters": 1,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "356": {
+      "craters": 1248,
+      "distinctCraters": 1,
+      "boulders": 7,
+      "distinctBoulders": 7
+    },
+    "357": {
+      "craters": 1460,
+      "distinctCraters": 1,
+      "boulders": 15,
+      "distinctBoulders": 10
+    },
+    "358": {
+      "craters": 1466,
+      "distinctCraters": 1,
+      "boulders": 4,
+      "distinctBoulders": 4
+    },
+    "359": {
+      "craters": 1189,
+      "distinctCraters": 1,
+      "boulders": 21,
+      "distinctBoulders": 16
+    },
+    "360": {
+      "craters": 1421,
+      "distinctCraters": 1,
+      "boulders": 17,
+      "distinctBoulders": 15
+    },
+    "361": {
+      "craters": 1410,
+      "distinctCraters": 1,
+      "boulders": 3,
+      "distinctBoulders": 2
+    },
+    "362": {
+      "craters": 1098,
+      "distinctCraters": 1,
+      "boulders": 13,
+      "distinctBoulders": 9
+    },
+    "363": {
+      "craters": 1461,
+      "distinctCraters": 1,
+      "boulders": 17,
+      "distinctBoulders": 12
+    },
+    "364": {
+      "craters": 1431,
+      "distinctCraters": 1,
+      "boulders": 6,
+      "distinctBoulders": 5
+    },
+    "365": {
+      "craters": 1424,
+      "distinctCraters": 1,
+      "boulders": 25,
+      "distinctBoulders": 21
+    },
+    "366": {
+      "craters": 1445,
+      "distinctCraters": 1,
+      "boulders": 11,
+      "distinctBoulders": 10
+    },
+    "367": {
+      "craters": 1162,
+      "distinctCraters": 2,
+      "boulders": 2,
+      "distinctBoulders": 1
+    },
+    "368": {
+      "craters": 1444,
+      "distinctCraters": 1,
+      "boulders": 7,
+      "distinctBoulders": 3
+    },
+    "369": {
+      "craters": 1349,
+      "distinctCraters": 1,
+      "boulders": 15,
+      "distinctBoulders": 11
+    },
+    "370": {
+      "craters": 1375,
+      "distinctCraters": 1,
+      "boulders": 8,
+      "distinctBoulders": 5
+    },
+    "371": {
+      "craters": 1440,
+      "distinctCraters": 1,
+      "boulders": 3,
+      "distinctBoulders": 2
+    },
+    "372": {
+      "craters": 1448,
+      "distinctCraters": 1,
+      "boulders": 9,
+      "distinctBoulders": 8
+    },
+    "373": {
+      "craters": 1433,
+      "distinctCraters": 1,
+      "boulders": 9,
+      "distinctBoulders": 8
+    },
+    "374": {
+      "craters": 1290,
+      "distinctCraters": 2,
+      "boulders": 27,
+      "distinctBoulders": 17
+    },
+    "375": {
+      "craters": 1091,
+      "distinctCraters": 1,
+      "boulders": 2,
+      "distinctBoulders": 2
+    },
+    "376": {
+      "craters": 1301,
+      "distinctCraters": 1,
+      "boulders": 33,
+      "distinctBoulders": 20
+    },
+    "377": {
+      "craters": 1399,
+      "distinctCraters": 1,
+      "boulders": 11,
+      "distinctBoulders": 10
+    },
+    "378": {
+      "craters": 1389,
+      "distinctCraters": 1,
+      "boulders": 19,
+      "distinctBoulders": 11
+    },
+    "379": {
+      "craters": 1436,
+      "distinctCraters": 1,
+      "boulders": 10,
+      "distinctBoulders": 7
+    },
+    "380": {
+      "craters": 1469,
+      "distinctCraters": 1,
+      "boulders": 3,
+      "distinctBoulders": 3
+    },
+    "381": {
+      "craters": 1439,
+      "distinctCraters": 1,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "382": {
+      "craters": 1390,
+      "distinctCraters": 1,
+      "boulders": 3,
+      "distinctBoulders": 3
+    },
+    "383": {
+      "craters": 1158,
+      "distinctCraters": 1,
+      "boulders": 3,
+      "distinctBoulders": 3
+    },
+    "384": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "385": {
+      "craters": 1473,
+      "distinctCraters": 1,
+      "boulders": 2,
+      "distinctBoulders": 2
+    },
+    "386": {
+      "craters": 1391,
+      "distinctCraters": 1,
+      "boulders": 36,
+      "distinctBoulders": 21
+    },
+    "387": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "388": {
+      "craters": 1438,
+      "distinctCraters": 1,
+      "boulders": 7,
+      "distinctBoulders": 7
+    },
+    "389": {
+      "craters": 1401,
+      "distinctCraters": 1,
+      "boulders": 3,
+      "distinctBoulders": 3
+    },
+    "390": {
+      "craters": 1421,
+      "distinctCraters": 1,
+      "boulders": 1,
+      "distinctBoulders": 1
+    },
+    "391": {
+      "craters": 1196,
+      "distinctCraters": 1,
+      "boulders": 1,
+      "distinctBoulders": 1
+    },
+    "392": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "393": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "394": {
+      "craters": 1453,
+      "distinctCraters": 1,
+      "boulders": 21,
+      "distinctBoulders": 11
+    },
+    "395": {
+      "craters": 1449,
+      "distinctCraters": 1,
+      "boulders": 12,
+      "distinctBoulders": 8
+    },
+    "396": {
+      "craters": 1438,
+      "distinctCraters": 1,
+      "boulders": 6,
+      "distinctBoulders": 5
+    },
+    "397": {
+      "craters": 1464,
+      "distinctCraters": 1,
+      "boulders": 1,
+      "distinctBoulders": 1
+    },
+    "398": {
+      "craters": 1439,
+      "distinctCraters": 1,
+      "boulders": 7,
+      "distinctBoulders": 5
+    },
+    "399": {
+      "craters": 1176,
+      "distinctCraters": 1,
+      "boulders": 3,
+      "distinctBoulders": 3
+    },
+    "400": {
+      "craters": 1266,
+      "distinctCraters": 1,
+      "boulders": 19,
+      "distinctBoulders": 17
+    },
+    "401": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "402": {
+      "craters": 1451,
+      "distinctCraters": 1,
+      "boulders": 15,
+      "distinctBoulders": 12
+    },
+    "403": {
+      "craters": 1393,
+      "distinctCraters": 1,
+      "boulders": 31,
+      "distinctBoulders": 14
+    },
+    "404": {
+      "craters": 1209,
+      "distinctCraters": 1,
+      "boulders": 15,
+      "distinctBoulders": 9
+    },
+    "405": {
+      "craters": 1404,
+      "distinctCraters": 1,
+      "boulders": 21,
+      "distinctBoulders": 11
+    },
+    "406": {
+      "craters": 1395,
+      "distinctCraters": 1,
+      "boulders": 4,
+      "distinctBoulders": 3
+    },
+    "407": {
+      "craters": 1112,
+      "distinctCraters": 1,
+      "boulders": 14,
+      "distinctBoulders": 11
+    },
+    "408": {
+      "craters": 1226,
+      "distinctCraters": 2,
+      "boulders": 10,
+      "distinctBoulders": 6
+    },
+    "409": {
+      "craters": 1350,
+      "distinctCraters": 1,
+      "boulders": 23,
+      "distinctBoulders": 21
+    },
+    "410": {
+      "craters": 1436,
+      "distinctCraters": 1,
+      "boulders": 22,
+      "distinctBoulders": 14
+    },
+    "411": {
+      "craters": 1443,
+      "distinctCraters": 1,
+      "boulders": 2,
+      "distinctBoulders": 2
+    },
+    "412": {
+      "craters": 1405,
+      "distinctCraters": 1,
+      "boulders": 11,
+      "distinctBoulders": 10
+    },
+    "413": {
+      "craters": 1330,
+      "distinctCraters": 1,
+      "boulders": 21,
+      "distinctBoulders": 13
+    },
+    "414": {
+      "craters": 1403,
+      "distinctCraters": 1,
+      "boulders": 40,
+      "distinctBoulders": 23
+    },
+    "415": {
+      "craters": 1123,
+      "distinctCraters": 1,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "416": {
+      "craters": 1364,
+      "distinctCraters": 1,
+      "boulders": 24,
+      "distinctBoulders": 18
+    },
+    "417": {
+      "craters": 1321,
+      "distinctCraters": 1,
+      "boulders": 5,
+      "distinctBoulders": 4
+    },
+    "418": {
+      "craters": 1453,
+      "distinctCraters": 1,
+      "boulders": 9,
+      "distinctBoulders": 6
+    },
+    "419": {
+      "craters": 1442,
+      "distinctCraters": 1,
+      "boulders": 7,
+      "distinctBoulders": 6
+    },
+    "420": {
+      "craters": 1184,
+      "distinctCraters": 4,
+      "boulders": 12,
+      "distinctBoulders": 11
+    },
+    "421": {
+      "craters": 243,
+      "distinctCraters": 5,
+      "boulders": 14,
+      "distinctBoulders": 9
+    },
+    "422": {
+      "craters": 1340,
+      "distinctCraters": 1,
+      "boulders": 1,
+      "distinctBoulders": 1
+    },
+    "423": {
+      "craters": 1118,
+      "distinctCraters": 1,
+      "boulders": 4,
+      "distinctBoulders": 4
+    },
+    "424": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "425": {
+      "craters": 1253,
+      "distinctCraters": 1,
+      "boulders": 13,
+      "distinctBoulders": 11
+    },
+    "426": {
+      "craters": 1452,
+      "distinctCraters": 1,
+      "boulders": 14,
+      "distinctBoulders": 12
+    },
+    "427": {
+      "craters": 1296,
+      "distinctCraters": 1,
+      "boulders": 15,
+      "distinctBoulders": 12
+    },
+    "428": {
+      "craters": 793,
+      "distinctCraters": 1,
+      "boulders": 1,
+      "distinctBoulders": 1
+    },
+    "429": {
+      "craters": 877,
+      "distinctCraters": 1,
+      "boulders": 14,
+      "distinctBoulders": 11
+    },
+    "430": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "431": {
+      "craters": 1096,
+      "distinctCraters": 1,
+      "boulders": 3,
+      "distinctBoulders": 3
+    },
+    "432": {
+      "craters": 1454,
+      "distinctCraters": 1,
+      "boulders": 5,
+      "distinctBoulders": 5
+    },
+    "433": {
+      "craters": 1392,
+      "distinctCraters": 1,
+      "boulders": 22,
+      "distinctBoulders": 18
+    },
+    "434": {
+      "craters": 1368,
+      "distinctCraters": 1,
+      "boulders": 12,
+      "distinctBoulders": 12
+    },
+    "435": {
+      "craters": 916,
+      "distinctCraters": 6,
+      "boulders": 8,
+      "distinctBoulders": 6
+    },
+    "436": {
+      "craters": 329,
+      "distinctCraters": 1,
+      "boulders": 4,
+      "distinctBoulders": 4
+    },
+    "437": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "438": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "439": {
+      "craters": 1161,
+      "distinctCraters": 1,
+      "boulders": 7,
+      "distinctBoulders": 5
+    },
+    "440": {
+      "craters": 1450,
+      "distinctCraters": 1,
+      "boulders": 4,
+      "distinctBoulders": 3
+    },
+    "441": {
+      "craters": 1442,
+      "distinctCraters": 1,
+      "boulders": 5,
+      "distinctBoulders": 4
+    },
+    "442": {
+      "craters": 1261,
+      "distinctCraters": 1,
+      "boulders": 21,
+      "distinctBoulders": 16
+    },
+    "443": {
+      "craters": 1106,
+      "distinctCraters": 1,
+      "boulders": 4,
+      "distinctBoulders": 4
+    },
+    "444": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "445": {
+      "craters": 1281,
+      "distinctCraters": 2,
+      "boulders": 3,
+      "distinctBoulders": 3
+    },
+    "446": {
+      "craters": 1365,
+      "distinctCraters": 1,
+      "boulders": 14,
+      "distinctBoulders": 10
+    },
+    "447": {
+      "craters": 984,
+      "distinctCraters": 1,
+      "boulders": 5,
+      "distinctBoulders": 3
+    },
+    "448": {
+      "craters": 1426,
+      "distinctCraters": 1,
+      "boulders": 5,
+      "distinctBoulders": 5
+    },
+    "449": {
+      "craters": 1358,
+      "distinctCraters": 1,
+      "boulders": 8,
+      "distinctBoulders": 6
+    },
+    "450": {
+      "craters": 458,
+      "distinctCraters": 1,
+      "boulders": 4,
+      "distinctBoulders": 4
+    },
+    "451": {
+      "craters": 1170,
+      "distinctCraters": 12,
+      "boulders": 9,
+      "distinctBoulders": 7
+    },
+    "452": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "453": {
+      "craters": 1179,
+      "distinctCraters": 5,
+      "boulders": 23,
+      "distinctBoulders": 20
+    },
+    "454": {
+      "craters": 1149,
+      "distinctCraters": 2,
+      "boulders": 38,
+      "distinctBoulders": 25
+    },
+    "455": {
+      "craters": 1149,
+      "distinctCraters": 1,
+      "boulders": 12,
+      "distinctBoulders": 8
+    },
+    "456": {
+      "craters": 704,
+      "distinctCraters": 1,
+      "boulders": 23,
+      "distinctBoulders": 17
+    },
+    "457": {
+      "craters": 226,
+      "distinctCraters": 43,
+      "boulders": 12,
+      "distinctBoulders": 8
+    },
+    "458": {
+      "craters": 592,
+      "distinctCraters": 18,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "459": {
+      "craters": 1449,
+      "distinctCraters": 1,
+      "boulders": 2,
+      "distinctBoulders": 1
+    },
+    "460": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "461": {
+      "craters": 1397,
+      "distinctCraters": 1,
+      "boulders": 4,
+      "distinctBoulders": 4
+    },
+    "462": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "463": {
+      "craters": 1034,
+      "distinctCraters": 1,
+      "boulders": 36,
+      "distinctBoulders": 28
+    },
+    "464": {
+      "craters": 1488,
+      "distinctCraters": 1,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "465": {
+      "craters": 363,
+      "distinctCraters": 9,
+      "boulders": 9,
+      "distinctBoulders": 3
+    },
+    "466": {
+      "craters": 1392,
+      "distinctCraters": 1,
+      "boulders": 1,
+      "distinctBoulders": 1
+    },
+    "467": {
+      "craters": 1403,
+      "distinctCraters": 1,
+      "boulders": 23,
+      "distinctBoulders": 14
+    },
+    "468": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "469": {
+      "craters": 1371,
+      "distinctCraters": 1,
+      "boulders": 4,
+      "distinctBoulders": 4
+    },
+    "470": {
+      "craters": 1326,
+      "distinctCraters": 2,
+      "boulders": 16,
+      "distinctBoulders": 13
+    },
+    "471": {
+      "craters": 1141,
+      "distinctCraters": 1,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "472": {
+      "craters": 609,
+      "distinctCraters": 4,
+      "boulders": 10,
+      "distinctBoulders": 2
+    },
+    "473": {
+      "craters": 1172,
+      "distinctCraters": 1,
+      "boulders": 31,
+      "distinctBoulders": 19
+    },
+    "474": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "475": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "476": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "477": {
+      "craters": 1399,
+      "distinctCraters": 1,
+      "boulders": 15,
+      "distinctBoulders": 8
+    },
+    "478": {
+      "craters": 1432,
+      "distinctCraters": 1,
+      "boulders": 2,
+      "distinctBoulders": 2
+    },
+    "479": {
+      "craters": 1166,
+      "distinctCraters": 1,
+      "boulders": 2,
+      "distinctBoulders": 1
+    },
+    "480": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "481": {
+      "craters": 1261,
+      "distinctCraters": 1,
+      "boulders": 68,
+      "distinctBoulders": 50
+    },
+    "482": {
+      "craters": 1328,
+      "distinctCraters": 1,
+      "boulders": 7,
+      "distinctBoulders": 5
+    },
+    "483": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "484": {
+      "craters": 1120,
+      "distinctCraters": 5,
+      "boulders": 32,
+      "distinctBoulders": 26
+    },
+    "485": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "486": {
+      "craters": 1291,
+      "distinctCraters": 1,
+      "boulders": 28,
+      "distinctBoulders": 22
+    },
+    "487": {
+      "craters": 1155,
+      "distinctCraters": 1,
+      "boulders": 15,
+      "distinctBoulders": 15
+    },
+    "488": {
+      "craters": 1355,
+      "distinctCraters": 2,
+      "boulders": 13,
+      "distinctBoulders": 9
+    },
+    "489": {
+      "craters": 1261,
+      "distinctCraters": 1,
+      "boulders": 5,
+      "distinctBoulders": 5
+    },
+    "490": {
+      "craters": 1259,
+      "distinctCraters": 1,
+      "boulders": 19,
+      "distinctBoulders": 15
+    },
+    "491": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "492": {
+      "craters": 1408,
+      "distinctCraters": 1,
+      "boulders": 14,
+      "distinctBoulders": 13
+    },
+    "493": {
+      "craters": 1329,
+      "distinctCraters": 1,
+      "boulders": 15,
+      "distinctBoulders": 12
+    },
+    "494": {
+      "craters": 1366,
+      "distinctCraters": 1,
+      "boulders": 10,
+      "distinctBoulders": 9
+    },
+    "495": {
+      "craters": 1160,
+      "distinctCraters": 1,
+      "boulders": 1,
+      "distinctBoulders": 1
+    },
+    "496": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "497": {
+      "craters": 1424,
+      "distinctCraters": 1,
+      "boulders": 9,
+      "distinctBoulders": 8
+    },
+    "498": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "499": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "500": {
+      "craters": 1385,
+      "distinctCraters": 1,
+      "boulders": 8,
+      "distinctBoulders": 7
+    },
+    "501": {
+      "craters": 1425,
+      "distinctCraters": 1,
+      "boulders": 19,
+      "distinctBoulders": 15
+    },
+    "502": {
+      "craters": 1393,
+      "distinctCraters": 1,
+      "boulders": 5,
+      "distinctBoulders": 5
+    },
+    "503": {
+      "craters": 1161,
+      "distinctCraters": 1,
+      "boulders": 4,
+      "distinctBoulders": 4
+    },
+    "504": {
+      "craters": 1460,
+      "distinctCraters": 1,
+      "boulders": 4,
+      "distinctBoulders": 4
+    },
+    "505": {
+      "craters": 1368,
+      "distinctCraters": 1,
+      "boulders": 12,
+      "distinctBoulders": 9
+    },
+    "506": {
+      "craters": 1234,
+      "distinctCraters": 1,
+      "boulders": 16,
+      "distinctBoulders": 15
+    },
+    "507": {
+      "craters": 1139,
+      "distinctCraters": 2,
+      "boulders": 16,
+      "distinctBoulders": 11
+    },
+    "508": {
+      "craters": 1388,
+      "distinctCraters": 1,
+      "boulders": 4,
+      "distinctBoulders": 4
+    },
+    "509": {
+      "craters": 1435,
+      "distinctCraters": 1,
+      "boulders": 1,
+      "distinctBoulders": 1
+    },
+    "510": {
+      "craters": 1402,
+      "distinctCraters": 1,
+      "boulders": 10,
+      "distinctBoulders": 9
+    },
+    "511": {
+      "craters": 1155,
+      "distinctCraters": 1,
+      "boulders": 1,
+      "distinctBoulders": 1
+    },
+    "512": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "513": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "514": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "515": {
+      "craters": 818,
+      "distinctCraters": 4,
+      "boulders": 18,
+      "distinctBoulders": 14
+    },
+    "516": {
+      "craters": 1425,
+      "distinctCraters": 1,
+      "boulders": 8,
+      "distinctBoulders": 7
+    },
+    "517": {
+      "craters": 1448,
+      "distinctCraters": 1,
+      "boulders": 1,
+      "distinctBoulders": 1
+    },
+    "518": {
+      "craters": 1436,
+      "distinctCraters": 1,
+      "boulders": 36,
+      "distinctBoulders": 21
+    },
+    "519": {
+      "craters": 1196,
+      "distinctCraters": 1,
+      "boulders": 6,
+      "distinctBoulders": 3
+    },
+    "520": {
+      "craters": 1216,
+      "distinctCraters": 2,
+      "boulders": 33,
+      "distinctBoulders": 25
+    },
+    "521": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "522": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "523": {
+      "craters": 1469,
+      "distinctCraters": 1,
+      "boulders": 5,
+      "distinctBoulders": 5
+    },
+    "524": {
+      "craters": 1419,
+      "distinctCraters": 1,
+      "boulders": 22,
+      "distinctBoulders": 20
+    },
+    "525": {
+      "craters": 1344,
+      "distinctCraters": 1,
+      "boulders": 50,
+      "distinctBoulders": 29
+    },
+    "526": {
+      "craters": 1342,
+      "distinctCraters": 1,
+      "boulders": 15,
+      "distinctBoulders": 13
+    },
+    "527": {
+      "craters": 1106,
+      "distinctCraters": 1,
+      "boulders": 3,
+      "distinctBoulders": 3
+    },
+    "528": {
+      "craters": 1462,
+      "distinctCraters": 1,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "529": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "530": {
+      "craters": 1397,
+      "distinctCraters": 1,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "531": {
+      "craters": 1436,
+      "distinctCraters": 1,
+      "boulders": 1,
+      "distinctBoulders": 1
+    },
+    "532": {
+      "craters": 1426,
+      "distinctCraters": 1,
+      "boulders": 9,
+      "distinctBoulders": 8
+    },
+    "533": {
+      "craters": 1241,
+      "distinctCraters": 2,
+      "boulders": 35,
+      "distinctBoulders": 24
+    },
+    "534": {
+      "craters": 1414,
+      "distinctCraters": 1,
+      "boulders": 1,
+      "distinctBoulders": 1
+    },
+    "535": {
+      "craters": 1166,
+      "distinctCraters": 1,
+      "boulders": 5,
+      "distinctBoulders": 2
+    },
+    "536": {
+      "craters": 1436,
+      "distinctCraters": 1,
+      "boulders": 2,
+      "distinctBoulders": 2
+    },
+    "537": {
+      "craters": 1407,
+      "distinctCraters": 1,
+      "boulders": 10,
+      "distinctBoulders": 10
+    },
+    "538": {
+      "craters": 1351,
+      "distinctCraters": 1,
+      "boulders": 58,
+      "distinctBoulders": 48
+    },
+    "539": {
+      "craters": 1405,
+      "distinctCraters": 1,
+      "boulders": 28,
+      "distinctBoulders": 24
+    },
+    "540": {
+      "craters": 1460,
+      "distinctCraters": 1,
+      "boulders": 9,
+      "distinctBoulders": 9
+    },
+    "541": {
+      "craters": 1274,
+      "distinctCraters": 1,
+      "boulders": 22,
+      "distinctBoulders": 18
+    },
+    "542": {
+      "craters": 1242,
+      "distinctCraters": 1,
+      "boulders": 30,
+      "distinctBoulders": 25
+    },
+    "543": {
+      "craters": 1080,
+      "distinctCraters": 1,
+      "boulders": 2,
+      "distinctBoulders": 2
+    },
+    "544": {
+      "craters": 1416,
+      "distinctCraters": 1,
+      "boulders": 2,
+      "distinctBoulders": 2
+    },
+    "545": {
+      "craters": 1415,
+      "distinctCraters": 1,
+      "boulders": 8,
+      "distinctBoulders": 7
+    },
+    "546": {
+      "craters": 1405,
+      "distinctCraters": 1,
+      "boulders": 26,
+      "distinctBoulders": 20
+    },
+    "547": {
+      "craters": 1432,
+      "distinctCraters": 1,
+      "boulders": 1,
+      "distinctBoulders": 1
+    },
+    "548": {
+      "craters": 1395,
+      "distinctCraters": 1,
+      "boulders": 26,
+      "distinctBoulders": 18
+    },
+    "549": {
+      "craters": 1381,
+      "distinctCraters": 1,
+      "boulders": 5,
+      "distinctBoulders": 4
+    },
+    "550": {
+      "craters": 1439,
+      "distinctCraters": 1,
+      "boulders": 16,
+      "distinctBoulders": 15
+    },
+    "551": {
+      "craters": 1146,
+      "distinctCraters": 1,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "552": {
+      "craters": 1406,
+      "distinctCraters": 1,
+      "boulders": 2,
+      "distinctBoulders": 2
+    },
+    "553": {
+      "craters": 1392,
+      "distinctCraters": 1,
+      "boulders": 30,
+      "distinctBoulders": 26
+    },
+    "554": {
+      "craters": 1417,
+      "distinctCraters": 1,
+      "boulders": 9,
+      "distinctBoulders": 7
+    },
+    "555": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "556": {
+      "craters": 1418,
+      "distinctCraters": 1,
+      "boulders": 10,
+      "distinctBoulders": 7
+    },
+    "557": {
+      "craters": 1366,
+      "distinctCraters": 1,
+      "boulders": 35,
+      "distinctBoulders": 18
+    },
+    "558": {
+      "craters": 1362,
+      "distinctCraters": 1,
+      "boulders": 7,
+      "distinctBoulders": 6
+    },
+    "559": {
+      "craters": 1120,
+      "distinctCraters": 1,
+      "boulders": 4,
+      "distinctBoulders": 4
+    },
+    "560": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "561": {
+      "craters": 1448,
+      "distinctCraters": 1,
+      "boulders": 9,
+      "distinctBoulders": 9
+    },
+    "562": {
+      "craters": 1396,
+      "distinctCraters": 1,
+      "boulders": 28,
+      "distinctBoulders": 18
+    },
+    "563": {
+      "craters": 1394,
+      "distinctCraters": 1,
+      "boulders": 11,
+      "distinctBoulders": 8
+    },
+    "564": {
+      "craters": 1449,
+      "distinctCraters": 1,
+      "boulders": 17,
+      "distinctBoulders": 13
+    },
+    "565": {
+      "craters": 1224,
+      "distinctCraters": 1,
+      "boulders": 70,
+      "distinctBoulders": 33
+    },
+    "566": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "567": {
+      "craters": 1117,
+      "distinctCraters": 1,
+      "boulders": 4,
+      "distinctBoulders": 4
+    },
+    "568": {
+      "craters": 1461,
+      "distinctCraters": 1,
+      "boulders": 8,
+      "distinctBoulders": 8
+    },
+    "569": {
+      "craters": 1441,
+      "distinctCraters": 1,
+      "boulders": 1,
+      "distinctBoulders": 1
+    },
+    "570": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "571": {
+      "craters": 1395,
+      "distinctCraters": 1,
+      "boulders": 17,
+      "distinctBoulders": 12
+    },
+    "572": {
+      "craters": 1456,
+      "distinctCraters": 1,
+      "boulders": 30,
+      "distinctBoulders": 17
+    },
+    "573": {
+      "craters": 935,
+      "distinctCraters": 15,
+      "boulders": 25,
+      "distinctBoulders": 17
+    },
+    "574": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "575": {
+      "craters": 1179,
+      "distinctCraters": 1,
+      "boulders": 3,
+      "distinctBoulders": 3
+    },
+    "576": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "577": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "578": {
+      "craters": 1446,
+      "distinctCraters": 1,
+      "boulders": 2,
+      "distinctBoulders": 2
+    },
+    "579": {
+      "craters": 1449,
+      "distinctCraters": 1,
+      "boulders": 26,
+      "distinctBoulders": 18
+    },
+    "580": {
+      "craters": 1109,
+      "distinctCraters": 1,
+      "boulders": 3,
+      "distinctBoulders": 3
+    },
+    "581": {
+      "craters": 637,
+      "distinctCraters": 3,
+      "boulders": 4,
+      "distinctBoulders": 3
+    },
+    "582": {
+      "craters": 1126,
+      "distinctCraters": 1,
+      "boulders": 79,
+      "distinctBoulders": 34
+    },
+    "583": {
+      "craters": 1052,
+      "distinctCraters": 1,
+      "boulders": 38,
+      "distinctBoulders": 25
+    },
+    "584": {
+      "craters": 1381,
+      "distinctCraters": 1,
+      "boulders": 4,
+      "distinctBoulders": 4
+    },
+    "585": {
+      "craters": 1408,
+      "distinctCraters": 1,
+      "boulders": 1,
+      "distinctBoulders": 1
+    },
+    "586": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "587": {
+      "craters": 1440,
+      "distinctCraters": 1,
+      "boulders": 5,
+      "distinctBoulders": 5
+    },
+    "588": {
+      "craters": 609,
+      "distinctCraters": 6,
+      "boulders": 29,
+      "distinctBoulders": 20
+    },
+    "589": {
+      "craters": 242,
+      "distinctCraters": 2,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "590": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "591": {
+      "craters": 1143,
+      "distinctCraters": 1,
+      "boulders": 20,
+      "distinctBoulders": 14
+    },
+    "592": {
+      "craters": 1436,
+      "distinctCraters": 1,
+      "boulders": 12,
+      "distinctBoulders": 10
+    },
+    "593": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "594": {
+      "craters": 1471,
+      "distinctCraters": 1,
+      "boulders": 4,
+      "distinctBoulders": 3
+    },
+    "595": {
+      "craters": 1468,
+      "distinctCraters": 1,
+      "boulders": 8,
+      "distinctBoulders": 5
+    },
+    "596": {
+      "craters": 417,
+      "distinctCraters": 21,
+      "boulders": 6,
+      "distinctBoulders": 5
+    },
+    "597": {
+      "craters": 469,
+      "distinctCraters": 2,
+      "boulders": 40,
+      "distinctBoulders": 23
+    },
+    "598": {
+      "craters": 1211,
+      "distinctCraters": 1,
+      "boulders": 15,
+      "distinctBoulders": 12
+    },
+    "599": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "600": {
+      "craters": 1483,
+      "distinctCraters": 1,
+      "boulders": 4,
+      "distinctBoulders": 4
+    },
+    "601": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "602": {
+      "craters": 1404,
+      "distinctCraters": 1,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "603": {
+      "craters": 1319,
+      "distinctCraters": 1,
+      "boulders": 2,
+      "distinctBoulders": 2
+    },
+    "604": {
+      "craters": 613,
+      "distinctCraters": 9,
+      "boulders": 1,
+      "distinctBoulders": 1
+    },
+    "605": {
+      "craters": 691,
+      "distinctCraters": 2,
+      "boulders": 11,
+      "distinctBoulders": 7
+    },
+    "606": {
+      "craters": 732,
+      "distinctCraters": 1,
+      "boulders": 46,
+      "distinctBoulders": 30
+    },
+    "607": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "608": {
+      "craters": 1447,
+      "distinctCraters": 1,
+      "boulders": 16,
+      "distinctBoulders": 14
+    },
+    "609": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "610": {
+      "craters": 1433,
+      "distinctCraters": 1,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "611": {
+      "craters": 879,
+      "distinctCraters": 1,
+      "boulders": 17,
+      "distinctBoulders": 11
+    },
+    "612": {
+      "craters": 922,
+      "distinctCraters": 20,
+      "boulders": 32,
+      "distinctBoulders": 9
+    },
+    "613": {
+      "craters": 1317,
+      "distinctCraters": 2,
+      "boulders": 13,
+      "distinctBoulders": 5
+    },
+    "614": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "615": {
+      "craters": 1136,
+      "distinctCraters": 1,
+      "boulders": 3,
+      "distinctBoulders": 3
+    },
+    "616": {
+      "craters": 1393,
+      "distinctCraters": 1,
+      "boulders": 30,
+      "distinctBoulders": 20
+    },
+    "617": {
+      "craters": 1349,
+      "distinctCraters": 1,
+      "boulders": 14,
+      "distinctBoulders": 9
+    },
+    "618": {
+      "craters": 1349,
+      "distinctCraters": 1,
+      "boulders": 1,
+      "distinctBoulders": 1
+    },
+    "619": {
+      "craters": 602,
+      "distinctCraters": 3,
+      "boulders": 10,
+      "distinctBoulders": 7
+    },
+    "620": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "621": {
+      "craters": 1304,
+      "distinctCraters": 2,
+      "boulders": 29,
+      "distinctBoulders": 9
+    },
+    "622": {
+      "craters": 1323,
+      "distinctCraters": 1,
+      "boulders": 23,
+      "distinctBoulders": 19
+    },
+    "623": {
+      "craters": 829,
+      "distinctCraters": 4,
+      "boulders": 41,
+      "distinctBoulders": 33
+    },
+    "624": {
+      "craters": 1429,
+      "distinctCraters": 1,
+      "boulders": 22,
+      "distinctBoulders": 12
+    },
+    "625": {
+      "craters": 1453,
+      "distinctCraters": 1,
+      "boulders": 3,
+      "distinctBoulders": 3
+    },
+    "626": {
+      "craters": 1431,
+      "distinctCraters": 1,
+      "boulders": 30,
+      "distinctBoulders": 24
+    },
+    "627": {
+      "craters": 1242,
+      "distinctCraters": 3,
+      "boulders": 32,
+      "distinctBoulders": 19
+    },
+    "628": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "629": {
+      "craters": 1205,
+      "distinctCraters": 3,
+      "boulders": 24,
+      "distinctBoulders": 10
+    },
+    "630": {
+      "craters": 1313,
+      "distinctCraters": 1,
+      "boulders": 8,
+      "distinctBoulders": 7
+    },
+    "631": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "632": {
+      "craters": 1464,
+      "distinctCraters": 1,
+      "boulders": 10,
+      "distinctBoulders": 8
+    },
+    "633": {
+      "craters": 1451,
+      "distinctCraters": 1,
+      "boulders": 7,
+      "distinctBoulders": 5
+    },
+    "634": {
+      "craters": 1462,
+      "distinctCraters": 1,
+      "boulders": 10,
+      "distinctBoulders": 5
+    },
+    "635": {
+      "craters": 1450,
+      "distinctCraters": 1,
+      "boulders": 3,
+      "distinctBoulders": 3
+    },
+    "636": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "637": {
+      "craters": 547,
+      "distinctCraters": 2,
+      "boulders": 25,
+      "distinctBoulders": 7
+    },
+    "638": {
+      "craters": 1241,
+      "distinctCraters": 1,
+      "boulders": 11,
+      "distinctBoulders": 10
+    },
+    "639": {
+      "craters": 1139,
+      "distinctCraters": 1,
+      "boulders": 10,
+      "distinctBoulders": 6
+    },
+    "640": {
+      "craters": 1454,
+      "distinctCraters": 1,
+      "boulders": 5,
+      "distinctBoulders": 5
+    },
+    "641": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "642": {
+      "craters": 1446,
+      "distinctCraters": 1,
+      "boulders": 19,
+      "distinctBoulders": 14
+    },
+    "643": {
+      "craters": 817,
+      "distinctCraters": 1,
+      "boulders": 81,
+      "distinctBoulders": 37
+    },
+    "644": {
+      "craters": 1474,
+      "distinctCraters": 1,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "645": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "646": {
+      "craters": 1445,
+      "distinctCraters": 1,
+      "boulders": 4,
+      "distinctBoulders": 4
+    },
+    "647": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "648": {
+      "craters": 1443,
+      "distinctCraters": 1,
+      "boulders": 2,
+      "distinctBoulders": 2
+    },
+    "649": {
+      "craters": 1437,
+      "distinctCraters": 1,
+      "boulders": 16,
+      "distinctBoulders": 14
+    },
+    "650": {
+      "craters": 1434,
+      "distinctCraters": 1,
+      "boulders": 8,
+      "distinctBoulders": 4
+    },
+    "651": {
+      "craters": 337,
+      "distinctCraters": 1,
+      "boulders": 19,
+      "distinctBoulders": 13
+    },
+    "652": {
+      "craters": 293,
+      "distinctCraters": 1,
+      "boulders": 9,
+      "distinctBoulders": 8
+    },
+    "653": {
+      "craters": 1353,
+      "distinctCraters": 1,
+      "boulders": 18,
+      "distinctBoulders": 11
+    },
+    "654": {
+      "craters": 1361,
+      "distinctCraters": 1,
+      "boulders": 20,
+      "distinctBoulders": 17
+    },
+    "655": {
+      "craters": 1097,
+      "distinctCraters": 1,
+      "boulders": 4,
+      "distinctBoulders": 4
+    },
+    "656": {
+      "craters": 1457,
+      "distinctCraters": 1,
+      "boulders": 12,
+      "distinctBoulders": 6
+    },
+    "657": {
+      "craters": 1459,
+      "distinctCraters": 1,
+      "boulders": 10,
+      "distinctBoulders": 9
+    },
+    "658": {
+      "craters": 1303,
+      "distinctCraters": 1,
+      "boulders": 6,
+      "distinctBoulders": 5
+    },
+    "659": {
+      "craters": 376,
+      "distinctCraters": 21,
+      "boulders": 5,
+      "distinctBoulders": 3
+    },
+    "660": {
+      "craters": 823,
+      "distinctCraters": 1,
+      "boulders": 23,
+      "distinctBoulders": 15
+    },
+    "661": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "662": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "663": {
+      "craters": 1135,
+      "distinctCraters": 1,
+      "boulders": 11,
+      "distinctBoulders": 11
+    },
+    "664": {
+      "craters": 1448,
+      "distinctCraters": 1,
+      "boulders": 9,
+      "distinctBoulders": 7
+    },
+    "665": {
+      "craters": 1417,
+      "distinctCraters": 1,
+      "boulders": 28,
+      "distinctBoulders": 18
+    },
+    "666": {
+      "craters": 1223,
+      "distinctCraters": 1,
+      "boulders": 12,
+      "distinctBoulders": 8
+    },
+    "667": {
+      "craters": 231,
+      "distinctCraters": 46,
+      "boulders": 1,
+      "distinctBoulders": 1
+    },
+    "668": {
+      "craters": 1204,
+      "distinctCraters": 1,
+      "boulders": 39,
+      "distinctBoulders": 27
+    },
+    "669": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "670": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "671": {
+      "craters": 1141,
+      "distinctCraters": 1,
+      "boulders": 11,
+      "distinctBoulders": 9
+    },
+    "672": {
+      "craters": 1460,
+      "distinctCraters": 1,
+      "boulders": 1,
+      "distinctBoulders": 1
+    },
+    "673": {
+      "craters": 1449,
+      "distinctCraters": 1,
+      "boulders": 4,
+      "distinctBoulders": 3
+    },
+    "674": {
+      "craters": 912,
+      "distinctCraters": 1,
+      "boulders": 7,
+      "distinctBoulders": 5
+    },
+    "675": {
+      "craters": 428,
+      "distinctCraters": 1,
+      "boulders": 35,
+      "distinctBoulders": 13
+    },
+    "676": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "677": {
+      "craters": 1373,
+      "distinctCraters": 1,
+      "boulders": 16,
+      "distinctBoulders": 15
+    },
+    "678": {
+      "craters": 1317,
+      "distinctCraters": 1,
+      "boulders": 11,
+      "distinctBoulders": 9
+    },
+    "679": {
+      "craters": 1146,
+      "distinctCraters": 1,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "680": {
+      "craters": 1433,
+      "distinctCraters": 1,
+      "boulders": 4,
+      "distinctBoulders": 4
+    },
+    "681": {
+      "craters": 1375,
+      "distinctCraters": 1,
+      "boulders": 13,
+      "distinctBoulders": 13
+    },
+    "682": {
+      "craters": 471,
+      "distinctCraters": 3,
+      "boulders": 17,
+      "distinctBoulders": 14
+    },
+    "683": {
+      "craters": 480,
+      "distinctCraters": 6,
+      "boulders": 9,
+      "distinctBoulders": 8
+    },
+    "684": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "685": {
+      "craters": 1456,
+      "distinctCraters": 1,
+      "boulders": 23,
+      "distinctBoulders": 15
+    },
+    "686": {
+      "craters": 1390,
+      "distinctCraters": 1,
+      "boulders": 7,
+      "distinctBoulders": 7
+    },
+    "687": {
+      "craters": 1179,
+      "distinctCraters": 1,
+      "boulders": 4,
+      "distinctBoulders": 4
+    },
+    "688": {
+      "craters": 1441,
+      "distinctCraters": 1,
+      "boulders": 21,
+      "distinctBoulders": 16
+    },
+    "689": {
+      "craters": 1365,
+      "distinctCraters": 1,
+      "boulders": 24,
+      "distinctBoulders": 18
+    },
+    "690": {
+      "craters": 805,
+      "distinctCraters": 4,
+      "boulders": 39,
+      "distinctBoulders": 25
+    },
+    "691": {
+      "craters": 180,
+      "distinctCraters": 1,
+      "boulders": 11,
+      "distinctBoulders": 8
+    },
+    "692": {
+      "craters": 1197,
+      "distinctCraters": 2,
+      "boulders": 19,
+      "distinctBoulders": 17
+    },
+    "693": {
+      "craters": 1388,
+      "distinctCraters": 1,
+      "boulders": 7,
+      "distinctBoulders": 6
+    },
+    "694": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "695": {
+      "craters": 1192,
+      "distinctCraters": 1,
+      "boulders": 2,
+      "distinctBoulders": 2
+    },
+    "696": {
+      "craters": 1452,
+      "distinctCraters": 1,
+      "boulders": 16,
+      "distinctBoulders": 15
+    },
+    "697": {
+      "craters": 1280,
+      "distinctCraters": 1,
+      "boulders": 33,
+      "distinctBoulders": 25
+    },
+    "698": {
+      "craters": 1168,
+      "distinctCraters": 3,
+      "boulders": 29,
+      "distinctBoulders": 19
+    },
+    "699": {
+      "craters": 706,
+      "distinctCraters": 4,
+      "boulders": 15,
+      "distinctBoulders": 11
+    },
+    "700": {
+      "craters": 1232,
+      "distinctCraters": 1,
+      "boulders": 11,
+      "distinctBoulders": 10
+    },
+    "701": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "702": {
+      "craters": 1363,
+      "distinctCraters": 1,
+      "boulders": 2,
+      "distinctBoulders": 2
+    },
+    "703": {
+      "craters": 1161,
+      "distinctCraters": 1,
+      "boulders": 8,
+      "distinctBoulders": 7
+    },
+    "704": {
+      "craters": 1461,
+      "distinctCraters": 1,
+      "boulders": 5,
+      "distinctBoulders": 5
+    },
+    "705": {
+      "craters": 1415,
+      "distinctCraters": 1,
+      "boulders": 12,
+      "distinctBoulders": 8
+    },
+    "706": {
+      "craters": 1452,
+      "distinctCraters": 1,
+      "boulders": 5,
+      "distinctBoulders": 5
+    },
+    "707": {
+      "craters": 1240,
+      "distinctCraters": 1,
+      "boulders": 29,
+      "distinctBoulders": 18
+    },
+    "708": {
+      "craters": 1284,
+      "distinctCraters": 1,
+      "boulders": 7,
+      "distinctBoulders": 6
+    },
+    "709": {
+      "craters": 1340,
+      "distinctCraters": 1,
+      "boulders": 14,
+      "distinctBoulders": 13
+    },
+    "710": {
+      "craters": 1344,
+      "distinctCraters": 1,
+      "boulders": 17,
+      "distinctBoulders": 10
+    },
+    "711": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "712": {
+      "craters": 1403,
+      "distinctCraters": 1,
+      "boulders": 29,
+      "distinctBoulders": 16
+    },
+    "713": {
+      "craters": 1462,
+      "distinctCraters": 1,
+      "boulders": 4,
+      "distinctBoulders": 3
+    },
+    "714": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "715": {
+      "craters": 800,
+      "distinctCraters": 5,
+      "boulders": 47,
+      "distinctBoulders": 19
+    },
+    "716": {
+      "craters": 1361,
+      "distinctCraters": 1,
+      "boulders": 20,
+      "distinctBoulders": 16
+    },
+    "717": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "718": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "719": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "720": {
+      "craters": 595,
+      "distinctCraters": 2,
+      "boulders": 17,
+      "distinctBoulders": 9
+    },
+    "721": {
+      "craters": 1341,
+      "distinctCraters": 3,
+      "boulders": 34,
+      "distinctBoulders": 20
+    },
+    "722": {
+      "craters": 1199,
+      "distinctCraters": 1,
+      "boulders": 44,
+      "distinctBoulders": 19
+    },
+    "723": {
+      "craters": 1166,
+      "distinctCraters": 1,
+      "boulders": 16,
+      "distinctBoulders": 16
+    },
+    "724": {
+      "craters": 1400,
+      "distinctCraters": 1,
+      "boulders": 26,
+      "distinctBoulders": 24
+    },
+    "725": {
+      "craters": 1400,
+      "distinctCraters": 1,
+      "boulders": 1,
+      "distinctBoulders": 1
+    },
+    "726": {
+      "craters": 1314,
+      "distinctCraters": 1,
+      "boulders": 8,
+      "distinctBoulders": 6
+    },
+    "727": {
+      "craters": 1097,
+      "distinctCraters": 1,
+      "boulders": 16,
+      "distinctBoulders": 13
+    },
+    "728": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "729": {
+      "craters": 1230,
+      "distinctCraters": 1,
+      "boulders": 11,
+      "distinctBoulders": 9
+    },
+    "730": {
+      "craters": 1215,
+      "distinctCraters": 1,
+      "boulders": 22,
+      "distinctBoulders": 15
+    },
+    "731": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "732": {
+      "craters": 1426,
+      "distinctCraters": 1,
+      "boulders": 10,
+      "distinctBoulders": 9
+    },
+    "733": {
+      "craters": 1378,
+      "distinctCraters": 1,
+      "boulders": 12,
+      "distinctBoulders": 11
+    },
+    "734": {
+      "craters": 1183,
+      "distinctCraters": 2,
+      "boulders": 21,
+      "distinctBoulders": 17
+    },
+    "735": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "736": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "737": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "738": {
+      "craters": 1190,
+      "distinctCraters": 1,
+      "boulders": 28,
+      "distinctBoulders": 24
+    },
+    "739": {
+      "craters": 1423,
+      "distinctCraters": 1,
+      "boulders": 2,
+      "distinctBoulders": 2
+    },
+    "740": {
+      "craters": 1195,
+      "distinctCraters": 1,
+      "boulders": 77,
+      "distinctBoulders": 38
+    },
+    "741": {
+      "craters": 1390,
+      "distinctCraters": 1,
+      "boulders": 17,
+      "distinctBoulders": 14
+    },
+    "742": {
+      "craters": 1342,
+      "distinctCraters": 1,
+      "boulders": 4,
+      "distinctBoulders": 3
+    },
+    "743": {
+      "craters": 1089,
+      "distinctCraters": 1,
+      "boulders": 7,
+      "distinctBoulders": 6
+    },
+    "744": {
+      "craters": 1402,
+      "distinctCraters": 1,
+      "boulders": 15,
+      "distinctBoulders": 10
+    },
+    "745": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "746": {
+      "craters": 1355,
+      "distinctCraters": 1,
+      "boulders": 29,
+      "distinctBoulders": 26
+    },
+    "747": {
+      "craters": 1460,
+      "distinctCraters": 1,
+      "boulders": 13,
+      "distinctBoulders": 11
+    },
+    "748": {
+      "craters": 1386,
+      "distinctCraters": 1,
+      "boulders": 0,
+      "distinctBoulders": 0
+    },
+    "749": {
+      "craters": 1392,
+      "distinctCraters": 1,
+      "boulders": 20,
+      "distinctBoulders": 15
+    },
+    "750": {
+      "craters": 1336,
+      "distinctCraters": 1,
+      "boulders": 1,
+      "distinctBoulders": 1
+    },
+    "751": {
+      "craters": 907,
+      "distinctCraters": 4,
+      "boulders": 18,
+      "distinctBoulders": 17
+    },
+    "752": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "753": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "754": {
+      "craters": 1422,
+      "distinctCraters": 1,
+      "boulders": 33,
+      "distinctBoulders": 25
+    },
+    "755": {
+      "craters": 1286,
+      "distinctCraters": 3,
+      "boulders": 9,
+      "distinctBoulders": 7
+    },
+    "756": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "757": {
+      "craters": 1270,
+      "distinctCraters": 1,
+      "boulders": 11,
+      "distinctBoulders": 10
+    },
+    "758": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "759": {
+      "craters": 958,
+      "distinctCraters": 1,
+      "boulders": 5,
+      "distinctBoulders": 4
+    },
+    "760": {
+      "craters": 995,
+      "distinctCraters": 1,
+      "boulders": 30,
+      "distinctBoulders": 24
+    },
+    "761": {
+      "craters": 1217,
+      "distinctCraters": 1,
+      "boulders": 56,
+      "distinctBoulders": 39
+    },
+    "762": {
+      "craters": 1079,
+      "distinctCraters": 1,
+      "boulders": 34,
+      "distinctBoulders": 27
+    },
+    "763": {
+      "rawCraters": 0,
+      "distinctCraters": 0,
+      "rawBoulders": 0,
+      "distinctBoulders": 0
+    },
+    "764": {
+      "craters": 1096,
+      "distinctCraters": 1,
+      "boulders": 21,
+      "distinctBoulders": 18
+    },
+    "765": {
+      "craters": 1064,
+      "distinctCraters": 1,
+      "boulders": 27,
+      "distinctBoulders": 23
+    },
+    "766": {
+      "craters": 1055,
+      "distinctCraters": 2,
+      "boulders": 8,
+      "distinctBoulders": 6
+    },
+    "767": {
+      "craters": 803,
+      "distinctCraters": 1,
+      "boulders": 42,
+      "distinctBoulders": 35
+    }
+  }
+}
