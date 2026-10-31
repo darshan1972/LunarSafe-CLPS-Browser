@@ -15,10 +15,11 @@ LunarSafe is an aerospace-grade mission analysis and landing hazard assessment w
 
 LunarSafe is organized into four modular layers with clear separation between deterministic flight-physics logic and external AI:
 
-1. **Deterministic CV Engine (`src/lib/imageProcessor.ts`, 41,408 bytes, frozen, zero AI)**:
+1. **Deterministic CV Engine (`src/lib/imageProcessor.ts`, 41,930 bytes, SHA-256 `8ca34c558c41f0b324a207a1d758476d397319999313d59a5919e75912882956`, zero AI)**:
    - Evaluates orbital terrain topography, surface slope gradients, boulder distributions, and crater hazard boundaries.
    - Operates strictly on deterministic mathematical algorithms (Sobel spatial convolutions, Horn gradient estimators, morphological feature tracking, and BFS contiguous flood-fills).
    - Zero neural networks, zero probabilistic heuristics, zero floating hallucinations. Every run on identical input produces identical bits.
+   - **Baseline Integrity Note (CRLF vs. LF Line Endings)**: The authoritative SHA-256 hash (`8ca34c558c41f0b324a207a1d758476d397319999313d59a5919e75912882956`) is computed across normalized POSIX LF (`\n`) line endings. On Windows environments where Git may checkout files with CRLF (`\r\n`), line ending conversions will alter the file hash unless checked out with `git config core.autocrlf input` or normalized to LF before hashing.
 
 2. **Real Gemini AI Modules (Scoped, External, Clearly Labeled)**:
    - **Gemini Vision Validator**: Receives raw base64 orbital imagery to perform broad geological morphology checks (confirming genuine lunar regolith vs terrestrial images). Strictly cannot compute or alter numeric slopes or hazard statistics.
@@ -60,7 +61,12 @@ LunarSafe includes an OPTIONAL external Python sidecar for YOLO-based crater det
 - Not part of the 4-stage SHA-256 hash chain
 - Not used to compute slope, safe area, or landing recommendations
 - Not deterministic (CPU float non-associativity applies)
-- Detected 7 craters on TMC-2 sample vs 87 from classical CV (different criteria, both correct)
+- Detected 7 craters on TMC-2 sample vs 65 craters from classical CV (different criteria, both correct)
+
+### Model Weights & Platform Compatibility
+- **Single Class Detection**: The YOLO model weights detect a single target class (`crater`). Boulder detection is handled strictly by the classical CV pipeline.
+- **Automatic Weights Download**: Model weights (`best.pt`) are automatically fetched from Hugging Face (`Gurveer05/moon-crater-boulder-detection-yolov5`) upon initial invocation if not found locally in `models/yolov5-moon/`.
+- **Cross-Platform Compatibility Fix**: The loader in `model_loader.py` dynamically handles `pathlib.PosixPath` and `pathlib.WindowsPath` unpickling cross-platform, allowing seamless checkpoint loading across Windows, macOS, and Linux without platform-specific path unpickling errors.
 
 ### How to run
 ```bash
@@ -118,6 +124,9 @@ Examples across sensor modalities:
 - **OHRC High-Res (GSD = 0.25 m/px)**: $\lfloor 24 / 0.25 \rfloor = 96\text{ px} \implies 24\text{m} \times 24\text{m} = 576\text{ m}^2$
 
 Reported cell dimensions and safe zone footprints strictly reflect the physical coverage of the discretized raster cells.
+
+### 3D Terrain Viewer Resolution
+The interactive 3D terrain viewer in `src/components/Terrain3DViewer.tsx` renders an optimized 128×128 grid (129×129 = 16,641 vertices) for real-time 60 FPS WebGL client-side rendering and smooth orbit controls. In contrast, all hazard classification, landing corridor evaluations, slope thresholding, and risk scoring use the full-resolution NASA/ISRO DEM slope matrices directly, ensuring no mathematical precision or spatial resolution is compromised for safety assessments.
 
 ### ISRO PDS4 Raw Raster Ingestion & Dynamic-Range Calibration
 The bug was a dynamic-range assumption error. The loader divided raw pixel values by 65,535, but the sensor's actual dynamic range for this observation was only ~9–455. This crushed all pixels to near-zero, producing a blank image. The fix applies a 2-sigma dynamic-range stretch with gamma correction (gamma = 0.43), computed from the tile's actual mean and standard deviation.
@@ -211,11 +220,16 @@ npm run dev
 npm run serve
 ```
 
+### Test Suites and Large-File Requirements
+LunarSafe includes a comprehensive test suite across 14 specialized suites. **12 of 14 suites pass on a fresh clone; the other two require the local raw .img**:
+- **12 Passing Out-of-the-Box**: `test:determinism`, `test:gsd`, `test:dem`, `test:groundtruth`, `test:uncertainty`, `test:hazardconservative`, `test:marginal`, `test:agentom`, `test:comparison`, `test:workflow`, `test:security`, `test:multiSiteValidation`.
+- **Large-File Requirements (`test:isro` and `test:isroFullPipeline`)**: These two end-to-end full swath test suites require the raw 392 MB Chandrayaan-2 TMC-2 observational file (`ch2_tmc_ncn_20260823T1657513854_d_img_d18.img` in `src/assets/isro_data/`), which is excluded from GitHub due to the 100 MB file size limit. Authenticated researchers can ingest this file directly from the ISRO PRADAN portal to run the complete 392 MB pipeline tests.
+
 ---
 
 ## 9. Reproduction
 
-Run the full automated end-to-end verification pipeline:
+Run the automated verification pipeline (12 of 14 suites pass on a fresh clone; the other two require the local raw .img):
 
 ```powershell
 # Windows PowerShell
@@ -270,13 +284,10 @@ PORT=5000
 LunarSafe includes three cryptographic security features that work 
 on commodity hardware. No TEE, no cloud, no special hardware required.
 
-### 1. 5-Stage Hash Chain
+### 1. 4-Stage Hash Chain plus a Session Seal
 
-Stages 1-4: Deterministic pipeline (input, slope, grid, zones)
-Stage 5: Session Integrity (timestamp, device ID, software version)
-
-The 5-stage chain provides a complete audit trail. Stage 5 records 
-the session metadata at the time of processing.
+- **Stages 1–4 (Deterministic Cryptographic Pipeline)**: Strictly sequential chained hashes (Input Raw Image -> Calibrated Slope Map -> 24m Grid Classification -> Candidate Touchdown Zones). Every stage incorporates the preceding stage's hash, ensuring complete mathematical determinism and bit-identical reproducibility.
+- **Session Seal (Standalone Session Integrity Hash)**: A separate cryptographic hash computed over session execution metadata (UTC timestamp, host device ID, software version, and Node runtime). It serves as an audit timestamp and session attestation, but is intentionally **not** chained into the 4 deterministic pipeline stages so it does not introduce non-deterministic temporal variance into the core hazard assessment.
 
 ### 2. Encrypted Scan History (AES-256-GCM)
 

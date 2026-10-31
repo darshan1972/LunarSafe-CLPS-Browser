@@ -588,7 +588,7 @@ const Terrain3DViewerComponent: React.FC<Terrain3DViewerProps> = ({
     onLoadProgress?.(15, 'Loading NASA LRO LOLA Topography...');
 
     const planeSize = 80;
-    const segs = 128; // 128x128 grid (16,384 vertices)
+    const segs = 128; // 128x128 grid (129×129 = 16,641 vertices)
     const geometry = new THREE.PlaneGeometry(planeSize, planeSize, segs, segs);
     geometry.rotateX(-Math.PI / 2); // Lay flat on XZ
 

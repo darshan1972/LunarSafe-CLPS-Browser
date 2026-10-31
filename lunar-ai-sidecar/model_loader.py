@@ -39,9 +39,18 @@ def load_model():
                 "Download best.pt manually from https://huggingface.co/Gurveer05/moon-crater-boulder-detection-yolov5"
             )
     
+    import os
     import pathlib
-    pathlib.PosixPath = pathlib.WindowsPath
+    import platform
     import torch
+
+    # Cross-platform compatibility for PyTorch checkpoint unpickling.
+    # Checkpoints pickled on Linux/POSIX reference PosixPath (which raises NotImplementedError on Windows),
+    # while checkpoints pickled on Windows reference WindowsPath (which raises NotImplementedError on Linux/Mac).
+    if platform.system() == "Windows":
+        pathlib.PosixPath = pathlib.WindowsPath
+    else:
+        pathlib.WindowsPath = pathlib.PosixPath
     
     # Load YOLOv5 via torch.hub. This uses the official ultralytics/yolov5 
     # repository, which supports legacy YOLOv5 checkpoints.
