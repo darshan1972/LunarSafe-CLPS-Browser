@@ -379,7 +379,7 @@ async function runMultiSiteValidation() {
   console.log(`  CSV:  ${csvPath}\n`);
 
   console.log('================================================================================');
-  console.log(`FINAL MULTI-SITE VALIDATION VERDICT: ${allPassed ? 'ALL 4 SITES PASSED (FLIGHT-READY)' : 'FAILED'}`);
+  console.log(`FINAL MULTI-SITE VALIDATION VERDICT: ${allPassed ? 'ALL 4 SITES PASSED (not agency-certified)' : 'FAILED'}`);
   console.log('================================================================================');
 
   if (!allPassed) {

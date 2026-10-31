@@ -3,7 +3,7 @@
 > **Prepared for**: NASA Judges, Technical Reviewers, and Industry Mentors (StarLab, CLPS, Artemis)  
 > **Project**: LunarSafe (Autonomous Lunar Landing Site Characterization & Hazard Assessment)  
 > **Organization**: Team Rocket · AEROX Club · Parul University  
-> **Status**: Certified Open Data Compliance (NASA Open Access & ISRO NDSAP / ISSDC Open Data Policy)
+> **Status**: Open data used under NASA Open Access and ISRO NDSAP/ISSDC policies
 
 ---
 
@@ -247,4 +247,4 @@ flowchart TD
 
 ---
 
-*Report certified by Team Rocket (AEROX Club · Parul University). Maintained in the LunarSafe project repository for review by NASA Space Apps Judges, CLPS commercial partners, and aerospace industry mentors.*
+*Report prepared by Team Rocket (AEROX Club · Parul University). Maintained in the LunarSafe project repository for review by NASA Space Apps Judges, CLPS commercial partners, and aerospace industry mentors.*

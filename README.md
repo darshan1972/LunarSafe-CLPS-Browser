@@ -18,7 +18,7 @@ LunarSafe is organized into four modular layers with clear separation between de
 1. **Deterministic CV Engine (`src/lib/imageProcessor.ts`, 41,930 bytes, SHA-256 `8ca34c558c41f0b324a207a1d758476d397319999313d59a5919e75912882956`, zero AI)**:
    - Evaluates orbital terrain topography, surface slope gradients, boulder distributions, and crater hazard boundaries.
    - Operates strictly on deterministic mathematical algorithms (Sobel spatial convolutions, Horn gradient estimators, morphological feature tracking, and BFS contiguous flood-fills).
-   - Zero neural networks, zero probabilistic heuristics, zero floating hallucinations. Every run on identical input produces identical bits.
+   - Zero neural networks, zero probabilistic heuristics. Every run on identical input produces identical bits.
    - **Baseline Integrity Note (CRLF vs. LF Line Endings)**: The authoritative SHA-256 hash (`8ca34c558c41f0b324a207a1d758476d397319999313d59a5919e75912882956`) is computed across normalized POSIX LF (`\n`) line endings. On Windows environments where Git may checkout files with CRLF (`\r\n`), line ending conversions will alter the file hash unless checked out with `git config core.autocrlf input` or normalized to LF before hashing.
 
 2. **Real Gemini AI Modules (Scoped, External, Clearly Labeled)**:
@@ -126,7 +126,7 @@ Examples across sensor modalities:
 Reported cell dimensions and safe zone footprints strictly reflect the physical coverage of the discretized raster cells.
 
 ### 3D Terrain Viewer Resolution
-The interactive 3D terrain viewer in `src/components/Terrain3DViewer.tsx` renders an optimized 128×128 grid (129×129 = 16,641 vertices) for real-time 60 FPS WebGL client-side rendering and smooth orbit controls. In contrast, all hazard classification, landing corridor evaluations, slope thresholding, and risk scoring use the full-resolution NASA/ISRO DEM slope matrices directly, ensuring no mathematical precision or spatial resolution is compromised for safety assessments.
+The Three.js viewer renders a 128x128-segment mesh (129x129 = 16,641 vertices) for display. The what-if slope-tolerance slider does not recompute Horn slope: it reads a pixel from the 512x512 colour-coded slope texture (public/data/slope_texture.png, baked from the Horn slope matrix) and decodes it into an approximate, banded slope. This is a single-point interactive estimate; if the texture is unavailable a per-site fallback slope is used. The uncertainty-aware Horn pipeline (mean + 2 sigma <= tolerance) runs on the DEM tiles through the scan workflow and test suites.
 
 ### ISRO PDS4 Raw Raster Ingestion & Dynamic-Range Calibration
 The bug was a dynamic-range assumption error. The loader divided raw pixel values by 65,535, but the sensor's actual dynamic range for this observation was only ~9–455. This crushed all pixels to near-zero, producing a blank image. The fix applies a 2-sigma dynamic-range stretch with gamma correction (gamma = 0.43), computed from the tile's actual mean and standard deviation.
