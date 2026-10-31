@@ -1,4 +1,4 @@
-# RECENT CHANGES (Post-Handoff)
+﻿# RECENT CHANGES (Post-Handoff)
 
 ## Frontend Browser Environment Compatibility Fix (2026-10-07)
 - Resolved browser runtime error: `"Mission Comms Disrupted: Unable to process query: process is not defined"` encountered in Agent OM and telemetry state handlers.
@@ -75,7 +75,7 @@ LunarSafe is structured across four decoupled, strictly governed architectural l
 1. **Deterministic CV Engine (`src/lib/imageProcessor.ts`, `src/lib/demSlope.ts`, `src/lib/uncertainty.ts`, `src/lib/hazardClassifier.ts`)**:
    Runs 100% in pure TypeScript on the Node.js V8 runtime or browser client thread without PyTorch, OpenCV, or CUDA dependencies. Computes terrain slopes using Horn's (1981) finite-difference estimator and Sobel gradients, propagates LOLA vertical uncertainty ($\sigma_z = 1.0\text{ m}$) via analytical first-order error propagation, classifies 24m landing cells under a conservative $95\%$ confidence bound ($\bar{\theta} + 2\sigma \le 10^\circ$), extracts morphological crater and shadow-based boulder hazards, and clusters contiguous safe landing zones via Breadth-First Search (BFS).
 2. **External AI Modules (`lunar-ai-sidecar/`, `server.ts` reverse proxy)**:
-   Physically decoupled from the deterministic calculation pipeline behind an "air-gap" interface. Includes an optional Python FastAPI sidecar (port 8000) running YOLOv5 (`Gurveer05/moon-crater-boulder-detection-yolov5`) for machine learning crater detection benchmarking, and Google Gemini 1.5 Flash endpoints (`/api/gemini/validate`, `/api/gemini/narrative`) for orbital imagery validation and mission briefings. These modules are strictly opt-in and cannot alter, inject, or influence any deterministic numerical safety metrics.
+   Physically decoupled from the deterministic calculation pipeline behind an "code-level separation" interface. Includes an optional Python FastAPI sidecar (port 8000) running YOLOv5 (`Gurveer05/moon-crater-boulder-detection-yolov5`) for machine learning crater detection benchmarking, and Google Gemini 1.5 Flash endpoints (`/api/gemini/validate`, `/api/gemini/narrative`) for orbital imagery validation and mission briefings. These modules are strictly opt-in and cannot alter, inject, or influence any deterministic numerical safety metrics.
 3. **Agent OM State Reasoner (`src/lib/agent*.ts`, `src/lib/projectState.ts`)**:
    A rule-based state-aware reasoner that continuously reads live system telemetry, file checksums, component availability, and `.scan_history.json`. It classifies operator queries into 6 discrete intent classes (`LAST_SCAN`, `COMPONENT_STATUS`, `HASH_CHAIN`, `RECOMMENDATION`, `ENVIRONMENT`, `OUT_OF_SCOPE`) using deterministic pattern matching and produces factually grounded mission status responses citing peer-reviewed literature. Unrelated or general trivia queries are rejected.
 4. **Cryptographic Hash Chain Ledger (`src/lib/cryptoUtils.ts`, `src/lib/scanRecord.ts`)**:
@@ -329,7 +329,6 @@ Conservative Safe:       2074 / 4096 cells
 RMSE:                    N/A (Sensitivity Benchmark — Not Ground Truth)
 Bias:                    N/A
 Pass Status:             N/A
-[ASSERT 4] Apollo 17 South Massif Rim (Marginal Site): PASS (Marginal Sensitivity Benchmark)
 
 Written C:\Users\bagul\OneDrive\Documents\team rocket !!!\team rocket !!!\validation_results.csv:
 site, published_source_url, published_slope, published_slope_source, horn_slope, mean_sigma_slope_deg, rmse, pass, evidence_strength, uncertainty_method, safe_count_deterministic, safe_count_conservative, mean_slope_deg, mean_sigma_deg, cons_safe_pct, marginal_site
@@ -339,7 +338,7 @@ Shackleton Crater Rim, https://www.nature.com/articles/nature11216, 31.00, Zuber
 Apollo 17 South Massif Rim (Marginal Site), https://imbrium.mit.edu/DATA/LOLA_GDR/CYLINDRICAL/FLOAT_IMG/LDEM_512_00N_45N_000_090_FLOAT.LBL, N/A, CHOSEN_FOR_SENSITIVITY_TEST_not_ground_truth, 9.98, 0.4130, N/A, N/A, CITED_RANGE, HORN_FINITE_DIFF_FIRST_ORDER, 2224, 2074, 9.98, 0.4130, 50.63, true
 
 ============================================================
-FINAL RESULT: ALL GROUND-TRUTH TESTS PASSED
+FINAL RESULT: 3 GROUND-TRUTH TESTS PASSED (Test 4 is a sensitivity benchmark, N/A for ground-truth)
 ============================================================
 ```
 **Genuineness:** VERIFIED

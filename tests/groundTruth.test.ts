@@ -125,16 +125,15 @@ for (let i = 0; i < targets.length; i++) {
   console.log(`Horn (1981) DEM Slope:   ${res.hornMeanSlopeDeg.toFixed(2)}°`);
   console.log(`Propagated Sigma (±1s):  ${uncert.meanSigmaSlopeDeg.toFixed(4)}°`);
   console.log(`Uncertainty Method:      HORN_FINITE_DIFF_FIRST_ORDER`);
+  console.log(`Hazard Classification Threshold: Mean + 2σ <= 10.0°`);
   console.log(`Deterministic Safe:      ${hazardRes.safeCount} / ${hazardRes.cellSafe.length} cells`);
   console.log(`Conservative Safe:       ${hazardRes.safeCountConservative} / ${hazardRes.cellSafeConservative.length} cells`);
   if (isMarginal) {
-    console.log(`RMSE:                    N/A (Sensitivity Benchmark — Not Ground Truth)`);
+    console.log(`Absolute Error (|Bias|): N/A (Sensitivity Benchmark — Not Ground Truth)`);
     console.log(`Bias:                    N/A`);
-    console.log(`Pass Status:             N/A`);
-    console.log(`[ASSERT ${i + 1}] ${t.name}: PASS (Marginal Sensitivity Benchmark)\n`);
+    console.log(`Pass Status:             N/A (Sensitivity Benchmark — Not Ground Truth)\n`);
   } else {
     console.log(`Absolute Error (|Bias|): ${res.rmseDeg.toFixed(2)}° (Threshold: < 2.0°)`);
-    console.log(`RMSE:                    ${res.rmseDeg.toFixed(2)}° (Scalar Absolute Difference)`);
     console.log(`Bias:                    ${res.biasDeg.toFixed(2)}°`);
     console.log(`Pass Status:             ${res.pass ? 'PASS' : 'FAIL'}`);
     console.log(`[ASSERT ${i + 1}] ${t.name} Slope Error < 2.0°: ${testPass ? 'PASS' : 'FAIL'}\n`);
@@ -156,7 +155,7 @@ console.log(`Written ${csvPath}:`);
 console.log(csvContent);
 
 console.log('============================================================');
-console.log(`FINAL RESULT: ${allPassed ? 'ALL GROUND-TRUTH TESTS PASSED' : 'SOME TESTS FAILED'}`);
+console.log(`FINAL RESULT: ${allPassed ? '3 GROUND-TRUTH TESTS PASSED (Test 4 is a sensitivity benchmark, N/A for ground-truth)' : 'SOME TESTS FAILED'}`);
 console.log('============================================================');
 
 if (!allPassed) {

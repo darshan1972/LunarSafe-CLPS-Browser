@@ -319,6 +319,12 @@ Verification is performed via POST /api/report/verify.
 
 ---
 
+## Limitations and Scoped Claims
+
+Our ground-truth validation confirms consistency with published LOLA ranges. Our hazard engine's determinism is verified on Windows 11 / Node v20.18.0 / x86-64. Cross-platform determinism and exact per-cell RMSE against independent DEMs remain future work. The YOLO sidecar is strictly advisory and code-level separated from the deterministic engine.
+
+---
+
 ## 11. Team & Project Information
 
 - **Project**: LunarSafe Autonomous Planetary Landing Hazard Detection System

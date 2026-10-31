@@ -89,7 +89,7 @@ def detect_hazards(image_path, conf_threshold=0.25):
             "y1": float(row["ymin"]),
             "x2": float(row["xmax"]),
             "y2": float(row["ymax"]),
-            "confidence": float(row["confidence"]),
+            "confidence": round(float(row["confidence"]), 4),
             "class_name": cls_name,
         }
         if "crater" in cls_name:
