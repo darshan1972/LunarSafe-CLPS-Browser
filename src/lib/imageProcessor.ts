@@ -197,7 +197,7 @@ export class DeterministicLunarEngine {
     addLog('INFO', 'Feature Classifier', `Classified ${craters.length} craters and ${boulders.length} boulders across terrain`);
 
     // -------------------------------------------------------------
-    // MODULE 1.6: ISRO 24m Grid Classifier
+    // MODULE 1.6: NASA 24m Grid Classifier
     // -------------------------------------------------------------
     const t5 = performance.now();
     const pixelsPerGrid = computeGridCellPixels(gridSizeMeters, pixelScaleMeters);
@@ -206,7 +206,7 @@ export class DeterministicLunarEngine {
     const gridCols = Math.floor(width / pixelsPerGrid);
     const gridRows = Math.floor(height / pixelsPerGrid);
 
-    const { gridCells, safeCount, hazardCount } = this.classifyISROGrid(
+    const { gridCells, safeCount, hazardCount } = this.classifyNasaGrid(
       slopeMap,
       craters,
       boulders,
@@ -226,7 +226,7 @@ export class DeterministicLunarEngine {
     const safePercent = totalCells > 0 ? (safeCount / totalCells) * 100 : 0;
 
     modules.push({
-      id: 'isro_grid',
+      id: 'nasa_grid',
       name: 'NASA 24m Grid Classifier',
       group: 'deterministic',
       status: 'DONE',
@@ -767,7 +767,7 @@ export class DeterministicLunarEngine {
    * - Crater depth < 1.0m
    * - Boulder height < 0.30m
    */
-  public static classifyISROGrid(
+  public static classifyNasaGrid(
     slopeMap: Float32Array,
     craters: CraterDetection[],
     boulders: BoulderDetection[],

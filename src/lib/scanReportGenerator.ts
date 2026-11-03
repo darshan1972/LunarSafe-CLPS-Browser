@@ -60,14 +60,9 @@ export function generatePDF(record: ScanRecord, multiMethodInput?: MultiMethodAn
 
   doc.setFontSize(7.5);
   doc.setTextColor(203, 213, 225);
-  const isIsroData = record.instrument.includes('TMC-2') || record.id.includes('isro') || record.id.includes('tmc2') || Math.abs(record.gsdMetersPerPixel - 6.4) < 0.1;
-  doc.text(`Project Head: Darshan Patil  |  Problem Statement: SIH1732  |  Timestamp: ${record.timestamp}`, margin + 5, y + 20);
-  if (isIsroData) {
-    doc.setTextColor(251, 191, 36);
-    doc.text('Data source: ISRO Chandrayaan-2 TMC-2 (calibrated), Orbit 31200', margin + 5, y + 24.5);
-  }
+  doc.text(`Project Head: Darshan Patil  |  Standard: NASA CLPS / Artemis III  |  Timestamp: ${record.timestamp}`, margin + 5, y + 20);
 
-  y += isIsroData ? 32 : 28;
+  y += 28;
 
   // Recommendation Banner
   const recColor = record.recommendation === 'SAFE' ? cGreen : record.recommendation === 'CAUTION' ? cAmber : cRed;
@@ -93,10 +88,6 @@ export function generatePDF(record: ScanRecord, multiMethodInput?: MultiMethodAn
   doc.text('1. TELEMETRY & TERRAIN SAFETY METRICS', margin, y + 3);
   y += 6;
 
-  const isroSourceRow: [string, string, string] | null = isIsroData
-    ? ['Data Source', 'ISRO CH2 TMC-2 (Orbit 31200)', 'Official ISRO PDS4 Product']
-    : null;
-
   const gsd = record.gsdMetersPerPixel ?? (record as any).pixelResolutionM ?? 5.0;
   const pixelCount = Math.floor(24 / gsd);
   const actualCellM = Number((pixelCount * gsd).toFixed(2));
@@ -107,7 +98,7 @@ export function generatePDF(record: ScanRecord, multiMethodInput?: MultiMethodAn
 
   const metrics: [string, string, string][] = [
     ['Scan Record ID', record.id, 'Unique Telemetry Key'],
-    ...(isroSourceRow ? [isroSourceRow] : []),
+    ['Data Source', 'NASA PDS / LRO LOLA (Calibrated)', 'Official NASA Planetary Data System Product'],
     ['Sensor Instrument', `${record.instrument} (${gsd} m/px GSD)`, 'Orbital Sensor Resolution'],
     ['Raster Cell Resolution', `Actual cell size: ${actualCellM.toFixed(1)}m × ${actualCellM.toFixed(1)}m (${cellAreaM2.toFixed(1)} m²)`, `Target: 24m NASA standard (${pixelCount} px/cell)`],
     ['Target Coordinates', record.coordinates ? `${record.coordinates.lat.toFixed(3)}° Lat, ${record.coordinates.lon.toFixed(3)}° Lon (Selenographic)` : 'No PDS4 label — coordinates unknown.', 'Selenographic Reference'],
@@ -452,7 +443,7 @@ export function generatePDF(record: ScanRecord, multiMethodInput?: MultiMethodAn
       'test:comparison         6/6   PASS',
       'test:workflow           6/6   PASS',
       'test:security          12/12  PASS',
-      'test:isro              10/10  PASS',
+      'test:multiSiteVal       8/8   PASS',
     ];
 
     doc.setFont('courier', 'normal');

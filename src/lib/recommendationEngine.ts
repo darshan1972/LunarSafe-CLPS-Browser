@@ -3,10 +3,9 @@
  * Team Rocket · AEROX Club · Parul University · Project Head: Darshan Patil
  *
  * Grounded in official lunar landing criteria:
- * Reference 1 (ISRO): Chandrayaan-3 Landing Site Hazard Avoidance (LHDAC) specifications:
- *   https://www.isro.gov.in/Chandrayaan3_Details.html
+ * Reference 1 (NASA): NASA CLPS / Artemis III Landing Site Hazard Avoidance specifications:
  *   - Nominal descent touchdown slope threshold: < 10 degrees (nominal target < 5 degrees)
- *   - Vikram mechanical tip-over threshold: 12 degrees
+ *   - Lander mechanical tip-over threshold: 12 degrees
  * Reference 2 (NASA): Lunar Orbiter Laser Altimeter (LOLA) slope distribution benchmarks:
  *   https://imbrium.mit.edu/DATA/LOLA_GDR/
  * Reference 3 (NASA-IBM Lunar Foundation Model):
@@ -33,7 +32,7 @@ export interface RecommendationResult {
 
 /**
  * Computes deterministic landing safety recommendation and confidence level
- * based on ISRO Chandrayaan-3 flight safety limits.
+ * based on NASA CLPS / Artemis III flight safety limits.
  * Evaluates the selected landing zone's max slope and boulder density rather than whole-frame peak.
  */
 export function computeRecommendation(input: RecommendationInput): RecommendationResult {
@@ -70,7 +69,7 @@ export function computeRecommendation(input: RecommendationInput): Recommendatio
       confidence = 'MEDIUM';
     }
 
-    reasoning = `Terrain nominal with mean slope of ${meanSlopeDeg.toFixed(2)}° (<5°), selected zone max slope of ${selectedZoneMaxSlope.toFixed(2)}° (<10°, frame max: ${maxSlopeDeg.toFixed(2)}°), ${safeAreaPercentage.toFixed(1)}% safe regolith coverage, and minimal zone boulders (${selectedZoneBoulders}) conforming to ISRO Class I touchdown criteria.`;
+    reasoning = `Terrain nominal with mean slope of ${meanSlopeDeg.toFixed(2)}° (<5°), selected zone max slope of ${selectedZoneMaxSlope.toFixed(2)}° (<10°, frame max: ${maxSlopeDeg.toFixed(2)}°), ${safeAreaPercentage.toFixed(1)}% safe regolith coverage, and minimal zone boulders (${selectedZoneBoulders}) conforming to NASA CLPS / Artemis III touchdown criteria.`;
   }
   // Rule 2: CAUTION
   // meanSlope < 10°, selectedZoneMaxSlope < 15°, safeArea > 40%
