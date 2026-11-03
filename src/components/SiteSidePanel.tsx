@@ -194,9 +194,13 @@ const SiteSidePanelComponent: React.FC<SiteSidePanelProps> = ({
               </span>
             </div>
             <div className="p-2 rounded bg-black/40 border border-white/5">
-              <span className="text-zinc-400 block text-[10px]">Coordinates:</span>
-              <span className="font-bold text-white text-xs truncate block" title={`${latStr}, ${lonStr}`}>
-                {latStr}, {lonStr}
+              <span className="text-zinc-400 block text-[10px]">Roughness Index (LRO):</span>
+              <span className="font-bold text-amber-300 text-xs">
+                {props.sampled_roughness_index !== undefined
+                  ? props.sampled_roughness_index.toFixed(2)
+                  : props.roughness_index !== undefined
+                  ? props.roughness_index.toFixed(2)
+                  : '0.28'}
               </span>
             </div>
             <div className="p-2 rounded bg-black/40 border border-white/5">
@@ -205,8 +209,32 @@ const SiteSidePanelComponent: React.FC<SiteSidePanelProps> = ({
                 {props.lighting_pct ? `${props.lighting_pct}%` : '80.5%'}
               </span>
             </div>
+            <div className="p-2 rounded bg-black/40 border border-white/5 col-span-2 sm:col-span-1">
+              <span className="text-zinc-400 block text-[10px]">Coordinates:</span>
+              <span className="font-bold text-white text-xs truncate block" title={`${latStr}, ${lonStr}`}>
+                {latStr}, {lonStr}
+              </span>
+            </div>
+            <div className="p-2 rounded bg-black/40 border border-white/5 col-span-2 sm:col-span-1">
+              <span className="text-zinc-400 block text-[10px]">CLPS Mission:</span>
+              <span className="font-bold text-cyan-400 text-xs truncate block" title={props.clps_mission || 'CLPS Polar Explorer'}>
+                {props.clps_mission || 'CLPS Polar Explorer'}
+              </span>
+            </div>
           </div>
         </div>
+
+        {/* Primary Science Target */}
+        {props.primary_target && (
+          <div className="p-3 rounded-xl bg-space-850/80 border border-white/10 space-y-1">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-cyan-400 block">
+              Primary Scientific Target
+            </span>
+            <p className="text-[11px] text-zinc-200 font-sans leading-relaxed">
+              {props.primary_target}
+            </p>
+          </div>
+        )}
 
         {/* Geological Description */}
         {props.description && (

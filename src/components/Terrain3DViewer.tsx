@@ -96,6 +96,7 @@ const Terrain3DViewerComponent: React.FC<Terrain3DViewerProps> = ({
   const raycasterRef = useRef<THREE.Raycaster>(new THREE.Raycaster());
   const mouseVecRef = useRef<THREE.Vector2>(new THREE.Vector2(-999, -999));
   const offscreenSlopeCanvasRef = useRef<HTMLCanvasElement | null>(null);
+  const offscreenRoughnessCanvasRef = useRef<HTMLCanvasElement | null>(null);
   const offscreenDemCanvasRef = useRef<HTMLCanvasElement | null>(null);
 
   // Textures cache
@@ -182,6 +183,32 @@ const Terrain3DViewerComponent: React.FC<Terrain3DViewerProps> = ({
       }
     } catch {
       return fallbackSlope;
+    }
+  }, []);
+
+  // -------------------------------------------------------------
+  // PIXEL ROUGHNESS SAMPLING UTILITY FROM NASA ROUGHNESS TEXTURE
+  // -------------------------------------------------------------
+  const sampleRoughnessAt = useCallback((x: number, z: number, fallbackRoughness = 0.28): number => {
+    const canvas = offscreenRoughnessCanvasRef.current;
+    if (!canvas) return fallbackRoughness;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return fallbackRoughness;
+
+    const planeSize = 80;
+    const u = Math.max(0, Math.min(1, (x + planeSize / 2) / planeSize));
+    const v = Math.max(0, Math.min(1, (z + planeSize / 2) / planeSize));
+
+    const px = Math.min(canvas.width - 1, Math.max(0, Math.floor(u * canvas.width)));
+    const py = Math.min(canvas.height - 1, Math.max(0, Math.floor(v * canvas.height)));
+
+    try {
+      const pixel = ctx.getImageData(px, py, 1, 1).data;
+      const norm = pixel[0] / 255.0;
+      return Number((0.12 + norm * 0.38).toFixed(2));
+    } catch {
+      return fallbackRoughness;
     }
   }, []);
 
@@ -668,6 +695,19 @@ const Terrain3DViewerComponent: React.FC<Terrain3DViewerProps> = ({
         }
       }
 
+      // Cache offscreen roughness canvas for real pixel sampling
+      if (roughTex && roughTex.image) {
+        const rImg = roughTex.image as HTMLImageElement | HTMLCanvasElement;
+        const rCanvas = document.createElement('canvas');
+        rCanvas.width = (rImg as any).width || 512;
+        rCanvas.height = (rImg as any).height || 512;
+        const rCtx = rCanvas.getContext('2d');
+        if (rCtx) {
+          rCtx.drawImage(rImg as CanvasImageSource, 0, 0);
+          offscreenRoughnessCanvasRef.current = rCanvas;
+        }
+      }
+
       // Cache offscreen DEM canvas and displace geometry vertices on CPU with true 3D surface normals
       if (demTex && demTex.image) {
         const dImg = demTex.image as HTMLImageElement | HTMLCanvasElement;
@@ -701,6 +741,7 @@ const Terrain3DViewerComponent: React.FC<Terrain3DViewerProps> = ({
             pos.setY(i, elevationMeters);
           }
 
+          pos.needsUpdate = true;
           geometry.computeVertexNormals();
         }
       }
@@ -952,9 +993,18 @@ const Terrain3DViewerComponent: React.FC<Terrain3DViewerProps> = ({
         const hz = hit.userData?.z ?? 0;
 
         if (site) {
-          // Read actual pixel slope at this site
+          // Read actual pixel slope and roughness at this site from NASA textures
           const slope = sampleSlopeAt(hx, hz, site.properties?.base_slope_deg || 6.5);
-          onSelectSite?.(site, slope);
+          const roughness = sampleRoughnessAt(hx, hz, site.properties?.roughness_index || 0.28);
+          const enrichedSite = {
+            ...site,
+            properties: {
+              ...site.properties,
+              sampled_slope_deg: slope,
+              sampled_roughness_index: roughness,
+            },
+          };
+          onSelectSite?.(enrichedSite, slope);
 
           // Animate camera to focus on this marker
           cameraTargetPosRef.current = new THREE.Vector3(hx + 18, 22, hz + 22);

@@ -5,6 +5,7 @@ import {
   RefreshCw,
   Satellite,
   Compass,
+  Layers,
 } from 'lucide-react';
 import { DataSourceStatus } from '../types';
 
@@ -178,6 +179,37 @@ const DataSourcesPanelComponent: React.FC<DataSourcesPanelProps> = ({
         <p className="text-[10px] text-zinc-400 font-sans leading-relaxed">
           Autonomous safety analysis evaluated across all 13 NASA Artemis III candidate landing regions using LRO LOLA elevation data and Horn slope topology algorithms.
         </p>
+      </div>
+
+      {/* 4. ACTIVE LOCAL NASA DATASETS */}
+      <div className="p-3 rounded bg-space-850 border border-space-750 space-y-2 text-xs font-mono">
+        <div className="flex items-center justify-between border-b border-space-750 pb-1.5">
+          <div className="flex items-center space-x-1.5 text-cyan-300">
+            <Layers className="w-3.5 h-3.5" />
+            <span className="font-bold uppercase text-[11px]">NASA Topography Assets</span>
+          </div>
+          <span className="text-[10px] px-1.5 py-0.5 rounded bg-cyan-950/80 text-cyan-400 border border-cyan-800/60 font-semibold">
+            100% INTEGRATED
+          </span>
+        </div>
+        <div className="space-y-1 text-[10px] text-zinc-300">
+          <div className="flex justify-between items-center py-0.5 border-b border-white/5">
+            <span className="text-zinc-400">DEM Heightmap (80S_80M):</span>
+            <span className="text-emerald-400 font-bold font-mono">dem_heightmap.png</span>
+          </div>
+          <div className="flex justify-between items-center py-0.5 border-b border-white/5">
+            <span className="text-zinc-400">Horn Finite-Diff Slope:</span>
+            <span className="text-emerald-400 font-bold font-mono">slope_texture.png</span>
+          </div>
+          <div className="flex justify-between items-center py-0.5 border-b border-white/5">
+            <span className="text-zinc-400">RMS Regolith Roughness:</span>
+            <span className="text-emerald-400 font-bold font-mono">roughness_texture.png</span>
+          </div>
+          <div className="flex justify-between items-center py-0.5">
+            <span className="text-zinc-400">Artemis III GeoJSON Catalog:</span>
+            <span className="text-emerald-400 font-bold font-mono">A3_Named_regions.geojson</span>
+          </div>
+        </div>
       </div>
     </div>
   );

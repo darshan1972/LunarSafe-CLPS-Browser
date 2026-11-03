@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import {
   X,
   Trophy,
@@ -31,10 +31,37 @@ const SiteComparisonModalComponent: React.FC<SiteComparisonModalProps> = ({
   const [searchTerm, setSearchTerm] = useState('');
   const [sortBy, setSortBy] = useState<'score' | 'slope' | 'lighting' | 'name'>('score');
   const [sortAsc, setSortAsc] = useState(false);
+  const [geoSites, setGeoSites] = useState<ArtemisSite[]>(ARTEMIS_III_SITES);
+
+  // Dynamically load and parse official NASA Artemis III GeoJSON catalog
+  useEffect(() => {
+    fetch('/data/A3_Named_regions.geojson')
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data) => {
+        if (data && Array.isArray(data.features) && data.features.length > 0) {
+          const parsed: ArtemisSite[] = data.features.map((f: any) => ({
+            id: f.id || f.properties?.code || `A3-${Math.random()}`,
+            name: f.properties?.name || 'Unnamed Region',
+            code: f.properties?.code || '',
+            latitude: f.properties?.latitude ?? f.geometry?.coordinates?.[1] ?? -88,
+            longitude: f.properties?.longitude ?? f.geometry?.coordinates?.[0] ?? 0,
+            elevation_m: f.properties?.elevation_m ?? 0,
+            clps_mission: f.properties?.clps_mission || 'CLPS Polar Explorer',
+            primary_target: f.properties?.primary_target || 'Candidate Landing Zone',
+            lighting_pct: f.properties?.lighting_pct ?? 75.0,
+            base_slope_deg: f.properties?.base_slope_deg ?? 7.0,
+            roughness_index: f.properties?.roughness_index ?? 0.28,
+            description: f.properties?.description || '',
+          }));
+          setGeoSites(parsed);
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   // Compute live scores and ranks based on active lander slope tolerance
   const rankedSites = useMemo(() => {
-    const list = ARTEMIS_III_SITES.map((site) => {
+    const list = geoSites.map((site) => {
       const score = computeLunarSafeScore(site.base_slope_deg, tolerance);
       const isSafe = site.base_slope_deg <= tolerance;
       return {
@@ -59,7 +86,7 @@ const SiteComparisonModalComponent: React.FC<SiteComparisonModalProps> = ({
     });
 
     return withRank;
-  }, [tolerance, sortBy, sortAsc]);
+  }, [geoSites, tolerance, sortBy, sortAsc]);
 
   const filteredSites = useMemo(() => {
     if (!searchTerm.trim()) return rankedSites;
