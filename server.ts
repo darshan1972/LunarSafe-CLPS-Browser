@@ -185,7 +185,7 @@ app.post('/api/analyze', async (req: Request, res: Response) => {
 
     // Ensure the scan record is recorded in scanStore with exact engine result metrics
     const pixelScaleMeters = options.pixelScaleMeters || (sampleId === 'ohrc' ? 0.25 : 5.0);
-    const instrumentName = pixelScaleMeters === 0.25 ? 'OHRC' : pixelScaleMeters === 5.0 ? 'TMC-2' : pixelScaleMeters === 0.5 ? 'LROC-NAC' : 'ISRO-CH2';
+    const instrumentName = pixelScaleMeters === 0.25 ? 'NASA LRO NAC (High-Res)' : pixelScaleMeters === 5.0 ? 'NASA LRO / LOLA DEM' : pixelScaleMeters === 0.5 ? 'NASA LROC-NAC' : 'NASA LRO';
     const scans = getAllScans();
     const existingScan = scans.find(s => s.inputImageHash === analysis.evidence.inputImageHash);
     const scanId = existingScan?.id || `scan-${Date.now()}-${analysis.evidence.inputImageHash.substring(0, 8)}`;
@@ -511,7 +511,7 @@ app.post('/api/analyze-dem', async (req: Request, res: Response) => {
         details: `Propagated DEM vertical sigma (1.0m) over ${totalCells} cells`,
       },
       {
-        id: 'isro_grid_classifier',
+        id: 'nasa_grid_classifier',
         name: 'NASA 24m Grid Classifier',
         group: 'deterministic',
         status: 'DONE',

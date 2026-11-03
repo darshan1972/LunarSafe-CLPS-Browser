@@ -69,8 +69,8 @@ export const ScanHistoryTable: React.FC = () => {
       {/* Formal Aerospace Letterhead */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-space-700 pb-4 gap-3">
         <div>
-          <div className="flex items-center space-x-2 text-isro-orange font-mono text-xs font-bold uppercase tracking-wider">
-            <ShieldCheck className="w-4 h-4 text-isro-orange" />
+          <div className="flex items-center space-x-2 text-cyan-400 font-mono text-xs font-bold uppercase tracking-wider">
+            <ShieldCheck className="w-4 h-4 text-cyan-400" />
             <span>Team Rocket · AEROX Club · Parul University</span>
           </div>
           <h2 className="text-lg font-bold text-white tracking-wide font-sans mt-0.5">
@@ -81,35 +81,49 @@ export const ScanHistoryTable: React.FC = () => {
           </div>
         </div>
 
-        {scans.length > 0 && (
-          <div className="flex items-center space-x-3">
-            <span className="text-xs font-mono text-space-400 bg-space-800 px-2.5 py-1 rounded border border-space-700">
-              Total Logged: <strong className="text-white">{scans.length}</strong> / 50
-            </span>
+        <div className="flex items-center space-x-3">
+          {scans.length > 0 ? (
+            <>
+              <span className="text-xs font-mono text-space-400 bg-space-800 px-2.5 py-1 rounded border border-space-700">
+                Total Logged: <strong className="text-white">{scans.length}</strong> / 50
+              </span>
+              <button
+                type="button"
+                onClick={() => {
+                  if (window.confirm('Clear all logged scan history?')) {
+                    scanStore.clearAllScans();
+                  }
+                }}
+                className="text-xs text-space-400 hover:text-red-400 p-1.5 rounded hover:bg-space-800 transition-colors flex items-center space-x-1"
+                title="Clear all scans"
+              >
+                <Trash2 className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline font-mono">Clear</span>
+              </button>
+            </>
+          ) : (
             <button
               type="button"
               onClick={() => {
-                if (window.confirm('Clear all logged scan history?')) {
-                  scanStore.clearAllScans();
-                }
+                scanStore.clearAllScans();
               }}
-              className="text-xs text-space-400 hover:text-red-400 p-1.5 rounded hover:bg-space-800 transition-colors flex items-center space-x-1"
-              title="Clear all scans"
+              className="text-xs text-space-400 hover:text-white px-2.5 py-1 rounded bg-space-800 border border-space-700 transition-colors flex items-center space-x-1 font-mono"
+              title="Ensure scan history is wiped clean"
             >
-              <Trash2 className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline font-mono">Clear</span>
+              <Trash2 className="w-3.5 h-3.5 text-space-400" />
+              <span>Reset Store</span>
             </button>
-          </div>
-        )}
+          )}
+        </div>
       </div>
 
       {/* Table Content */}
       {scans.length === 0 ? (
         <div className="py-12 text-center text-space-400 font-mono text-sm border border-dashed border-space-700 rounded-lg bg-space-850">
-          <Clock className="w-8 h-8 text-space-500 mx-auto mb-2 opacity-50" />
-          <p>No scans yet.</p>
-          <p className="text-xs text-space-500 mt-1">
-            Run an analysis from the Mission Ingestion panel above to record and evaluate landing telemetry.
+          <Clock className="w-8 h-8 text-cyan-500 mx-auto mb-2 opacity-60" />
+          <p className="text-white font-semibold text-base">No Scans Logged</p>
+          <p className="text-xs text-space-400 mt-1">
+            Awaiting NASA LRO / LOLA DEM mission analysis to evaluate candidate landing zones.
           </p>
         </div>
       ) : (

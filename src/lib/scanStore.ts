@@ -13,7 +13,8 @@ import { encryptData, decryptData, EncryptedPayload } from './encryption';
 const nodeFs: any = fs;
 const nodePath: any = path;
 
-const STORAGE_KEY = 'lunarsafe_scan_history';
+const LEGACY_STORAGE_KEY = 'lunarsafe_scan_history';
+const STORAGE_KEY = 'lunarsafe_nasa_scan_history';
 const MAX_SCANS = 50;
 
 type ScanCallback = (scans: ScanRecord[]) => void;
@@ -21,15 +22,33 @@ type ScanCallback = (scans: ScanRecord[]) => void;
 let inMemoryScans: ScanRecord[] = [];
 const subscribers = new Set<ScanCallback>();
 
+// Helper to filter out any pre-NASA ISRO test records
+function sanitizeNasaScans(records: any[]): ScanRecord[] {
+  if (!Array.isArray(records)) return [];
+  return records.filter(s => {
+    if (!s || typeof s !== 'object') return false;
+    const inst = String(s.instrument || '');
+    const id = String(s.id || '');
+    const reasoning = String(s.reasoning || '');
+    if (inst.includes('TMC-2') || inst.includes('ISRO') || inst.includes('OHRC')) return false;
+    if (id.includes('isro') || id.includes('tmc2')) return false;
+    if (reasoning.includes('ISRO')) return false;
+    return true;
+  });
+}
+
 // Attempt to load initial state from localStorage (browser) or file (Node)
 function loadInitialScans(): ScanRecord[] {
   if (typeof window !== 'undefined') {
     if (window.localStorage) {
       try {
+        // Automatically purge any old legacy pre-NASA test scans from browser storage
+        window.localStorage.removeItem(LEGACY_STORAGE_KEY);
         const stored = window.localStorage.getItem(STORAGE_KEY);
         if (stored) {
           const parsed = JSON.parse(stored);
-          if (Array.isArray(parsed)) return parsed;
+          const sanitized = sanitizeNasaScans(parsed);
+          return sanitized;
         }
       } catch (e) {
         console.warn('[ScanStore] Failed to load scans from localStorage:', e);
@@ -75,13 +94,13 @@ export async function loadScans(): Promise<ScanRecord[]> {
   if (typeof window !== 'undefined') {
     if (window.localStorage) {
       try {
+        window.localStorage.removeItem(LEGACY_STORAGE_KEY);
         const stored = window.localStorage.getItem(STORAGE_KEY);
         if (stored) {
           const parsed = JSON.parse(stored);
-          if (Array.isArray(parsed)) {
-            inMemoryScans = parsed;
-            return parsed;
-          }
+          const sanitized = sanitizeNasaScans(parsed);
+          inMemoryScans = sanitized;
+          return sanitized;
         }
       } catch {
         // ignore
@@ -103,14 +122,14 @@ export async function loadScans(): Promise<ScanRecord[]> {
       const encContent = JSON.parse(nodeFs.readFileSync(encPath, 'utf8')) as EncryptedPayload;
       const plaintext = await decryptData(encContent, password);
       const parsed = JSON.parse(plaintext);
-      inMemoryScans = parsed;
-      return parsed;
+      inMemoryScans = sanitizeNasaScans(parsed);
+      return inMemoryScans;
     }
 
     if (nodeFs?.existsSync && nodeFs.existsSync(jsonPath)) {
       const parsed = JSON.parse(nodeFs.readFileSync(jsonPath, 'utf8'));
-      inMemoryScans = parsed;
-      return parsed;
+      inMemoryScans = sanitizeNasaScans(parsed);
+      return inMemoryScans;
     }
   }
 
@@ -122,7 +141,12 @@ async function persistScans(scans: ScanRecord[]): Promise<void> {
   if (typeof window !== 'undefined') {
     if (window.localStorage) {
       try {
-        window.localStorage.setItem(STORAGE_KEY, JSON.stringify(scans));
+        window.localStorage.removeItem(LEGACY_STORAGE_KEY);
+        if (scans.length === 0) {
+          window.localStorage.removeItem(STORAGE_KEY);
+        } else {
+          window.localStorage.setItem(STORAGE_KEY, JSON.stringify(scans));
+        }
       } catch (e) {
         console.warn('[ScanStore] Failed to save scans to localStorage:', e);
       }
@@ -132,6 +156,19 @@ async function persistScans(scans: ScanRecord[]): Promise<void> {
 
   if (typeof process !== 'undefined' && typeof process.cwd === 'function') {
     const cwd = process.cwd();
+    const encPath = nodePath?.resolve ? nodePath.resolve(cwd, '.scan_history.enc') : '.scan_history.enc';
+    const jsonPath = nodePath?.resolve ? nodePath.resolve(cwd, '.scan_history.json') : '.scan_history.json';
+
+    if (scans.length === 0) {
+      if (nodeFs?.existsSync && nodeFs.existsSync(encPath)) {
+        try { nodeFs.unlinkSync(encPath); } catch {}
+      }
+      if (nodeFs?.existsSync && nodeFs.existsSync(jsonPath)) {
+        try { nodeFs.unlinkSync(jsonPath); } catch {}
+      }
+      return;
+    }
+
     const envObj = typeof process !== 'undefined' && process.env ? process.env : {};
     const useEncryption = envObj.ENCRYPT_SCAN_HISTORY === 'true';
     const password = envObj.ENCRYPT_SCAN_PASSWORD;
@@ -140,13 +177,11 @@ async function persistScans(scans: ScanRecord[]): Promise<void> {
       // Save encrypted
       const plaintext = JSON.stringify(scans, null, 2);
       const encrypted = await encryptData(plaintext, password);
-      const encPath = nodePath?.resolve ? nodePath.resolve(cwd, '.scan_history.enc') : '.scan_history.enc';
       if (nodeFs?.writeFileSync) {
         nodeFs.writeFileSync(encPath, JSON.stringify(encrypted, null, 2), 'utf8');
       }
     } else {
       // Save plaintext (backward compatible)
-      const jsonPath = nodePath?.resolve ? nodePath.resolve(cwd, '.scan_history.json') : '.scan_history.json';
       if (nodeFs?.writeFileSync) {
         nodeFs.writeFileSync(jsonPath, JSON.stringify(scans, null, 2), 'utf8');
       }
@@ -210,11 +245,12 @@ export function getAllScans(): ScanRecord[] {
   if (typeof window !== 'undefined') {
     if (window.localStorage) {
       try {
+        window.localStorage.removeItem(LEGACY_STORAGE_KEY);
         const stored = window.localStorage.getItem(STORAGE_KEY);
         if (stored) {
           const parsed = JSON.parse(stored);
           if (Array.isArray(parsed)) {
-            inMemoryScans = parsed;
+            inMemoryScans = sanitizeNasaScans(parsed);
           }
         }
       } catch {
@@ -270,6 +306,12 @@ export function getScanById(id: string): ScanRecord | undefined {
  */
 export function clearAllScans(): void {
   inMemoryScans = [];
+  if (typeof window !== 'undefined' && window.localStorage) {
+    try {
+      window.localStorage.removeItem(LEGACY_STORAGE_KEY);
+      window.localStorage.removeItem(STORAGE_KEY);
+    } catch {}
+  }
   persistScans([]).catch(() => {});
   notifySubscribers();
 }

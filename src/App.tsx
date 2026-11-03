@@ -423,6 +423,13 @@ export const App: React.FC = () => {
 
   // Initialize data sources on mount
   useEffect(() => {
+    // Purge any legacy scan history from previous ISRO sessions on launch
+    try {
+      window.localStorage?.removeItem('lunarsafe_scan_history');
+    } catch {
+      // ignore
+    }
+
     // 1. Initial NASA PDS Ping
     refreshNasaPds();
 

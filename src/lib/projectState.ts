@@ -48,16 +48,16 @@ export function getProjectState(): ProjectState {
     let lastScan: ProjectState['lastScan'] = null;
     try {
       if (window.localStorage) {
-        const stored = window.localStorage.getItem('lunarsafe_scan_history');
+        const stored = window.localStorage.getItem('lunarsafe_nasa_scan_history');
         if (stored) {
           const list = JSON.parse(stored);
           if (Array.isArray(list) && list.length > 0) {
             const latest = list[0];
             lastScan = {
               id: latest.id || 'scan-latest',
-              instrument: latest.instrument || 'TMC-2',
+              instrument: latest.instrument || 'NASA LRO',
               timestamp: latest.timestamp || new Date().toISOString(),
-              imagePath: latest.imagePath || latest.instrument || latest.id || 'TMC-2',
+              imagePath: latest.imagePath || latest.instrument || latest.id || 'NASA LRO',
               hazardCount: latest.hazardPatchCount ?? latest.hazardCount ?? latest.craterCount ?? 0,
               hazardPatchCount: latest.hazardPatchCount ?? latest.hazardCount ?? latest.craterCount ?? 0,
               boulderCount: latest.boulderCount,
