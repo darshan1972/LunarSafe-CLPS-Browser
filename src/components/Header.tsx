@@ -64,8 +64,8 @@ export const Header: React.FC<HeaderProps> = ({
               <span className="hidden sm:inline-flex px-2 py-0.5 text-[10px] font-semibold tracking-wider uppercase rounded bg-cyan-950/80 text-cyan-300 border border-cyan-800/60 font-mono">
                 CLPS MISSION BROWSER
               </span>
-              <span className="hidden md:inline-flex px-2 py-0.5 text-[10px] font-semibold tracking-wider uppercase rounded bg-zinc-900 text-zinc-300 border border-zinc-800 font-mono">
-                NASA LRO • ISRO CH-2
+              <span className="hidden md:inline-flex px-2 py-0.5 text-[10px] font-semibold tracking-wider uppercase rounded bg-cyan-950/80 text-cyan-300 border border-cyan-800/60 font-mono">
+                NASA LRO • LOLA / PDS
               </span>
             </div>
             <p className="text-[11px] text-zinc-400 font-sans hidden sm:block">

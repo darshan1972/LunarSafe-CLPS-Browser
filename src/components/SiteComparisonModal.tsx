@@ -159,12 +159,12 @@ const SiteComparisonModalComponent: React.FC<SiteComparisonModalProps> = ({
         {/* Header */}
         <div className="p-4 sm:p-5 border-b border-white/10 bg-space-850/80 flex items-start justify-between gap-4">
           <div className="flex items-start space-x-3">
-            <div className="p-2.5 rounded-xl bg-cyan-950/80 border border-cyan-500/40 text-isro-cyan mt-0.5 shadow-inner">
+            <div className="p-2.5 rounded-xl bg-cyan-950/80 border border-cyan-500/40 text-cyan-400 mt-0.5 shadow-inner">
               <Trophy className="w-6 h-6" />
             </div>
             <div>
               <div className="flex items-center space-x-2">
-                <span className="text-[10px] uppercase tracking-wider text-isro-cyan font-semibold">
+                <span className="text-[10px] uppercase tracking-wider text-cyan-400 font-semibold">
                   NASA CLPS Mission Decision Matrix
                 </span>
                 <span className="px-2 py-0.2 rounded text-[10px] bg-emerald-950/80 text-emerald-400 border border-emerald-800/40 font-bold">
@@ -203,7 +203,7 @@ const SiteComparisonModalComponent: React.FC<SiteComparisonModalProps> = ({
           </div>
           <div className="p-2.5 rounded-lg bg-black/40 border border-white/5">
             <span className="text-[10px] text-zinc-400 block">Top Touchdown Target:</span>
-            <span className="text-sm font-bold text-isro-cyan truncate block" title={stats.topSiteName}>
+            <span className="text-sm font-bold text-cyan-300 truncate block" title={stats.topSiteName}>
               {stats.topSiteName}
             </span>
           </div>
@@ -222,7 +222,7 @@ const SiteComparisonModalComponent: React.FC<SiteComparisonModalProps> = ({
               placeholder="Search Artemis region or CLPS mission..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full bg-black/40 border border-white/10 rounded-lg pl-8 pr-3 py-1.5 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-isro-cyan transition-colors"
+              className="w-full bg-black/40 border border-white/10 rounded-lg pl-8 pr-3 py-1.5 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-cyan-400 transition-colors"
             />
           </div>
 
@@ -318,7 +318,7 @@ const SiteComparisonModalComponent: React.FC<SiteComparisonModalProps> = ({
                     key={site.id}
                     className={`transition-colors ${
                       isSelected
-                        ? 'bg-cyan-950/40 border-l-2 border-isro-cyan'
+                        ? 'bg-cyan-950/40 border-l-2 border-cyan-400'
                         : 'hover:bg-white/5'
                     }`}
                   >

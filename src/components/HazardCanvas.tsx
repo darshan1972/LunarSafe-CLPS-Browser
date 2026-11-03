@@ -84,7 +84,7 @@ export const HazardCanvas: React.FC<HazardCanvasProps> = ({
               baseCtx.fillText('NO LUNAR IMAGERY LOADED', width / 2, height / 2 - 10);
               baseCtx.font = '11px sans-serif';
               baseCtx.fillStyle = '#71717A';
-              baseCtx.fillText('Upload a Chandrayaan-2 TMC-2 / OHRC image to begin deterministic analysis', width / 2, height / 2 + 15);
+              baseCtx.fillText('Load NASA LRO / LOLA DEM imagery to begin deterministic analysis', width / 2, height / 2 + 15);
             }
           }
         } else {
@@ -366,7 +366,7 @@ export const HazardCanvas: React.FC<HazardCanvasProps> = ({
           <div className="flex items-center space-x-2">
             <Layers className="w-4 h-4 text-isro-cyan" />
             <span className="font-semibold text-white font-mono uppercase tracking-wider">
-              Hazard Terrain Map (24m ISRO Grid)
+              Hazard Terrain Map (24m NASA Grid)
             </span>
             {analysis && (
               <span className="text-[11px] font-mono text-space-400">
@@ -518,7 +518,7 @@ export const HazardCanvas: React.FC<HazardCanvasProps> = ({
           </div>
           <div className="flex items-center space-x-1.5 px-2 py-0.5 rounded bg-space-850 border border-space-700 shadow-xs">
             <span className="text-zinc-400">GRID:</span>
-            <span className="text-emerald-400 font-bold">24m ISRO Criterion</span>
+            <span className="text-emerald-400 font-bold">24m NASA Criterion</span>
           </div>
           <div className="hidden sm:flex items-center space-x-1.5 px-2 py-0.5 rounded bg-space-850 border border-space-700 shadow-xs">
             <span className="text-zinc-400">MATRIX:</span>
@@ -607,7 +607,7 @@ export const HazardCanvas: React.FC<HazardCanvasProps> = ({
                 {errorMessage}
               </p>
               <div className="text-[11px] font-mono text-space-400 max-w-sm border-t border-red-900/50 pt-2 mt-1">
-                Single-band panchromatic lunar sensor requirement (TMC-2/OHRC) violated. Hazard detection aborted (0 craters, 0 boulders evaluated).
+                Single-band panchromatic lunar sensor requirement (NASA LRO/LOLA) violated. Hazard detection aborted (0 craters, 0 boulders evaluated).
               </div>
             </div>
           )}
@@ -680,7 +680,7 @@ export const HazardCanvas: React.FC<HazardCanvasProps> = ({
 
         <div>
           <span>
-            Scale: 1 cell = {analysis ? `${(Math.floor(24 / analysis.pixelScaleMeters) * analysis.pixelScaleMeters).toFixed(1)}m × ${(Math.floor(24 / analysis.pixelScaleMeters) * analysis.pixelScaleMeters).toFixed(1)}m (${((Math.floor(24 / analysis.pixelScaleMeters) * analysis.pixelScaleMeters) ** 2).toFixed(1)}m²)` : '24m × 24m (576m²)'} per ISRO Chandrayaan standard
+            Scale: 1 cell = {analysis ? `${(Math.floor(24 / analysis.pixelScaleMeters) * analysis.pixelScaleMeters).toFixed(1)}m × ${(Math.floor(24 / analysis.pixelScaleMeters) * analysis.pixelScaleMeters).toFixed(1)}m (${((Math.floor(24 / analysis.pixelScaleMeters) * analysis.pixelScaleMeters) ** 2).toFixed(1)}m²)` : '24m × 24m (576m²)'} per NASA CLPS standard
           </span>
         </div>
       </div>

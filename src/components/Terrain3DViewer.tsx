@@ -989,9 +989,9 @@ const Terrain3DViewerComponent: React.FC<Terrain3DViewerProps> = ({
             left: `${tooltipPos.x + 18}px`,
             top: `${tooltipPos.y - 12}px`,
           }}
-          className="pointer-events-none absolute z-50 p-2.5 rounded-lg bg-space-900/95 border border-isro-cyan/60 shadow-2xl backdrop-blur-md font-mono text-xs text-white max-w-xs animate-fadeIn"
+          className="pointer-events-none absolute z-50 p-2.5 rounded-lg bg-space-900/95 border border-cyan-500/60 shadow-2xl backdrop-blur-md font-mono text-xs text-white max-w-xs animate-fadeIn"
         >
-          <div className="flex items-center gap-1.5 text-isro-cyan font-bold uppercase text-[11px] mb-1">
+          <div className="flex items-center gap-1.5 text-cyan-300 font-bold uppercase text-[11px] mb-1">
             <MapPin className="w-3.5 h-3.5" />
             <span>{hoveredSite.properties?.name}</span>
           </div>
@@ -1016,7 +1016,7 @@ const Terrain3DViewerComponent: React.FC<Terrain3DViewerProps> = ({
           className="p-2 rounded-lg bg-space-900/80 hover:bg-space-800 border border-white/10 text-zinc-300 hover:text-white transition-all shadow-lg backdrop-blur-md flex items-center gap-1.5 text-xs font-mono"
           title="Reset Orbit Camera"
         >
-          <RotateCcw className="w-3.5 h-3.5 text-isro-cyan" />
+          <RotateCcw className="w-3.5 h-3.5 text-cyan-400" />
           <span>Reset Camera</span>
         </button>
       </div>

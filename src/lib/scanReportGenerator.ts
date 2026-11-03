@@ -109,13 +109,13 @@ export function generatePDF(record: ScanRecord, multiMethodInput?: MultiMethodAn
     ['Scan Record ID', record.id, 'Unique Telemetry Key'],
     ...(isroSourceRow ? [isroSourceRow] : []),
     ['Sensor Instrument', `${record.instrument} (${gsd} m/px GSD)`, 'Orbital Sensor Resolution'],
-    ['Raster Cell Resolution', `Actual cell size: ${actualCellM.toFixed(1)}m × ${actualCellM.toFixed(1)}m (${cellAreaM2.toFixed(1)} m²)`, `Target: 24m ISRO standard (${pixelCount} px/cell)`],
+    ['Raster Cell Resolution', `Actual cell size: ${actualCellM.toFixed(1)}m × ${actualCellM.toFixed(1)}m (${cellAreaM2.toFixed(1)} m²)`, `Target: 24m NASA standard (${pixelCount} px/cell)`],
     ['Target Coordinates', record.coordinates ? `${record.coordinates.lat.toFixed(3)}° Lat, ${record.coordinates.lon.toFixed(3)}° Lon (Selenographic)` : 'No PDS4 label — coordinates unknown.', 'Selenographic Reference'],
-    ['Mean Surface Slope', `${(record.meanSlopeDeg ?? 0).toFixed(2)}°`, 'ISRO Threshold: < 5.0° (Nominal)'],
-    ['Maximum Local Slope', `${(record.maxSlopeDeg ?? 0).toFixed(2)}°`, 'ISRO Vikram Threshold: < 10.0°'],
+    ['Mean Surface Slope', `${(record.meanSlopeDeg ?? 0).toFixed(2)}°`, 'NASA Threshold: < 5.0° (Nominal)'],
+    ['Maximum Local Slope', `${(record.maxSlopeDeg ?? 0).toFixed(2)}°`, 'NASA CLPS Threshold: < 10.0°'],
     ['Crater Depressions Detected', `${record.craterCount ?? 0}`, 'Morphological Hough Extractor'],
-    ['Boulder Obstacles Detected', `${record.boulderCount ?? 0}`, 'ISRO Safety Limit: < 20 rocks'],
-    ['Safe Regolith Coverage', `${safeAreaPct.toFixed(1)}%`, 'ISRO Minimum Safe: > 70.0%'],
+    ['Boulder Obstacles Detected', `${record.boulderCount ?? 0}`, 'NASA Safety Limit: < 20 rocks'],
+    ['Safe Regolith Coverage', `${safeAreaPct.toFixed(1)}%`, 'NASA Minimum Safe: > 70.0%'],
     ['Hazard Regolith Area', `${hazardAreaPct.toFixed(1)}%`, 'Steep Slopes / Craters / Boulders'],
     ['Contiguous Safe Clusters', `${record.contiguousZoneCount ?? 0}`, '4-Connected BFS Search'],
     ['Primary Landing Site Footprint', `${topSiteArea.toLocaleString()} m²`, 'Contiguous Obstacle-Free Regolith'],
@@ -165,7 +165,7 @@ export function generatePDF(record: ScanRecord, multiMethodInput?: MultiMethodAn
   const hashes = [
     ['Input Buffer Hash', record.inputImageHash],
     ['Calibrated Slope Hash', record.slopeMapHash],
-    ['ISRO 24m Grid Hash', record.gridClassificationHash],
+    ['NASA 24m Grid Hash', record.gridClassificationHash],
     ['Candidate Zones Hash', record.candidateZonesHash],
     ['Session Integrity Hash', record.sessionIntegrityHash || 'N/A (Offline Session)'],
   ];
@@ -244,7 +244,7 @@ export function generatePDF(record: ScanRecord, multiMethodInput?: MultiMethodAn
   doc.setFontSize(7.5);
   doc.setTextColor(cNavy[0], cNavy[1], cNavy[2]);
   doc.text('Raw Sensor Orbital Ingestion (Left)', margin + 2, y);
-  doc.text('Calibrated ISRO 24m Hazard Grid (Right)', margin + imgW + 8, y);
+  doc.text('Calibrated NASA 24m Hazard Grid (Right)', margin + imgW + 8, y);
   y += 8;
 
   // Execution Log Table
@@ -272,7 +272,7 @@ export function generatePDF(record: ScanRecord, multiMethodInput?: MultiMethodAn
     { module: 'High-Pass Spatial Filter', status: 'DONE', timingMs: 8.2, output: 'Zero-phase micro-relief sharpening' },
     { module: 'Calibrated Sobel Slope Field', status: 'DONE', timingMs: 12.6, output: `Mean: ${record.meanSlopeDeg.toFixed(2)}°, Max: ${record.maxSlopeDeg.toFixed(2)}°` },
     { module: 'Morphological Hazard Extractor', status: 'DONE', timingMs: 24.1, output: `Craters: ${record.craterCount}, Boulders: ${record.boulderCount}` },
-    { module: 'ISRO 24m Grid Classifier', status: 'DONE', timingMs: 6.3, output: `Safe: ${record.safeAreaPercentage.toFixed(1)}%` },
+    { module: 'NASA 24m Grid Classifier', status: 'DONE', timingMs: 6.3, output: `Safe: ${record.safeAreaPercentage.toFixed(1)}%` },
     { module: 'BFS Contiguous Zone Finder', status: 'DONE', timingMs: 14.5, output: `Clusters: ${record.contiguousZoneCount}, Top: ${record.topSiteAreaM2.toLocaleString()} m²` },
     { module: 'Evidence Verification Seal', status: 'DONE', timingMs: 3.2, output: 'SHA-256 evidence chain sealed' },
   ];
@@ -309,7 +309,7 @@ export function generatePDF(record: ScanRecord, multiMethodInput?: MultiMethodAn
 
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(7);
-  doc.text('Flight safety analysis performed using ISRO Chandrayaan-3 LHDAC criteria. This is an independent research tool and has not been certified by ISRO.', margin + 4, y + 11);
+  doc.text('Flight safety analysis performed using NASA CLPS / Artemis III criteria. This is an independent research tool developed for NASA Space Apps 2026.', margin + 4, y + 11);
   doc.text('Project Head: Darshan Patil  |  Team: Team Rocket  |  AEROX Club, Parul University', margin + 4, y + 15);
 
   // Page 2 Footer

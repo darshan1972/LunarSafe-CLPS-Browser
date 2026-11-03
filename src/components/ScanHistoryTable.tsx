@@ -77,7 +77,7 @@ export const ScanHistoryTable: React.FC = () => {
             📋 Scan History & Flight Recommendations
           </h2>
           <div className="text-xs text-space-400 font-mono mt-0.5">
-            Project Head: <span className="text-white font-semibold">Darshan Patil</span> &nbsp;|&nbsp; Standard: <span className="text-cyan-400">ISRO Chandrayaan-3 LHDAC</span>
+            Project Head: <span className="text-white font-semibold">Darshan Patil</span> &nbsp;|&nbsp; Standard: <span className="text-cyan-400">NASA CLPS / Artemis III Criteria</span>
           </div>
         </div>
 

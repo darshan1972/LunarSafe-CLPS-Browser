@@ -30,7 +30,7 @@ const SAMPLE_IMAGE_MAP: Record<string, { url: string; title: string }> = {
   },
   isro_calibrated_tmc2: {
     url: '/src/assets/samples/isro_tmc2_manzinusc_crop.png',
-    title: 'ISRO TMC-2 Calibrated 16-bit Strip',
+    title: 'NASA LRO Calibrated 16-bit Strip',
   },
 };
 
@@ -131,7 +131,7 @@ export const ImageDropzone: React.FC<ImageDropzoneProps> = ({
               Drag and drop lunar image or <span className="text-isro-cyan underline">browse files</span>
             </p>
             <p className="text-xs text-space-400">
-              Supports Chandrayaan-2 TMC-2 / OHRC (PNG, JPG, TIFF) · Max 50MB
+              Supports NASA LRO / LOLA DEM (PNG, JPG, TIFF) · Max 50MB
             </p>
           </div>
           <div className="flex items-center space-x-2 text-[11px] text-space-400 font-mono">

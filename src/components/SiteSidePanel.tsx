@@ -57,11 +57,11 @@ const SiteSidePanelComponent: React.FC<SiteSidePanelProps> = ({
       {/* Header */}
       <div className="p-4 border-b border-white/10 bg-space-850/70 flex items-start justify-between gap-3">
         <div className="flex items-start space-x-2.5">
-          <div className="p-2 rounded-lg bg-isro-cyan/15 border border-isro-cyan/40 text-isro-cyan mt-0.5">
+          <div className="p-2 rounded-lg bg-cyan-950/60 border border-cyan-500/40 text-cyan-300 mt-0.5">
             <MapPin className="w-5 h-5" />
           </div>
           <div>
-            <span className="text-[10px] uppercase tracking-wider text-isro-cyan font-semibold block">
+            <span className="text-[10px] uppercase tracking-wider text-cyan-300 font-semibold block">
               NASA CLPS Candidate Region
             </span>
             <h2 className="text-base font-bold text-white tracking-wide">
@@ -152,10 +152,10 @@ const SiteSidePanelComponent: React.FC<SiteSidePanelProps> = ({
         <div className="p-3.5 rounded-xl bg-space-850/80 border border-white/10 space-y-2.5">
           <div className="flex items-center justify-between">
             <label className="text-zinc-300 font-semibold flex items-center gap-1.5">
-              <Sliders className="w-3.5 h-3.5 text-isro-cyan" />
+              <Sliders className="w-3.5 h-3.5 text-cyan-400" />
               <span>Max Lander Slope Tolerance:</span>
             </label>
-            <span className="px-2 py-0.5 rounded bg-isro-cyan/20 text-isro-cyan font-bold border border-isro-cyan/40">
+            <span className="px-2 py-0.5 rounded bg-cyan-950/60 text-cyan-300 font-bold border border-cyan-500/40">
               {maxSlopeTolerance.toFixed(1)}°
             </span>
           </div>
@@ -169,7 +169,7 @@ const SiteSidePanelComponent: React.FC<SiteSidePanelProps> = ({
             className="w-full accent-cyan-400 cursor-pointer h-1.5 bg-space-700 rounded-lg appearance-none"
           />
           <div className="flex justify-between text-[10px] text-zinc-400">
-            <span>8.0° (Strict ISRO/NASA)</span>
+            <span>8.0° (Strict NASA CLPS)</span>
             <span>10.0° (Standard)</span>
             <span>15.0° (High-Clearance)</span>
           </div>
@@ -224,7 +224,7 @@ const SiteSidePanelComponent: React.FC<SiteSidePanelProps> = ({
         <div className="p-3.5 rounded-xl bg-space-850/80 border border-white/10 space-y-2">
           <div className="flex items-center justify-between text-[10px] font-bold uppercase tracking-wider text-zinc-400">
             <span>LOLA Surface Relief Profile</span>
-            <span className="text-isro-cyan">NASA LRO (80S_80M)</span>
+            <span className="text-cyan-400">NASA LRO (80S_80M)</span>
           </div>
           <div className="w-full max-h-36 h-28 rounded-lg overflow-hidden bg-space-950 border border-white/10 relative flex items-center justify-center p-1.5 shadow-inner">
             <img

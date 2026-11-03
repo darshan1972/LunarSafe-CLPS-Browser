@@ -25,28 +25,28 @@ const MissionTerminalComponent: React.FC<MissionTerminalProps> = ({
     switch (level) {
       case 'SUCCESS':
         return (
-          <span className="text-isro-emerald flex items-center space-x-1">
+          <span className="text-emerald-400 flex items-center space-x-1">
             <CheckCircle2 className="w-3 h-3" />
             <span>[SUCCESS]</span>
           </span>
         );
       case 'WARN':
         return (
-          <span className="text-isro-amber flex items-center space-x-1">
+          <span className="text-amber-400 flex items-center space-x-1">
             <AlertTriangle className="w-3 h-3" />
             <span>[WARN]</span>
           </span>
         );
       case 'HAZARD':
         return (
-          <span className="text-isro-crimson flex items-center space-x-1">
+          <span className="text-red-400 flex items-center space-x-1">
             <AlertOctagon className="w-3 h-3" />
             <span>[HAZARD]</span>
           </span>
         );
       default:
         return (
-          <span className="text-isro-cyan flex items-center space-x-1">
+          <span className="text-cyan-400 flex items-center space-x-1">
             <Info className="w-3 h-3" />
             <span>[INFO]</span>
           </span>
@@ -59,12 +59,12 @@ const MissionTerminalComponent: React.FC<MissionTerminalProps> = ({
       {/* Header */}
       <div className="border-b border-space-700 bg-space-850 px-4 py-2.5 flex items-center justify-between">
         <div className="flex items-center space-x-2">
-          <Terminal className="w-4 h-4 text-isro-cyan" />
+          <Terminal className="w-4 h-4 text-cyan-400" />
           <h2 className="text-xs font-bold uppercase font-mono tracking-wider text-white">
             Mission Terminal (Live Telemetry)
           </h2>
           {isStreaming && (
-            <span className="w-2 h-2 rounded-full bg-isro-emerald animate-ping" />
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
           )}
         </div>
 

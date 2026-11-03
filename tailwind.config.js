@@ -28,6 +28,15 @@ export default {
           crimson: '#EF4444',// Alert Red (Hazard / Error semantics)
           amber: '#F59E0B',  // Warning Amber
         },
+        nasa: {
+          orange: '#FF6B00',
+          green: '#FFFFFF',
+          blue: '#FFFFFF',
+          cyan: '#FFFFFF',
+          emerald: '#FFFFFF',
+          crimson: '#EF4444',
+          amber: '#F59E0B',
+        },
       },
       fontFamily: {
         mono: ['JetBrains Mono', 'Menlo', 'Monaco', 'Consolas', 'Courier New', 'monospace'],

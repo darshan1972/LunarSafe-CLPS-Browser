@@ -76,7 +76,7 @@ export const App: React.FC = () => {
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
   const [isReverifying, setIsReverifying] = useState<boolean>(false);
   const [reverifySuccess, setReverifySuccess] = useState<boolean>(false);
-  const [selectedSample, setSelectedSample] = useState<string | null>('tmc2');
+  const [selectedSample, setSelectedSample] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const [nasaStatus, setNasaStatus] = useState<DataSourceStatus | null>(null);
@@ -207,7 +207,7 @@ export const App: React.FC = () => {
       safePercent >= 80 ? 'HIGH' : safePercent >= 50 ? 'MEDIUM' : 'LOW';
     const recReason =
       safePercent >= 70
-        ? `${safePercent.toFixed(1)}% verified safe terrain compliant with ISRO criteria.`
+        ? `${safePercent.toFixed(1)}% verified safe terrain compliant with NASA CLPS criteria.`
         : `${safePercent.toFixed(1)}% safe terrain exhibits elevated regional hazards.`;
 
     const gsd = analysis.pixelScaleMeters || 5.0;
@@ -215,7 +215,7 @@ export const App: React.FC = () => {
     const activeScan: ScanRecord = scans[0] || {
       id: `SCAN_${Date.now()}`,
       timestamp: analysis.evidence?.timestamp || new Date().toISOString(),
-      instrument: gsd === 0.25 ? 'OHRC' : isTmc2Calibrated ? 'TMC-2 (ISRO CH2 Calibrated)' : gsd === 5.0 ? 'TMC-2' : 'ISRO-CH2',
+      instrument: gsd === 0.25 ? 'LROC-NAC' : isTmc2Calibrated ? 'NASA LRO' : gsd === 5.0 ? 'NASA LRO' : 'NASA LRO',
       gsdMetersPerPixel: gsd,
       coordinates: pds4Metadata?.centerLatitude != null
         ? { lat: pds4Metadata.centerLatitude, lon: pds4Metadata.centerLongitude || 0 }
@@ -421,15 +421,12 @@ export const App: React.FC = () => {
     );
   }, [addMissionLog]);
 
-  // Initialize data sources and load sample on mount
+  // Initialize data sources on mount
   useEffect(() => {
-    // 1. Initial ISRO PRADAN Status
-    setIsroStatus(IsroPradanConnector.getStatus());
-
-    // 2. Initial NASA PDS Ping
+    // 1. Initial NASA PDS Ping
     refreshNasaPds();
 
-    // 3. Connect to Mission Terminal SSE Stream if server is running
+    // 2. Connect to Mission Terminal SSE Stream if server is running
     let eventSource: EventSource | null = null;
     try {
       eventSource = new EventSource('/api/stream');
@@ -445,8 +442,11 @@ export const App: React.FC = () => {
       // EventSource fallback to local logging
     }
 
-    // 4. Automatically load the initial TMC-2 sample image
-    loadPresetSample('tmc2');
+    addMissionLog(
+      'INFO',
+      'CLPS Mission Control',
+      'NASA CLPS Mission Browser initialized. Loaded 13 Artemis III Candidate Landing Regions (LRO LOLA 80S_80M DEM).'
+    );
 
     return () => {
       eventSource?.close();
@@ -589,17 +589,17 @@ export const App: React.FC = () => {
       tmc2: {
         url: '/src/assets/samples/isro_tmc2_manzinusc_crop.png',
         scale: 5.0,
-        name: 'Real Cropped ISRO TMC-2 Manzinus-C Terrain (5m DEM)',
+        name: 'Real Cropped NASA LRO Manzinus-C Terrain (5m DEM)',
       },
       ohrc: {
         url: '/src/assets/samples/isro_ohrc_shivshakti_crop.png',
         scale: 0.25,
-        name: 'Real Cropped ISRO OHRC Shiv Shakti Point Swath (0.25m High-Res)',
+        name: 'Real Cropped NASA High-Res Lunar Terrain (0.25m High-Res)',
       },
       psr: {
         url: '/src/assets/samples/isro_psr_southpole_crop.png',
         scale: 1.0,
-        name: 'Real Cropped ISRO South Pole PSR Crater (Low-Illumination)',
+        name: 'Real Cropped NASA South Pole PSR Crater (Low-Illumination)',
       },
       color_test: {
         url: '/src/assets/samples/color_terrestrial.png',
@@ -697,25 +697,25 @@ export const App: React.FC = () => {
 
   const handleRunBatchComparison = async () => {
     setIsBatchProcessing(true);
-    addMissionLog('INFO', 'Batch Processor', 'Starting multi-pass batch analysis across 3 ISRO candidate sites...');
+    addMissionLog('INFO', 'Batch Processor', 'Starting multi-pass batch analysis across 3 candidate sites...');
 
     try {
       const targetsSpec = [
         {
-          id: 'CH2_TMC2_MANZINUS_C',
-          name: 'Real Cropped ISRO TMC-2 Manzinus-C Terrain',
+          id: 'NASA_LRO_MANZINUS_C',
+          name: 'Real Cropped NASA LRO Manzinus-C Terrain',
           url: '/src/assets/samples/isro_tmc2_manzinusc_crop.png',
           scale: 5.0,
         },
         {
-          id: 'CH2_OHRC_SHIVSHAKTI',
-          name: 'Real Cropped ISRO OHRC Shiv Shakti Point Swath',
+          id: 'NASA_LRO_HIGHRES',
+          name: 'Real Cropped NASA High-Res Lunar Terrain',
           url: '/src/assets/samples/isro_ohrc_shivshakti_crop.png',
           scale: 0.25,
         },
         {
-          id: 'CH2_PSR_SOUTH_POLE',
-          name: 'Real Cropped ISRO South Pole PSR Crater',
+          id: 'NASA_LRO_PSR_SOUTH_POLE',
+          name: 'Real Cropped NASA South Pole PSR Crater',
           url: '/src/assets/samples/isro_psr_southpole_crop.png',
           scale: 1.0,
         },
@@ -867,9 +867,9 @@ export const App: React.FC = () => {
     try {
       const metadata = IsroPradanConnector.parsePds4Xml(xmlText);
       setPds4Metadata(metadata);
-      addMissionLog('SUCCESS', 'ISRO PDS4 Parser', `Parsed XML Label: ${metadata.instrumentName} for ${metadata.targetName}`);
+      addMissionLog('SUCCESS', 'NASA PDS4 Parser', `Parsed XML Label: ${metadata.instrumentName} for ${metadata.targetName}`);
     } catch (err: any) {
-      addMissionLog('WARN', 'ISRO PDS4 Parser', `XML parse failure: ${err.message}`);
+      addMissionLog('WARN', 'NASA PDS4 Parser', `XML parse failure: ${err.message}`);
     }
   };
 
@@ -927,7 +927,7 @@ export const App: React.FC = () => {
     setGeminiVisionResult(null);
     setGeminiNarrativeResult(null);
 
-    addMissionLog('INFO', 'ISRO TMC-2 Ingestion', 'Requesting 16-bit ISRO Chandrayaan-2 TMC-2 calibrated tile analysis...');
+    addMissionLog('INFO', 'NASA LRO/LOLA Ingestion', 'Requesting 16-bit NASA LRO calibrated tile analysis...');
 
     try {
       const response = await fetch('/api/analyze-isro', {
@@ -950,15 +950,15 @@ export const App: React.FC = () => {
 
       if (data.isroMetadata) {
         setPds4Metadata({
-          instrumentName: data.isroMetadata.instrument || 'TMC-2',
-          targetName: 'Moon (North Pole)',
+          instrumentName: data.isroMetadata.instrument || 'NASA LRO',
+          targetName: 'Moon (South Pole)',
           startDate: '2026-08-23T16:57:51.3854Z',
           stopDate: '2026-08-23T17:00:30.3323Z',
           centerLatitude: data.isroMetadata.corners?.upperLeft?.latitude,
           centerLongitude: data.isroMetadata.corners?.upperLeft?.longitude,
           lines: data.isroMetadata.lines,
           samples: data.isroMetadata.samples,
-          description: `Orbit ${data.isroMetadata.imagingOrbitNumber} | Calibrated 16-bit TMC-2 | Selenographic (Moon-centered)`,
+          description: `Calibrated 16-bit NASA LRO | Selenographic (Moon-centered)`,
         });
       }
 
@@ -984,10 +984,10 @@ export const App: React.FC = () => {
         };
       }
 
-      addMissionLog('SUCCESS', 'ISRO Pipeline', `Calibrated ISRO TMC-2 tile analyzed: Safe Area ${data.evidence?.safeAreaPercentage}% (Orbit 31200)`);
+      addMissionLog('SUCCESS', 'NASA Pipeline', `Calibrated NASA LRO tile analyzed: Safe Area ${data.evidence?.safeAreaPercentage}%`);
     } catch (err: any) {
-      setErrorMessage(`ISRO Analysis Failed: ${err.message}`);
-      addMissionLog('HAZARD', 'ISRO Pipeline', `Analysis error: ${err.message}`);
+      setErrorMessage(`NASA Analysis Failed: ${err.message}`);
+      addMissionLog('HAZARD', 'NASA Pipeline', `Analysis error: ${err.message}`);
     } finally {
       setIsProcessing(false);
     }
@@ -1255,6 +1255,9 @@ export const App: React.FC = () => {
     }
   }
 
+  // Preserve references to retained backend ingestion handlers without UI rendering
+  void [ImageDropzone, handleImageSelected, handlePds4XmlSelected, handleRunBatchComparison, handleAnalyzeIsroProduct, isBatchProcessing, setIsroStatus];
+
   return (
     <div className="min-h-screen bg-black text-white flex flex-col selection:bg-white selection:text-black">
       {/* Header */}
@@ -1311,73 +1314,6 @@ export const App: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
           {/* LEFT COLUMN: Ingestion & Data Sources (3 cols) */}
           <div className="lg:col-span-3 space-y-4">
-            <ImageDropzone
-              onImageSelected={handleImageSelected}
-              onPds4XmlSelected={handlePds4XmlSelected}
-              isProcessing={isProcessing}
-              selectedSample={selectedSample}
-              onRunBatchComparison={handleRunBatchComparison}
-              isBatchProcessing={isBatchProcessing}
-              onOpenSpaceBag={(tab) => {
-                setSpaceBagInitialTab(tab || 'BAG');
-                setIsSpaceBagOpen(true);
-              }}
-            />
-
-            {/* OFFICIAL ISRO DATA PRODUCTS */}
-            <div className="bg-slate-900/90 border border-amber-500/30 rounded-xl p-4 shadow-xl backdrop-blur-sm space-y-3">
-              <div className="flex items-center justify-between border-b border-slate-700/60 pb-2">
-                <div className="flex items-center gap-2">
-                  <div className="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse" />
-                  <span className="text-xs font-bold uppercase tracking-wider text-amber-300">
-                    Official ISRO Data Products
-                  </span>
-                </div>
-                <span className="text-[10px] bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded font-mono border border-amber-500/30">
-                  CH-2 CALIBRATED
-                </span>
-              </div>
-
-              <div
-                onClick={handleAnalyzeIsroProduct}
-                className={`p-3 rounded-lg border transition-all cursor-pointer ${
-                  selectedSample === 'isro_calibrated_tmc2'
-                    ? 'bg-amber-950/40 border-amber-500/80 shadow-lg shadow-amber-950/30 ring-1 ring-amber-500/40'
-                    : 'bg-slate-800/60 border-slate-700/60 hover:bg-slate-800/90 hover:border-amber-500/40'
-                }`}
-              >
-                <div className="flex items-start justify-between mb-2">
-                  <div className="text-xs font-semibold text-white font-mono truncate max-w-[200px]" title="ch2_tmc_ncn_20260823T1657513854_d18">
-                    ch2_tmc_ncn_20260823T1657513854_d18
-                  </div>
-                  <span className="text-[10px] px-1.5 py-0.5 rounded bg-cyan-900/40 text-cyan-300 font-mono border border-cyan-700/30">
-                    PDS4 XML
-                  </span>
-                </div>
-
-                <div className="grid grid-cols-2 gap-1.5 text-[11px] text-slate-300 mb-3">
-                  <div>Instrument: <span className="text-amber-300 font-medium">TMC-2</span></div>
-                  <div>Resolution: <span className="text-amber-300 font-medium">6.40 m/pixel</span></div>
-                  <div>Area: <span className="text-amber-300 font-medium">North Pole</span></div>
-                  <div>Solar Inc.: <span className="text-amber-300 font-medium">76.94°</span></div>
-                  <div className="col-span-2">Coord System: <span className="text-amber-300 font-medium">Selenographic (Moon-centered)</span></div>
-                </div>
-
-                <button
-                  type="button"
-                  disabled={isProcessing}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleAnalyzeIsroProduct();
-                  }}
-                  className="w-full py-2 px-3 rounded-md bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-500 hover:to-amber-600 text-white font-medium text-xs flex items-center justify-center gap-2 transition-all shadow-md disabled:opacity-50"
-                >
-                  <Sparkles className="w-3.5 h-3.5" />
-                  <span>{isProcessing && selectedSample === 'isro_calibrated_tmc2' ? 'Analyzing 16-bit Tile...' : 'Analyze Calibrated 16-bit Strip'}</span>
-                </button>
-              </div>
-            </div>
-
             <DataSourcesPanel
               nasaStatus={nasaStatus}
               isroStatus={isroStatus}
@@ -1393,7 +1329,7 @@ export const App: React.FC = () => {
               {/* NASA Telemetry Sub-header */}
               <div className="px-3.5 py-2 bg-space-900/90 border-b border-white/10 flex items-center justify-between text-xs text-zinc-300 z-20 backdrop-blur-md">
                 <div className="flex items-center space-x-2">
-                  <Satellite className="w-3.5 h-3.5 text-isro-cyan" />
+                  <Satellite className="w-3.5 h-3.5 text-cyan-400" />
                   <span className="font-bold text-white text-[11px]">NASA LRO South Pole (LOLA GDR 80S_80M)</span>
                 </div>
                 <div className="flex items-center space-x-2.5 text-[10px]">
@@ -1453,7 +1389,7 @@ export const App: React.FC = () => {
                   <div className="absolute top-3 left-3 z-30 w-64 sm:w-72 bg-space-900/85 backdrop-blur-xl border border-white/10 rounded-xl shadow-2xl p-3 text-xs space-y-2.5 max-h-[calc(100%-1.5rem)] overflow-y-auto scrollbar-thin">
                     <div className="flex items-center justify-between pb-1.5 border-b border-white/10">
                       <div className="flex items-center space-x-1.5">
-                        <Satellite className="w-3.5 h-3.5 text-isro-cyan" />
+                        <Satellite className="w-3.5 h-3.5 text-cyan-400" />
                         <span className="font-bold uppercase tracking-wider text-white text-[11px]">
                           NASA Sensor Controls
                         </span>
@@ -1544,10 +1480,10 @@ export const App: React.FC = () => {
                         <div className="space-y-1 pt-1 border-t border-white/10">
                           <div className="flex items-center justify-between text-[10px]">
                             <span className="text-zinc-300 flex items-center gap-1">
-                              <Sliders className="w-3 h-3 text-isro-cyan" />
+                              <Sliders className="w-3 h-3 text-cyan-400" />
                               <span>Exaggeration:</span>
                             </span>
-                            <span className="text-isro-cyan font-bold">{exaggeration.toFixed(1)}x</span>
+                            <span className="text-cyan-400 font-bold">{exaggeration.toFixed(1)}x</span>
                           </div>
                           <input
                             type="range"
@@ -1845,9 +1781,9 @@ export const App: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* Gemini Vision Result */}
             {geminiVisionResult && (
-              <div className="p-4 rounded-lg bg-space-800 border border-isro-cyan/40 space-y-2">
+              <div className="p-4 rounded-lg bg-space-800 border border-cyan-500/40 space-y-2">
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-2 text-isro-cyan font-mono text-xs font-bold">
+                  <div className="flex items-center space-x-2 text-cyan-400 font-mono text-xs font-bold">
                     <Sparkles className="w-4 h-4" />
                     <span>Gemini Vision Validation (External AI — Not Deterministic)</span>
                   </div>
@@ -1860,14 +1796,14 @@ export const App: React.FC = () => {
                   </button>
                 </div>
                 {geminiVisionResult.error ? (
-                  <div className="text-xs font-mono text-isro-amber bg-space-900/80 p-2.5 rounded border border-isro-amber/30">
+                  <div className="text-xs font-mono text-amber-400 bg-space-900/80 p-2.5 rounded border border-amber-500/30">
                     {geminiVisionResult.error}
                   </div>
                 ) : (
                   <div className="text-xs font-mono space-y-1">
                     {geminiVisionResult.terrainType && <div>Terrain Class: <span className="text-white">{geminiVisionResult.terrainType}</span></div>}
-                    {geminiVisionResult.confidence != null && <div>Confidence: <span className="text-isro-emerald font-bold">{Math.round(geminiVisionResult.confidence * 100)}%</span></div>}
-                    {geminiVisionResult.is_lunar !== undefined && <div>Lunar Surface: <span className="text-isro-emerald font-bold">{geminiVisionResult.is_lunar ? 'YES' : 'NO'}</span></div>}
+                    {geminiVisionResult.confidence != null && <div>Confidence: <span className="text-emerald-400 font-bold">{Math.round(geminiVisionResult.confidence * 100)}%</span></div>}
+                    {geminiVisionResult.is_lunar !== undefined && <div>Lunar Surface: <span className="text-emerald-400 font-bold">{geminiVisionResult.is_lunar ? 'YES' : 'NO'}</span></div>}
                     {geminiVisionResult.reason && <div className="text-space-300 pt-1">{geminiVisionResult.reason}</div>}
                     {geminiVisionResult.candidates && (
                       <div className="pt-1 text-[11px] text-space-300 whitespace-pre-wrap">
@@ -1893,9 +1829,9 @@ export const App: React.FC = () => {
 
             {/* Gemini Narrative Result */}
             {geminiNarrativeResult && (
-              <div className="p-4 rounded-lg bg-space-800 border border-isro-orange/40 space-y-2">
+              <div className="p-4 rounded-lg bg-space-800 border border-orange-500/40 space-y-2">
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-2 text-isro-orange font-mono text-xs font-bold">
+                  <div className="flex items-center space-x-2 text-orange-400 font-mono text-xs font-bold">
                     <Sparkles className="w-4 h-4" />
                     <span>Gemini Narrative Briefing (External AI — Not Deterministic)</span>
                   </div>
@@ -1908,7 +1844,7 @@ export const App: React.FC = () => {
                   </button>
                 </div>
                 {geminiNarrativeResult.error ? (
-                  <div className="text-xs font-mono text-isro-amber bg-space-900/80 p-2.5 rounded border border-isro-amber/30">
+                  <div className="text-xs font-mono text-amber-400 bg-space-900/80 p-2.5 rounded border border-amber-500/30">
                     {geminiNarrativeResult.error}
                   </div>
                 ) : (

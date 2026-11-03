@@ -27,11 +27,11 @@ export interface ImagePixelData {
 }
 
 export interface ProcessingOptions {
-  pixelScaleMeters?: number; // meters per pixel (default: 1.0 for OHRC, 5.0 for TMC-2)
-  gridSizeMeters?: number;   // default 24m per ISRO standard
-  maxSlopeDeg?: number;      // default 10.0 degrees per ISRO standard
-  maxCraterDepthM?: number;  // default 1.0m per ISRO standard
-  maxBoulderHeightM?: number;// default 0.30m per ISRO standard
+  pixelScaleMeters?: number; // meters per pixel (default: 1.0 for high-res, 5.0 for NASA LRO)
+  gridSizeMeters?: number;   // default 24m per NASA CLPS standard
+  maxSlopeDeg?: number;      // default 10.0 degrees per NASA CLPS standard
+  maxCraterDepthM?: number;  // default 1.0m per NASA CLPS standard
+  maxBoulderHeightM?: number;// default 0.30m per NASA CLPS standard
   solarIncidenceDeg?: number;// default 45 degrees
   pds4Coordinates?: { lat: number; lon: number } | null;
 }
@@ -43,7 +43,7 @@ export const THEORETICAL_MAX_SOBEL = Math.SQRT2 * 4 * 255; // 1442.49783362
 
 export class DeterministicLunarEngine {
   /**
-   * Complete deterministic processing pipeline per ISRO specifications
+   * Complete deterministic processing pipeline per NASA CLPS specifications
    */
   public static async processLunarImage(
     rawBuffer: Uint8Array | ArrayBuffer,
@@ -100,7 +100,7 @@ export class DeterministicLunarEngine {
         description: 'Rejects color & stock images; verifies authentic single-band panchromatic lunar reflectance.',
         details: `Chromatic fraction: ${(colorVariance * 100).toFixed(3)}% (Limit: ${(COLOR_VARIANCE_THRESHOLD * 100).toFixed(3)}%)`,
       });
-      throw new Error(`Panchromatic Validation Failed: Image contains chromatic variance (${(colorVariance * 100).toFixed(2)}% chromatic pixels). Lunar orbital sensors (TMC-2, OHRC, LROC) produce panchromatic grayscale imagery. Input rejected to prevent false hazard assessment.`);
+      throw new Error(`Panchromatic Validation Failed: Image contains chromatic variance (${(colorVariance * 100).toFixed(2)}% chromatic pixels). Lunar orbital sensors (NASA LRO, LOLA, LROC) produce panchromatic grayscale imagery. Input rejected to prevent false hazard assessment.`);
     }
 
     modules.push({
@@ -220,22 +220,22 @@ export class DeterministicLunarEngine {
       maxBoulderHeightM
     );
     const tGrid = Math.round((performance.now() - t5) * 100) / 100;
-    moduleTimings['ISRO 24m Grid Classifier'] = tGrid;
+    moduleTimings['NASA 24m Grid Classifier'] = tGrid;
 
     const totalCells = gridCols * gridRows;
     const safePercent = totalCells > 0 ? (safeCount / totalCells) * 100 : 0;
 
     modules.push({
       id: 'isro_grid',
-      name: 'ISRO 24m Grid Classifier',
+      name: 'NASA 24m Grid Classifier',
       group: 'deterministic',
       status: 'DONE',
       timingMs: tGrid,
       executionTimestamp: new Date().toISOString(),
-      description: `Partitions terrain into ${actualCellMeters.toFixed(1)}m x ${actualCellMeters.toFixed(1)}m cells per ISRO standard. Classifies SAFE (slope ≤10°, no hazard features) or HAZARD.`,
+      description: `Partitions terrain into ${actualCellMeters.toFixed(1)}m x ${actualCellMeters.toFixed(1)}m cells per NASA CLPS standard. Classifies SAFE (slope ≤10°, no hazard features) or HAZARD.`,
       details: `Total: ${totalCells} cells (Actual cell size: ${actualCellMeters.toFixed(1)}m × ${actualCellMeters.toFixed(1)}m, ${cellAreaM2.toFixed(1)} m²) | Safe: ${safeCount} (${safePercent.toFixed(1)}%) | Hazard: ${hazardCount}`,
     });
-    addLog('SUCCESS', 'ISRO Grid', `Grid classification complete (${actualCellMeters.toFixed(1)}m × ${actualCellMeters.toFixed(1)}m): ${safeCount} SAFE, ${hazardCount} HAZARD (${safePercent.toFixed(1)}% safe)`);
+    addLog('SUCCESS', 'NASA Grid', `Grid classification complete (${actualCellMeters.toFixed(1)}m × ${actualCellMeters.toFixed(1)}m): ${safeCount} SAFE, ${hazardCount} HAZARD (${safePercent.toFixed(1)}% safe)`);
 
     // -------------------------------------------------------------
     // MODULE 1.7: BFS Contiguous Safe Zone Finder
@@ -380,7 +380,7 @@ export class DeterministicLunarEngine {
       const scanRecord: ScanRecord = {
         id: `scan-${Date.now()}-${inputImageHash.substring(0, 8)}`,
         timestamp: evidence.timestamp,
-        instrument: pixelScaleMeters === 0.25 ? 'OHRC' : pixelScaleMeters === 5.0 ? 'TMC-2' : pixelScaleMeters === 0.5 ? 'LROC-NAC' : 'ISRO-CH2',
+        instrument: pixelScaleMeters === 0.25 ? 'LROC-NAC' : pixelScaleMeters === 5.0 ? 'NASA LRO' : pixelScaleMeters === 0.5 ? 'LROC-NAC' : 'NASA LRO',
         gsdMetersPerPixel: pixelScaleMeters,
         coordinates: options.pds4Coordinates || null,
         meanSlopeDeg: Number(meanSlopeDeg.toFixed(2)),
@@ -439,7 +439,7 @@ export class DeterministicLunarEngine {
    * Inspects 100% of pixels without subsampling (step = 1).
    * Calculates per-pixel chromatic spread = max(R,G,B) - min(R,G,B).
    * Returns the fraction of pixels where spread >= 6 as the effective variance.
-   * True lunar orbital sensors (TMC-2, OHRC, LROC) produce panchromatic data with fraction < 0.001 (0.1%).
+   * True lunar orbital sensors (NASA LRO, LOLA, LROC) produce panchromatic data with fraction < 0.001 (0.1%).
    */
   public static computeColorVariance(pixelData: ImagePixelData): number {
     const { width, height, data } = pixelData;
@@ -761,8 +761,8 @@ export class DeterministicLunarEngine {
   }
 
   /**
-   * ISRO 24m Grid Classifier:
-   * Evaluates each 24m cell against official ISRO criteria:
+   * NASA 24m Grid Classifier:
+   * Evaluates each 24m cell against official NASA CLPS criteria:
    * - Mean slope ≤ 10°
    * - Crater depth < 1.0m
    * - Boulder height < 0.30m

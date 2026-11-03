@@ -68,11 +68,11 @@ export const ClpsVerificationModal: React.FC<ClpsVerificationModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fadeIn">
-      <div className="relative w-full max-w-2xl bg-space-900 border border-isro-cyan/50 rounded-2xl shadow-2xl overflow-hidden font-mono text-xs text-white">
+      <div className="relative w-full max-w-2xl bg-space-900 border border-cyan-500/50 rounded-2xl shadow-2xl overflow-hidden font-mono text-xs text-white">
         {/* Modal Header */}
         <div className="flex items-center justify-between px-6 py-4 bg-space-850 border-b border-space-700">
           <div className="flex items-center space-x-3">
-            <div className="p-2 rounded-lg bg-isro-emerald/20 border border-isro-emerald/40 text-isro-emerald">
+            <div className="p-2 rounded-lg bg-emerald-500/20 border border-emerald-500/40 text-emerald-400">
               <ShieldCheck className="w-5 h-5" />
             </div>
             <div>
@@ -80,7 +80,7 @@ export const ClpsVerificationModal: React.FC<ClpsVerificationModalProps> = ({
                 <span className="text-sm font-bold tracking-wider text-white uppercase">
                   SHA-256 Telemetry Verification Ledger
                 </span>
-                <span className="px-2 py-0.5 text-[10px] font-bold rounded bg-isro-emerald/20 text-isro-emerald border border-isro-emerald/40">
+                <span className="px-2 py-0.5 text-[10px] font-bold rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/40">
                   SEALED
                 </span>
               </div>
@@ -103,7 +103,7 @@ export const ClpsVerificationModal: React.FC<ClpsVerificationModalProps> = ({
           <div className="grid grid-cols-2 gap-3 p-3.5 rounded-xl bg-space-950/80 border border-space-700/60">
             <div>
               <span className="text-zinc-500 block text-[10px] uppercase">Candidate Region</span>
-              <span className="text-sm font-bold text-isro-cyan">{site.properties?.name}</span>
+              <span className="text-sm font-bold text-cyan-300">{site.properties?.name}</span>
             </div>
             <div>
               <span className="text-zinc-500 block text-[10px] uppercase">CLPS Mission</span>
@@ -111,13 +111,13 @@ export const ClpsVerificationModal: React.FC<ClpsVerificationModalProps> = ({
             </div>
             <div>
               <span className="text-zinc-500 block text-[10px] uppercase">Sampled Physical Slope</span>
-              <span className={`text-xs font-bold ${sampledSlope <= tolerance ? 'text-isro-emerald' : 'text-isro-crimson'}`}>
+              <span className={`text-xs font-bold ${sampledSlope <= tolerance ? 'text-emerald-400' : 'text-red-400'}`}>
                 {sampledSlope.toFixed(2)}° (Tolerance: {tolerance.toFixed(1)}°)
               </span>
             </div>
             <div>
               <span className="text-zinc-500 block text-[10px] uppercase">LunarSafe Score</span>
-              <span className={`text-xs font-bold ${score >= 60 ? 'text-isro-emerald' : 'text-isro-crimson'}`}>
+              <span className={`text-xs font-bold ${score >= 60 ? 'text-emerald-400' : 'text-red-400'}`}>
                 {score} / 100 ({sampledSlope <= tolerance ? 'SAFE' : 'HAZARD'})
               </span>
             </div>
@@ -127,19 +127,19 @@ export const ClpsVerificationModal: React.FC<ClpsVerificationModalProps> = ({
           <div className="space-y-1.5">
             <div className="flex items-center justify-between text-zinc-400">
               <span className="flex items-center gap-1.5 font-bold uppercase tracking-wider text-[11px] text-white">
-                <Hash className="w-3.5 h-3.5 text-isro-emerald" />
+                <Hash className="w-3.5 h-3.5 text-emerald-400" />
                 Immutable SHA-256 Hash Digest
               </span>
               <span className="text-[10px] text-zinc-500">WebCrypto API • 256 bits</span>
             </div>
-            <div className="flex items-center gap-2 p-3 rounded-lg bg-black border border-isro-emerald/40 font-mono text-isro-emerald text-xs select-all">
+            <div className="flex items-center gap-2 p-3 rounded-lg bg-black border border-emerald-500/40 font-mono text-emerald-400 text-xs select-all">
               <span className="break-all tracking-wide">{hash || 'Computing SHA-256 hash...'}</span>
               <button
                 onClick={handleCopy}
                 className="shrink-0 p-1.5 rounded bg-space-800 hover:bg-space-700 text-white transition-colors"
                 title="Copy SHA-256 to clipboard"
               >
-                {copied ? <Check className="w-4 h-4 text-isro-emerald" /> : <Copy className="w-4 h-4 text-zinc-300" />}
+                {copied ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4 text-zinc-300" />}
               </button>
             </div>
           </div>
@@ -148,7 +148,7 @@ export const ClpsVerificationModal: React.FC<ClpsVerificationModalProps> = ({
           <div className="space-y-1.5">
             <div className="flex items-center justify-between text-zinc-400">
               <span className="flex items-center gap-1.5 text-[11px] font-semibold text-zinc-300">
-                <FileCode className="w-3.5 h-3.5 text-isro-cyan" />
+                <FileCode className="w-3.5 h-3.5 text-cyan-400" />
                 Canonical Audit Envelope (Hashed Payload)
               </span>
               <span className="text-[10px] text-zinc-500">Deterministic Key Ordering</span>
@@ -159,7 +159,7 @@ export const ClpsVerificationModal: React.FC<ClpsVerificationModalProps> = ({
           </div>
 
           {/* Trust & Verification Disclaimer */}
-          <div className="flex items-start gap-2.5 p-3 rounded-lg bg-isro-cyan/10 border border-isro-cyan/30 text-isro-cyan text-[11px]">
+          <div className="flex items-start gap-2.5 p-3 rounded-lg bg-cyan-950/40 border border-cyan-500/30 text-cyan-300 text-[11px]">
             <Lock className="w-4 h-4 shrink-0 mt-0.5" />
             <div>
               <span className="font-bold">Cryptographic Non-Repudiation Guarantee: </span>

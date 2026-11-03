@@ -14,8 +14,6 @@ import { computeRecommendation } from './src/lib/recommendationEngine';
 import { generatePDF, generateCSV, generateJSON } from './src/lib/scanReportGenerator';
 import { getSessionMetadata, computeSessionIntegrityHash } from './src/lib/sessionIntegrity';
 import { generateKeyPair, signReport, verifyReport } from './src/lib/digitalSignature';
-import { parsePds4Label, IsroMetadata } from './src/lib/isroPds4Parser';
-import { loadIsroRawImage } from './src/lib/isroImageLoader';
 import { computeSlopeFromDEM } from './src/lib/demSlope';
 import { computeSlopeUncertainty } from './src/lib/uncertainty';
 import { classifyHazardConservative } from './src/lib/hazardClassifier';
@@ -53,6 +51,13 @@ function broadcastMissionLog(level: 'INFO' | 'SUCCESS' | 'WARN' | 'HAZARD', modu
     client.res.write(`data: ${payload}\n\n`);
   });
 }
+
+// -------------------------------------------------------------
+// HEALTH CHECK ENDPOINT
+// -------------------------------------------------------------
+app.get('/api/health', (_req: Request, res: Response) => {
+  res.status(200).json({ status: 'ok', service: 'LunarSafe Mission Control Backend', timestamp: new Date().toISOString() });
+});
 
 // -------------------------------------------------------------
 // SSE STREAMING ENDPOINT: Live Telemetry
@@ -232,7 +237,7 @@ app.post('/api/analyze', async (req: Request, res: Response) => {
 
     // Broadcast highlights to Mission Terminal
     broadcastMissionLog('SUCCESS', 'Sobel Detector', `Slope field calibrated: mean ${analysis.meanSlopeDeg}°, max ${analysis.maxSlopeDeg}°`);
-    broadcastMissionLog('SUCCESS', 'ISRO Grid', `24m grid classification complete: ${analysis.evidence.cellCountSafe} SAFE (${analysis.evidence.safeAreaPercentage}%), ${analysis.evidence.cellCountHazard} HAZARD`);
+    broadcastMissionLog('SUCCESS', 'NASA Grid', `24m grid classification complete: ${analysis.evidence.cellCountSafe} SAFE (${analysis.evidence.safeAreaPercentage}%), ${analysis.evidence.cellCountHazard} HAZARD`);
     broadcastMissionLog('SUCCESS', 'Evidence Panel', `SHA-256 sealed: ${analysis.evidence.gridClassificationHash.substring(0, 16)}...`);
 
     // Return response with serializable slopeMap (converted to Array for JSON transmission)
@@ -288,7 +293,7 @@ app.post('/api/isro/parse-pds4', (req: Request, res: Response) => {
       return res.status(400).json({ error: 'xmlContent required in request body.' });
     }
     const metadata = IsroPradanConnector.parsePds4Xml(xmlContent);
-    broadcastMissionLog('SUCCESS', 'ISRO PDS4 Parser', `Parsed ${metadata.instrumentName} label for ${metadata.targetName}`);
+    broadcastMissionLog('SUCCESS', 'NASA PDS4 Parser', `Parsed ${metadata.instrumentName} label for ${metadata.targetName}`);
     res.json({ metadata });
   } catch (err: any) {
     res.status(400).json({ error: err.message });
@@ -296,213 +301,17 @@ app.post('/api/isro/parse-pds4', (req: Request, res: Response) => {
 });
 
 // -------------------------------------------------------------
-// GET /api/isro-datasets: List Available Official ISRO PDS4 Datasets
+// GET /api/isro-datasets: Decommissioned for NASA-only mode
 // -------------------------------------------------------------
 app.get('/api/isro-datasets', async (_req: Request, res: Response) => {
-  try {
-    const isroDataDir = path.resolve(process.cwd(), 'src/assets/isro_data');
-    if (!fs.existsSync(isroDataDir)) {
-      return res.status(404).json({ error: 'src/assets/isro_data directory not found.' });
-    }
-
-    const fileEntries = fs.readdirSync(isroDataDir);
-    const files = fileEntries.map(fileName => {
-      const filePath = path.join(isroDataDir, fileName);
-      const stat = fs.statSync(filePath);
-      return {
-        name: fileName,
-        path: `src/assets/isro_data/${fileName}`,
-        size: stat.size,
-      };
-    });
-
-    let metadata: IsroMetadata | null = null;
-    const xmlFile = fileEntries.find(f => f.endsWith('_d_img_d18.xml') || f.endsWith('.xml'));
-    if (xmlFile) {
-      try {
-        metadata = parsePds4Label(path.join(isroDataDir, xmlFile));
-      } catch (err: any) {
-        console.warn('Failed to parse PDS4 label:', err.message);
-      }
-    }
-
-    return res.json({
-      success: true,
-      directory: 'src/assets/isro_data/',
-      files,
-      metadata,
-    });
-  } catch (err: any) {
-    return res.status(500).json({ error: err.message });
-  }
+  return res.status(404).json({ error: 'Endpoint decommissioned for NASA-only mode.' });
 });
 
 // -------------------------------------------------------------
-// POST /api/analyze-isro: Calibrated 16-bit ISRO Image Analysis
+// POST /api/analyze-isro: Decommissioned for NASA-only mode
 // -------------------------------------------------------------
-app.post('/api/analyze-isro', async (req: Request, res: Response) => {
-  try {
-    const { filePath, tileX, tileY, tileSize } = req.body;
-
-    let targetPath = filePath || 'src/assets/isro_data/ch2_tmc_ncn_20260823T1657513854_d_img_d18.img';
-    if (!fs.existsSync(targetPath)) {
-      const alt = path.resolve(process.cwd(), targetPath);
-      if (fs.existsSync(alt)) {
-        targetPath = alt;
-      } else {
-        const inIsro = path.resolve(process.cwd(), 'src/assets/isro_data', path.basename(targetPath));
-        if (fs.existsSync(inIsro)) {
-          targetPath = inIsro;
-        } else {
-          return res.status(404).json({ error: `ISRO raw image file not found: ${targetPath}` });
-        }
-      }
-    }
-
-    const x = typeof tileX === 'number' ? tileX : 1500;
-    const y = typeof tileY === 'number' ? tileY : 20000;
-    const size = typeof tileSize === 'number' ? tileSize : 512;
-
-    // Load PDS4 metadata label if available
-    let isroMetadata: IsroMetadata | null = null;
-    const xmlCandidate = targetPath.replace(/\.img$/i, '.xml');
-    if (fs.existsSync(xmlCandidate)) {
-      try {
-        isroMetadata = parsePds4Label(xmlCandidate);
-      } catch (e: any) {
-        console.warn('PDS4 XML parse warning:', e.message);
-      }
-    }
-
-    // Load 16-bit tile and normalize to 8-bit
-    broadcastMissionLog('INFO', 'ISRO Pipeline', `Slicing 16-bit ISRO raster at [X:${x}, Y:${y}, ${size}x${size} px]`);
-    const imageData = loadIsroRawImage(targetPath, x, y, size, { metadata: isroMetadata || undefined });
-
-    // Encode to PNG buffer for hash integrity and transmission
-    const png = new PNG({ width: size, height: size });
-    png.data = Buffer.from(imageData.data.buffer);
-    const pngBuffer = PNG.sync.write(png);
-
-    const pixelScaleMeters = isroMetadata?.pixelResolution || 6.40;
-    const solarIncidence = isroMetadata?.solarIncidence || 76.94;
-    const pds4Coords = isroMetadata?.corners
-      ? { lat: isroMetadata.corners.upperLeft.latitude, lon: isroMetadata.corners.upperLeft.longitude }
-      : null;
-
-    broadcastMissionLog('INFO', 'Deterministic CV', `Executing 4-stage engine on calibrated ISRO TMC-2 (${size}x${size} px @ ${pixelScaleMeters}m/px)`);
-
-    // Run deterministic lunar engine
-    const analysis = await DeterministicLunarEngine.processLunarImage(
-      pngBuffer,
-      { width: size, height: size, data: imageData.data },
-      {
-        pixelScaleMeters,
-        gridSizeMeters: 24,
-        maxSlopeDeg: 10.0,
-        solarIncidenceDeg: solarIncidence,
-        pds4Coordinates: pds4Coords,
-      }
-    );
-
-    // Compute landing zone metrics
-    let selectedZoneMaxSlope = analysis.maxSlopeDeg;
-    let selectedZoneMeanSlope = analysis.meanSlopeDeg;
-    let selectedZoneBoulders = analysis.boulders.length;
-    if (analysis.safeZones.length > 0) {
-      const topZone = analysis.safeZones[0];
-      selectedZoneMeanSlope = topZone.meanSlopeDeg;
-      let peakCellSlope = 0;
-      let topZoneBoulders = 0;
-      for (const [gx, gy] of topZone.cells) {
-        const cell = analysis.gridCells[gy]?.[gx];
-        if (cell) {
-          if (cell.meanSlopeDeg > peakCellSlope) peakCellSlope = cell.meanSlopeDeg;
-          topZoneBoulders += cell.boulderCount;
-        }
-      }
-      selectedZoneMaxSlope = peakCellSlope > 0 ? peakCellSlope : topZone.meanSlopeDeg;
-      selectedZoneBoulders = topZoneBoulders;
-    }
-
-    const recResult = computeRecommendation({
-      meanSlopeDeg: analysis.meanSlopeDeg,
-      maxSlopeDeg: analysis.maxSlopeDeg,
-      safeAreaPercentage: analysis.evidence.safeAreaPercentage,
-      boulderCount: analysis.boulders.length,
-      selectedZoneMaxSlopeDeg: selectedZoneMaxSlope,
-      selectedZoneMeanSlopeDeg: selectedZoneMeanSlope,
-      selectedZoneBoulderCount: selectedZoneBoulders,
-    });
-
-    const rawImageDataUrl = 'data:image/png;base64,' + pngBuffer.toString('base64');
-    const scanId = `scan-${Date.now()}-isro-tmc2-orbit31200`;
-
-    const enrichedRecord: ScanRecord = {
-      id: scanId,
-      timestamp: analysis.evidence.timestamp,
-      instrument: 'TMC-2 (ISRO CH2 Calibrated)',
-      gsdMetersPerPixel: pixelScaleMeters,
-      coordinates: pds4Coords,
-      meanSlopeDeg: Number(analysis.meanSlopeDeg.toFixed(2)),
-      maxSlopeDeg: Number(analysis.maxSlopeDeg.toFixed(2)),
-      frameMaxSlopeDeg: Number(analysis.maxSlopeDeg.toFixed(2)),
-      selectedZoneMaxSlopeDeg: Number(selectedZoneMaxSlope.toFixed(2)),
-      craterCount: analysis.craters.length,
-      hazardPatchCount: analysis.craters.length,
-      hazardCount: analysis.craters.length,
-      boulderCount: analysis.boulders.length,
-      safeCellCount: analysis.evidence.cellCountSafe,
-      safeAreaPercentage: analysis.evidence.safeAreaPercentage,
-      hazardAreaPercentage: Number((100 - analysis.evidence.safeAreaPercentage).toFixed(2)),
-      safeZoneCount: analysis.safeZones.length,
-      contiguousZoneCount: analysis.safeZones.length,
-      topSiteAreaM2: analysis.safeZones.length > 0 ? analysis.safeZones[0].areaM2 : 0,
-      recommendation: recResult.recommendation,
-      confidence: recResult.confidence,
-      reasoning: recResult.reasoning,
-      inputImageHash: analysis.evidence.inputImageHash,
-      slopeMapHash: analysis.evidence.slopeMapHash,
-      gridClassificationHash: analysis.evidence.gridClassificationHash,
-      candidateZonesHash: analysis.evidence.candidateZonesHash,
-      sessionIntegrityHash: computeSessionIntegrityHash(getSessionMetadata()),
-      executionLog: analysis.modules.map(m => ({
-        module: m.name,
-        status: m.status,
-        timingMs: m.timingMs,
-        output: m.details,
-      })),
-      rawImageDataUrl,
-      hazardOverlayDataUrl: '',
-    };
-
-    addScan(enrichedRecord);
-
-    broadcastMissionLog('SUCCESS', 'ISRO Pipeline', `Calibrated TMC-2 processed: Safe Area ${analysis.evidence.safeAreaPercentage}% (${analysis.safeZones.length} candidate sites)`);
-
-    return res.json({
-      ...analysis,
-      scanRecord: enrichedRecord,
-      isroMetadata,
-      tile: { tileX: x, tileY: y, tileSize: size },
-      rawImageDataUrl,
-      recommendation: recResult.recommendation,
-      confidence: recResult.confidence,
-      reasoning: recResult.reasoning,
-      frameMaxSlopeDeg: Number(analysis.maxSlopeDeg.toFixed(2)),
-      selectedZoneMaxSlopeDeg: Number(selectedZoneMaxSlope.toFixed(2)),
-      hazardPatchCount: analysis.craters.length,
-      hazardCount: analysis.craters.length,
-      boulderCount: analysis.boulders.length,
-      safeCellCount: analysis.evidence.cellCountSafe,
-      safeAreaPercentage: analysis.evidence.safeAreaPercentage,
-      safeZoneCount: analysis.safeZones.length,
-      topSiteAreaM2: analysis.safeZones.length > 0 ? analysis.safeZones[0].areaM2 : 0,
-      slopeMap: Array.from(analysis.slopeMap),
-    });
-  } catch (err: any) {
-    broadcastMissionLog('HAZARD', 'ISRO Pipeline Error', err.message);
-    return res.status(422).json({ error: err.message });
-  }
+app.post('/api/analyze-isro', async (_req: Request, res: Response) => {
+  return res.status(404).json({ error: 'Endpoint decommissioned for NASA-only mode.' });
 });
 
 // -------------------------------------------------------------
@@ -627,7 +436,7 @@ app.post('/api/analyze-dem', async (req: Request, res: Response) => {
       recType === 'UNSAFE'
         ? `Severe mean slope of ${slopeRes.meanSlopeDeg.toFixed(2)}° exceeds 10° lander stability threshold.`
         : safeAreaPct >= 70
-        ? `${safeAreaPct.toFixed(1)}% verified safe terrain compliant with ISRO criteria.`
+        ? `${safeAreaPct.toFixed(1)}% verified safe terrain compliant with NASA CLPS criteria.`
         : `Marginal slope profile (${slopeRes.meanSlopeDeg.toFixed(2)}°) with elevated terrain hazards.`;
 
     const cellSizePx = Math.max(1, Math.round(24.0 / gsd));
@@ -703,11 +512,11 @@ app.post('/api/analyze-dem', async (req: Request, res: Response) => {
       },
       {
         id: 'isro_grid_classifier',
-        name: 'ISRO 24m Grid Classifier',
+        name: 'NASA 24m Grid Classifier',
         group: 'deterministic',
         status: 'DONE',
         timingMs: 19.5,
-        details: `Classified ${safeCells} SAFE (${safeAreaPct}%), ${hazardCells} HAZARD per ISRO standard (${actualCellMeters.toFixed(1)}m × ${actualCellMeters.toFixed(1)}m)`,
+        details: `Classified ${safeCells} SAFE (${safeAreaPct}%), ${hazardCells} HAZARD per NASA CLPS standard (${actualCellMeters.toFixed(1)}m × ${actualCellMeters.toFixed(1)}m)`,
       },
       {
         id: 'safe_zone_finder',
@@ -773,7 +582,7 @@ app.post('/api/analyze-dem', async (req: Request, res: Response) => {
     addScan(scanRecord);
 
     broadcastMissionLog('SUCCESS', 'Horn DEM Detector', `Horn DEM Slope evaluated: mean ${slopeRes.meanSlopeDeg.toFixed(2)}°, max ${slopeRes.maxSlopeDeg.toFixed(2)}°`);
-    broadcastMissionLog('SUCCESS', 'ISRO Grid', `LOLA grid classification complete: ${safeCells} SAFE (${safeAreaPct}%), ${hazardCells} HAZARD`);
+    broadcastMissionLog('SUCCESS', 'NASA Grid', `LOLA grid classification complete: ${safeCells} SAFE (${safeAreaPct}%), ${hazardCells} HAZARD`);
     broadcastMissionLog('SUCCESS', 'Evidence Panel', `SHA-256 sealed: ${gridClassificationHash.substring(0, 16)}...`);
 
     return res.json({
@@ -836,7 +645,7 @@ app.post('/api/analyze-dem', async (req: Request, res: Response) => {
           'Spatial Sharpening': 2.3,
           'Horn DEM Slope Evaluation': 11.2,
           'Uncertainty Propagation': 3.8,
-          'ISRO 24m Grid Classification': 19.5,
+          'NASA 24m Grid Classification': 19.5,
           'Safe Zone Clustering': 14.1,
           'A* Egress Traversal': 7.6,
         },

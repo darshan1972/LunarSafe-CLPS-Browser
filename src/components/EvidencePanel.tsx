@@ -100,7 +100,7 @@ const EvidencePanelComponent: React.FC<EvidencePanelProps> = ({
       key: 'slope',
     },
     {
-      label: 'Stage 3: 24m ISRO Classified Grid',
+      label: 'Stage 3: 24m Classified Grid',
       hash: evidence.gridClassificationHash,
       desc: 'SHA-256 over binary state matrix (1=Safe, 0=Hazard)',
       key: 'grid',
@@ -118,7 +118,7 @@ const EvidencePanelComponent: React.FC<EvidencePanelProps> = ({
       {/* Evidence Panel Header */}
       <div className="flex flex-wrap items-center justify-between gap-3 border-b border-space-700 pb-3">
         <div className="flex items-center space-x-2.5">
-          <div className="p-1.5 rounded bg-isro-cyan/15 border border-isro-cyan/40 text-isro-cyan">
+          <div className="p-1.5 rounded bg-cyan-950/60 border border-cyan-500/40 text-cyan-300">
             <ShieldCheck className="w-5 h-5" />
           </div>
           <div>
@@ -126,7 +126,7 @@ const EvidencePanelComponent: React.FC<EvidencePanelProps> = ({
               <h2 className="text-sm font-bold tracking-wide text-white uppercase font-mono">
                 Evidence Panel & Cryptographic Audit
               </h2>
-              <span className="px-2 py-0.5 text-[10px] font-mono rounded bg-isro-emerald/20 text-isro-emerald border border-isro-emerald/40 font-semibold">
+              <span className="px-2 py-0.5 text-[10px] font-mono rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 font-semibold">
                 BIT-DETERMINISTIC
               </span>
             </div>
@@ -139,7 +139,7 @@ const EvidencePanelComponent: React.FC<EvidencePanelProps> = ({
         {/* Re-verify Button */}
         <div className="flex items-center space-x-2">
           {reverifySuccess && (
-            <div className="flex items-center space-x-1.5 px-2.5 py-1 rounded bg-isro-emerald/20 border border-isro-emerald/40 text-[11px] font-mono text-isro-emerald">
+            <div className="flex items-center space-x-1.5 px-2.5 py-1 rounded bg-emerald-500/20 border border-emerald-500/40 text-[11px] font-mono text-emerald-400">
               <Check className="w-3.5 h-3.5" />
               <span>100% BIT-MATCH CONFIRMED</span>
               {evidence.reverifyDeltaMs && (
@@ -155,7 +155,7 @@ const EvidencePanelComponent: React.FC<EvidencePanelProps> = ({
             className={`px-3 py-1.5 rounded text-xs font-mono font-semibold flex items-center space-x-1.5 transition-colors border ${
               isReverifying
                 ? 'bg-space-750 border-space-600 text-space-400 cursor-not-allowed'
-                : 'bg-isro-cyan/15 hover:bg-isro-cyan/25 border-isro-cyan text-isro-cyan'
+                : 'bg-cyan-950/40 hover:bg-cyan-900/40 border-cyan-500 text-cyan-300'
             }`}
           >
             <RotateCw className={`w-3.5 h-3.5 ${isReverifying ? 'animate-spin' : ''}`} />
@@ -167,7 +167,7 @@ const EvidencePanelComponent: React.FC<EvidencePanelProps> = ({
               type="button"
               onClick={handleExportPdf}
               disabled={isExportingPdf}
-              className="px-3 py-1.5 rounded text-xs font-mono font-semibold flex items-center space-x-1.5 transition-colors border bg-isro-emerald/15 hover:bg-isro-emerald/25 border-isro-emerald text-isro-emerald"
+              className="px-3 py-1.5 rounded text-xs font-mono font-semibold flex items-center space-x-1.5 transition-colors border bg-emerald-500/15 hover:bg-emerald-500/25 border-emerald-500 text-emerald-400"
               title="Download client-generated audit-ready PDF assessment report"
             >
               <FileDown className="w-3.5 h-3.5" />
@@ -186,7 +186,7 @@ const EvidencePanelComponent: React.FC<EvidencePanelProps> = ({
           >
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-1.5 text-xs font-mono font-medium text-space-200">
-                <Hash className="w-3.5 h-3.5 text-isro-cyan" />
+                <Hash className="w-3.5 h-3.5 text-cyan-400" />
                 <span>{stage.label}</span>
               </div>
               <button
@@ -196,14 +196,14 @@ const EvidencePanelComponent: React.FC<EvidencePanelProps> = ({
                 title="Copy SHA-256"
               >
                 {copiedKey === stage.key ? (
-                  <Check className="w-3.5 h-3.5 text-isro-emerald" />
+                  <Check className="w-3.5 h-3.5 text-emerald-400" />
                 ) : (
                   <Copy className="w-3.5 h-3.5" />
                 )}
               </button>
             </div>
 
-            <div className="bg-space-900 px-2.5 py-1.5 rounded border border-space-800 font-mono text-[11px] text-isro-cyan break-all select-all">
+            <div className="bg-space-900 px-2.5 py-1.5 rounded border border-space-800 font-mono text-[11px] text-cyan-300 break-all select-all">
               {stage.hash}
             </div>
 
@@ -218,7 +218,7 @@ const EvidencePanelComponent: React.FC<EvidencePanelProps> = ({
         <div className="lg:col-span-2 space-y-2">
           <div className="flex items-center justify-between text-xs font-mono text-space-300">
             <span className="flex items-center space-x-1.5">
-              <Clock className="w-3.5 h-3.5 text-isro-amber" />
+              <Clock className="w-3.5 h-3.5 text-amber-400" />
               <span>PER-MODULE EXECUTION LOG (REAL MEASURED TIMINGS):</span>
             </span>
             <span className="text-space-400">Total: {evidence.totalDurationMs}ms</span>
@@ -233,7 +233,7 @@ const EvidencePanelComponent: React.FC<EvidencePanelProps> = ({
               {Object.entries(evidence.executionTimings || {}).map(([name, time]) => (
                 <div key={name} className="grid grid-cols-12 px-3 py-1.5 hover:bg-space-800/60">
                   <div className="col-span-8 text-space-200">{name}</div>
-                  <div className="col-span-4 text-right text-isro-emerald font-semibold">{time} ms</div>
+                  <div className="col-span-4 text-right text-emerald-400 font-semibold">{time} ms</div>
                 </div>
               ))}
             </div>
@@ -243,8 +243,8 @@ const EvidencePanelComponent: React.FC<EvidencePanelProps> = ({
         {/* Numerical Summary Stats */}
         <div className="space-y-2">
           <div className="text-xs font-mono text-space-300 flex items-center space-x-1.5">
-            <Layers className="w-3.5 h-3.5 text-isro-cyan" />
-            <span>MISSION STATS (ISRO 24M TARGET):</span>
+            <Layers className="w-3.5 h-3.5 text-cyan-400" />
+            <span>MISSION STATS (NASA 24M TARGET):</span>
           </div>
 
           <div className="bg-black rounded border border-slate-800 p-3 space-y-2 text-xs font-mono shadow-inner">
