@@ -2,9 +2,9 @@
 
 Team Rocket · AEROX Club · Parul University · Project Head: Darshan Patil
 
-> **Problem Statement ID**: Developed for **SIH1732** (*Enhancement of Permissible Slope and Hazard Assessment for Safe Lunar Landing*, ISRO) / cross-referenced as **SIH1519** in preliminary problem indexes.
+> **NASA Space Apps Challenge 2026**: High-precision autonomous hazard assessment and candidate landing site verification workstation for NASA Artemis III & Commercial Lunar Payload Services (CLPS) missions.
 
-LunarSafe is an aerospace-grade mission analysis and landing hazard assessment workstation developed for high-resolution orbital imagery (Chandrayaan-2 TMC-2 / OHRC, LROC NAC, and NASA LOLA DEMs). It pairs a strictly deterministic computer vision pipeline with scoped external AI modules and cryptographic verification.
+LunarSafe is an aerospace-grade mission analysis and landing hazard assessment workstation developed for high-resolution orbital imagery and Digital Elevation Models (NASA LOLA DEMs, LRO NAC, and Lunar South Polar terrain maps). It pairs a strictly deterministic computer vision pipeline with scoped external AI modules and cryptographic verification.
 
 > [!IMPORTANT]
 > **Physical Slope vs. Intensity Proxy**: The Sobel-based slope computed from 2D panchromatic optical images is an intensity gradient proxy, not physical slope. Physical slope requires a Digital Elevation Model (DEM) and is computed via Horn's (1981) finite-difference method. Only the DEM/Horn path is physical.
@@ -40,8 +40,8 @@ LunarSafe is organized into four modular layers with clear separation between de
 
 - **Does NOT run on flight hardware**: LunarSafe is a ground-segment mission planning and post-flight telemetry audit tool. It is not onboard flight avionics firmware.
 - **Does NOT use AI for slope calculation or hazard classification**: All slopes, hazard masks, crater counts, boulder profiles, and landing zone rankings are computed 100% deterministically by classical CV algorithms.
-- **Does NOT have real-time ISRO telemetry**: Operates on archived PDS4 Chandrayaan-2/3 product labels, public planetary datasets, and validated calibration swaths.
-- **Does NOT replace ISRO onboard LHDAC**: Chandrayaan-3's onboard Lander Hazard Detection and Avoidance Camera (LHDAC) executes specialized real-time spacecraft guidance during powered descent. LunarSafe serves as an independent pre-mission analysis and post-scan verification platform.
+- **Does NOT have real-time spacecraft flight telemetry**: Operates on calibrated NASA PDS data, LRO LOLA DEMs, and verified Artemis III candidate landing site catalogs.
+- **Does NOT replace real-time onboard terrain relative navigation (TRN)**: Spacecraft descent guidance systems execute tactical guidance during final powered descent. LunarSafe serves as an independent pre-mission analysis and post-scan verification platform.
 - **No boulder detection from YOLO**: The current HuggingFace model only has one class ('crater'). Boulder detection currently relies only on the classical CV pipeline.
 - **The YOLO sidecar is not certified for operational use**: It is a research and comparison benchmark only.
 
@@ -128,8 +128,8 @@ Reported cell dimensions and safe zone footprints strictly reflect the physical 
 ### 3D Terrain Viewer Resolution
 The Three.js viewer renders a 128x128-segment mesh (129x129 = 16,641 vertices) for display. The what-if slope-tolerance slider does not recompute Horn slope: it reads a pixel from the 512x512 colour-coded slope texture (public/data/slope_texture.png, baked from the Horn slope matrix) and decodes it into an approximate, banded slope. This is a single-point interactive estimate; if the texture is unavailable a per-site fallback slope is used. The uncertainty-aware Horn pipeline (mean + 2 sigma <= tolerance) runs on the DEM tiles through the scan workflow and test suites.
 
-### ISRO PDS4 Raw Raster Ingestion & Dynamic-Range Calibration
-The bug was a dynamic-range assumption error. The loader divided raw pixel values by 65,535, but the sensor's actual dynamic range for this observation was only ~9–455. This crushed all pixels to near-zero, producing a blank image. The fix applies a 2-sigma dynamic-range stretch with gamma correction (gamma = 0.43), computed from the tile's actual mean and standard deviation.
+### Dynamic-Range Calibration & Contrast Normalization
+The loader prevents dynamic-range assumption errors where raw sensors exhibit low dynamic range. The pipeline applies a 2-sigma dynamic-range stretch with gamma correction (gamma = 0.43), computed from the tile's actual mean and standard deviation.
 
 ---
 
@@ -220,10 +220,9 @@ npm run dev
 npm run serve
 ```
 
-### Test Suites and Large-File Requirements
-LunarSafe includes a comprehensive test suite across 14 specialized suites. **12 of 14 suites pass on a fresh clone; the other two require the local raw .img**:
-- **12 Passing Out-of-the-Box**: `test:determinism`, `test:gsd`, `test:dem`, `test:groundtruth`, `test:uncertainty`, `test:hazardconservative`, `test:marginal`, `test:agentom`, `test:comparison`, `test:workflow`, `test:security`, `test:multiSiteValidation`.
-- **Large-File Requirements (`test:isro` and `test:isroFullPipeline`)**: These two end-to-end full swath test suites require the raw 392 MB Chandrayaan-2 TMC-2 observational file (`ch2_tmc_ncn_20260823T1657513854_d_img_d18.img` in `src/assets/isro_data/`), which is excluded from GitHub due to the 100 MB file size limit. Authenticated researchers can ingest this file directly from the ISRO PRADAN portal to run the complete 392 MB pipeline tests.
+### Test Suites
+LunarSafe includes a comprehensive test suite across specialized suites passing out-of-the-box:
+- **Passing Out-of-the-Box**: `test:determinism`, `test:gsd`, `test:dem`, `test:groundtruth`, `test:uncertainty`, `test:hazardconservative`, `test:marginal`, `test:agentom`, `test:comparison`, `test:workflow`, `test:security`, `test:multiSiteValidation`.
 
 ---
 
@@ -315,7 +314,7 @@ Verification is performed via POST /api/report/verify.
 - Password strength depends on user's choice
 - Private key is stored locally as a PEM file
 - This is NOT a TEE — no hardware isolation
-- Not certified by ISRO, NASA, or any space agency
+- Not certified by NASA or any space agency for real-time flight avionics
 
 ---
 

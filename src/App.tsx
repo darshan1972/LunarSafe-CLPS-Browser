@@ -46,7 +46,7 @@ type AppAnalysisResult = ProcessedAnalysisResult & {
 export const App: React.FC = () => {
 
   const [currentView, setCurrentView] = useState<AppViewMode>('CLPS_BROWSER');
-  const [slopeOverlayActive, setSlopeOverlayActive] = useState<boolean>(true);
+  const [slopeOverlayActive, setSlopeOverlayActive] = useState<boolean>(false);
   const [roughnessOverlayActive, setRoughnessOverlayActive] = useState<boolean>(false);
   const [selectedClpsSite, setSelectedClpsSite] = useState<any | null>(null);
   const [sampledSlope, setSampledSlope] = useState<number | null>(null);
@@ -284,6 +284,38 @@ export const App: React.FC = () => {
       `> Acquired Artemis III region: ${siteName}. Sampled Ground Slope: ${slope.toFixed(2)}° (Tolerance: ${maxSlopeTolerance.toFixed(1)}°)`
     );
   }, [maxSlopeTolerance, addMissionLog]);
+
+  useEffect(() => {
+    (window as any).__selectArtemisSite = async (name: string) => {
+      try {
+        const res = await fetch('/data/A3_Named_regions.geojson');
+        const data = await res.json();
+        const feat = data.features.find((f: any) =>
+          f.properties?.name?.toLowerCase().includes(name.toLowerCase()) ||
+          f.properties?.code?.toLowerCase().includes(name.toLowerCase())
+        );
+        if (feat) {
+          handleSelectClpsSite(feat, feat.properties?.base_slope_deg || 5.8);
+          return true;
+        }
+      } catch {
+        return false;
+      }
+      return false;
+    };
+    (window as any).__setSlopeOverlay = (active: boolean) => {
+      setSlopeOverlayActive(active);
+    };
+    (window as any).__openRankMatrix = () => {
+      setIsComparisonModalOpen(true);
+    };
+    (window as any).__closeRankMatrix = () => {
+      setIsComparisonModalOpen(false);
+    };
+    (window as any).__openCryptoAudit = () => {
+      setIsVerificationModalOpen(true);
+    };
+  }, [handleSelectClpsSite]);
 
   const handleDeselectClpsSite = useCallback(() => {
     if (selectedClpsSite) {
