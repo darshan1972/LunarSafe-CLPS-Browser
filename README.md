@@ -1,10 +1,40 @@
-# LunarSafe: Deterministic Lunar Landing Hazard Detection & Verification System
+# LunarSafe 2.0: Autonomous CLPS & Artemis III Mission Browser
 
 Team Rocket · AEROX Club · Parul University · Project Head: Darshan Patil
 
-> **NASA Space Apps Challenge 2026**: High-precision autonomous hazard assessment and candidate landing site verification workstation for NASA Artemis III & Commercial Lunar Payload Services (CLPS) missions.
+> **NASA Space Apps Challenge 2026**: High-precision autonomous hazard assessment, candidate landing site verification, and 3D terrain exploration workstation developed for NASA Artemis III and Commercial Lunar Payload Services (CLPS) missions.
 
-LunarSafe is an aerospace-grade mission analysis and landing hazard assessment workstation developed for high-resolution orbital imagery and Digital Elevation Models (NASA LOLA DEMs, LRO NAC, and Lunar South Polar terrain maps). It pairs a strictly deterministic computer vision pipeline with scoped external AI modules and cryptographic verification.
+LunarSafe 2.0 is an aerospace-grade planetary mission analysis and landing hazard assessment workstation developed for high-resolution orbital imagery and Digital Elevation Models (NASA LOLA DEMs, LRO NAC, and Lunar South Polar terrain maps). It pairs a strictly deterministic flight-physics computer vision engine with scoped external AI cross-validation and cryptographic telemetry verification.
+
+📖 **Official Data Specification**: For complete documentation on original NASA PDS identifiers, sensor calibrations, and planetary archives, see the comprehensive [NASA Data Provenance & Ingestion Report](./DATA_PROVENANCE_REPORT.md).
+
+---
+
+## The 5 Core Pillars of LunarSafe 2.0
+
+1. **Interactive 3D Polar Terrain Engine**:
+   - Hardware-accelerated Three.js mesh displaced with real NASA LOLA DEM elevation models (`dem_heightmap.png`, 20m/pixel spatial GSD).
+   - Real-time normal vector synthesis, dynamic sun-angle lighting, and interactive 3D markers for all 13 official NASA Artemis III candidate landing regions.
+   - Non-destructive GPU texture swapping between Natural Albedo, Horn Slope Overlay, and Surface Roughness Index.
+
+2. **Deterministic Mathematical Flight Physics**:
+   - Horn (1981) 3rd-order finite-difference slope gradient computations with $8 \times \text{GSD}$ spatial weighting.
+   - Morphological hazard filtering and 24-meter landing grid partitioning conforming to spacecraft stability tolerances ($<5^\circ$ optimal, $\le 10^\circ$ safe).
+   - Zero neural networks in flight calculations: 100% bit-identical determinism on identical inputs across runs.
+
+3. **Dynamic "What-If" Slope Tolerance Engine**:
+   - Real-time interactive threshold slider allowing flight directors to test spacecraft slope tolerances ($5^\circ$ to $15^\circ$).
+   - Dynamically re-samples color-coded Horn slope textures and computes instant site safety scores and touchdown recommendations on the fly.
+
+4. **Dual-Pipeline YOLO AI Cross-Validation**:
+   - External advisory YOLOv5 deep learning sidecar (`Gurveer05/moon-crater-boulder-detection-yolov5`) running as an independent benchmark.
+   - Operates in parallel to provide neural cross-validation of crater detections against the classical deterministic CV engine without altering flight physics.
+
+5. **FIPS 180-4 SHA-256 Cryptographic Audit Trail**:
+   - End-to-end cryptographic hash ledger sealing every data transformation stage: Raw Input $\to$ Calibrated Slope Map $\to$ 24m Grid Classification $\to$ Candidate Landing Zones.
+   - Guarantees non-repudiation and telemetry integrity, preventing retrospective falsification of landing hazard assessments.
+
+---
 
 > [!IMPORTANT]
 > **Physical Slope vs. Intensity Proxy**: The Sobel-based slope computed from 2D panchromatic optical images is an intensity gradient proxy, not physical slope. Physical slope requires a Digital Elevation Model (DEM) and is computed via Horn's (1981) finite-difference method. Only the DEM/Horn path is physical.
