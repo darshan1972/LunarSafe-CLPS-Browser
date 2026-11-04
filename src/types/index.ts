@@ -121,7 +121,7 @@ export interface MissionLog {
 export interface DataSourceStatus {
   id: string;
   name: string;
-  organization: 'ISRO' | 'NASA';
+  organization: 'NASA' | 'ISRO' | 'JOINT_MISSION';
   url: string;
   status: 'ONLINE' | 'CONNECTED' | 'PORTAL_AUTH_REQUIRED' | 'OFFLINE';
   lastChecked: string;
@@ -149,7 +149,7 @@ export interface ProcessedAnalysisResult {
   height: number;
   gridCols: number;
   gridRows: number;
-  pixelScaleMeters: number; // e.g. 1.0 m/px for OHRC or 5.0 m/px for TMC-2
+  pixelScaleMeters: number; // e.g. 0.5 m/px for LROC NAC or 20.0 m/px for LOLA DEM
   gridCells: GridCell[][];
   slopeMap: Float32Array;
   minSlopeDeg: number;

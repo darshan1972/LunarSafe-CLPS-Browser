@@ -31,7 +31,7 @@ export class PdfReportGenerator {
 
     // Color Palette
     const cNavy = [13, 27, 42];        // #0D1B2A Deep Space Navy
-    const cCyan = [0, 180, 216];       // #00B4D8 ISRO Cyan
+    const cCyan = [0, 180, 216];       // #00B4D8 Primary Cyan
     const cEmerald = [16, 185, 129];   // #10B981 Safe Green
     const cCrimson = [239, 68, 68];    // #EF4444 Hazard Red
     const cAmber = [245, 158, 11];     // #F59E0B Boulder Amber
@@ -63,7 +63,7 @@ export class PdfReportGenerator {
     doc.setTextColor(200, 200, 200);
     doc.setFontSize(7);
     doc.text(`DATE/TIME: ${new Date().toISOString()}`, margin + contentWidth - 52, y + 7);
-    doc.text('STANDARD: ISRO 24M GRID / NASA PDS', margin + contentWidth - 52, y + 13);
+    doc.text('STANDARD: NASA 24M GRID / NASA PDS', margin + contentWidth - 52, y + 13);
 
     y += 21;
 
@@ -195,7 +195,7 @@ export class PdfReportGenerator {
         desc: 'SHA-256 over Float32Array slope values (0-90° clamped).',
       },
       {
-        stage: 'Stage 3: 24m ISRO Classified Grid',
+        stage: 'Stage 3: 24m NASA Classified Grid',
         hash: analysis.evidence.gridClassificationHash,
         desc: 'SHA-256 over binary state matrix (1=Safe, 0=Hazard).',
       },
@@ -334,7 +334,7 @@ export class PdfReportGenerator {
     doc.setFontSize(6.5);
     doc.setTextColor(cTextMuted[0], cTextMuted[1], cTextMuted[2]);
     doc.text('LunarSafe Autonomous Planetary Hazard System - Page 1 of 2 - 100% Bit-Identical Repeatability Guaranteed', margin, pageHeight - 8);
-    doc.text('NASA PDS / ISRO PRADAN COMPLIANT', margin + contentWidth - 45, pageHeight - 8);
+    doc.text('NASA PDS / LOLA DEM COMPLIANT', margin + contentWidth - 45, pageHeight - 8);
 
     // ==========================================
     // PAGE 2: CONSOLIDATED CRATERS, SAFE ZONES, TIMINGS & CERTIFICATE
@@ -570,7 +570,7 @@ export class PdfReportGenerator {
     const certText =
       'This document certifies that all terrain metrics, slope classifications, hazard patches, consolidated crater geometries, ' +
       'and candidate touchdown zones were computed solely through deterministic classical computer vision (calibrated Sobel ' +
-      'gradient operator, ISRO 24m grid cell partitioning, and disjoint-set connected component clustering). ' +
+      'gradient operator, NASA 24m grid cell partitioning, and disjoint-set connected component clustering). ' +
       'Zero generative AI models or stochastic estimators exist within the numerical decision path. Given identical input byte arrays, ' +
       'the mathematical engine produces 100% bit-identical SHA-256 hashes across all stages.';
     doc.text(doc.splitTextToSize(certText, contentWidth - 8), margin + 4, y + 8.5);

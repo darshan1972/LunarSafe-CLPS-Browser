@@ -14,15 +14,15 @@ interface ImageDropzoneProps {
 const SAMPLE_IMAGE_MAP: Record<string, { url: string; title: string }> = {
   tmc2: {
     url: '/src/assets/samples/isro_tmc2_manzinusc_crop.png',
-    title: 'CH2_TMC2_MANZINUS_C (5m DEM)',
+    title: 'NASA_LRO_LOLA_MANZINUS (5m DEM)',
   },
   ohrc: {
     url: '/src/assets/samples/isro_ohrc_shivshakti_crop.png',
-    title: 'CH2_OHRC_SHIVSHAKTI (0.25m High-Res)',
+    title: 'NASA_LRO_NAC_HIGHLANDS (0.5m High-Res)',
   },
   psr: {
     url: '/src/assets/samples/isro_psr_southpole_crop.png',
-    title: 'CH2_PSR_SOUTH_POLE (Permanently Shadowed)',
+    title: 'NASA_LRO_PSR_SOUTH_POLE (Permanently Shadowed)',
   },
   color_test: {
     url: '/src/assets/samples/color_terrestrial.png',
@@ -137,12 +137,12 @@ export const ImageDropzone: React.FC<ImageDropzoneProps> = ({
           <div className="flex items-center space-x-2 text-[11px] text-space-400 font-mono">
             <span className="px-1.5 py-0.5 rounded bg-space-850 border border-space-700">Panchromatic Band</span>
             <span className="px-1.5 py-0.5 rounded bg-space-850 border border-space-700">1m/px or 5m/px</span>
-            <span className="px-1.5 py-0.5 rounded bg-space-850 border border-space-700">ISRO 24m Ready</span>
+            <span className="px-1.5 py-0.5 rounded bg-space-850 border border-space-700">NASA 24m Ready</span>
           </div>
         </div>
       </div>
 
-      {/* Active OHRC / Lunar Image Preview Viewport (Strict max-h-64/max-h-80, bg-space-950, object-contain) */}
+      {/* Active NASA LRO / Lunar Image Preview Viewport (Strict max-h-64/max-h-80, bg-space-950, object-contain) */}
       {activeSampleInfo && (
         <div className="rounded-lg border border-space-700/80 bg-space-950 p-3 space-y-2 shadow-xl">
           <div className="flex items-center justify-between text-[11px] font-mono">
@@ -154,7 +154,7 @@ export const ImageDropzone: React.FC<ImageDropzoneProps> = ({
               <span>LUNAR IMAGERY VIEWPORT</span>
             </span>
             <span className="text-[10px] uppercase font-mono px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-zinc-300">
-              {selectedSample === 'ohrc' ? 'ISRO OHRC (0.25m)' : 'CALIBRATED SWATH'}
+              {selectedSample === 'ohrc' ? 'NASA LRO NAC (0.5m)' : 'CALIBRATED SWATH'}
             </span>
           </div>
 
@@ -217,7 +217,7 @@ export const ImageDropzone: React.FC<ImageDropzoneProps> = ({
         </div>
 
         <div className="grid grid-cols-2 gap-2">
-          {/* Sample 1: TMC-2 */}
+          {/* Sample 1: NASA LRO */}
           <button
             type="button"
             onClick={() => onImageSelected(null, 'tmc2')}
@@ -229,14 +229,14 @@ export const ImageDropzone: React.FC<ImageDropzoneProps> = ({
             }`}
           >
             <div className={`font-semibold font-mono text-[11px] ${selectedSample === 'tmc2' ? 'text-black font-bold' : 'text-white'}`}>
-              CH2_TMC2_MANZINUS_C
+              NASA_LRO_LOLA_DEM
             </div>
             <div className={`text-[11px] ${selectedSample === 'tmc2' ? 'text-zinc-700' : 'text-zinc-400'}`}>
               5m DEM · Manzinus-C
             </div>
           </button>
 
-          {/* Sample 2: OHRC */}
+          {/* Sample 2: NASA LRO NAC */}
           <button
             type="button"
             onClick={() => onImageSelected(null, 'ohrc')}
@@ -248,10 +248,10 @@ export const ImageDropzone: React.FC<ImageDropzoneProps> = ({
             }`}
           >
             <div className={`font-semibold font-mono text-[11px] ${selectedSample === 'ohrc' ? 'text-black font-bold' : 'text-white'}`}>
-              CH2_OHRC_SHIVSHAKTI
+              NASA_LRO_NAC_SWATH
             </div>
             <div className={`text-[11px] ${selectedSample === 'ohrc' ? 'text-zinc-700' : 'text-zinc-400'}`}>
-              0.25m Landing Site Swath
+              0.5m Landing Site Swath
             </div>
           </button>
 
@@ -268,7 +268,7 @@ export const ImageDropzone: React.FC<ImageDropzoneProps> = ({
           >
             <div className={`flex items-center space-x-1 font-semibold font-mono text-[11px] ${selectedSample === 'psr' ? 'text-black font-bold' : 'text-white'}`}>
               <Sparkles className="w-3 h-3" />
-              <span>CH2_PSR_SOUTH_POLE</span>
+              <span>NASA_LRO_PSR_POLAR</span>
             </div>
             <div className={`text-[11px] ${selectedSample === 'psr' ? 'text-zinc-700' : 'text-zinc-400'}`}>
               Shadowed Crater
@@ -308,11 +308,11 @@ export const ImageDropzone: React.FC<ImageDropzoneProps> = ({
         )}
       </div>
 
-      {/* Optional ISRO PDS4 XML Label Ingestion */}
+      {/* Optional NASA PDS4 XML Label Ingestion */}
       <div className="pt-2 border-t border-space-700 flex items-center justify-between">
         <div className="flex items-center space-x-2 text-xs text-space-400">
           <FileText className="w-3.5 h-3.5 text-space-500" />
-          <span>Ingest Chandrayaan PDS4 XML Label:</span>
+          <span>Ingest NASA PDS4 XML Label:</span>
         </div>
         <button
           type="button"

@@ -140,7 +140,7 @@ export const ScienceDossier: React.FC<ScienceDossierProps> = ({
               PLANETARY SCIENCE & MISSION ENGINEERING DOSSIER
             </h1>
             <p className="text-sm text-zinc-400 max-w-3xl mt-1">
-              Authoritative technical reference manual documenting peer-reviewed research papers by ISRO and NASA scientists,
+              Authoritative technical reference manual documenting peer-reviewed research papers by NASA planetary scientists,
               sensor instrumentation physics, classical computer vision mathematics, and lunar regolith geotechnics.
             </p>
           </div>
@@ -241,7 +241,7 @@ export const ScienceDossier: React.FC<ScienceDossierProps> = ({
                 }`}
               >
                 <Satellite className="w-3.5 h-3.5" />
-                <span>ISRO PAPERS</span>
+                <span>LOLA / LRO PAPERS</span>
               </button>
               <button
                 type="button"

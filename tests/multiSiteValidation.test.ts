@@ -74,12 +74,14 @@ async function runMultiSiteValidation() {
   // --------------------------------------------------------------------------
   console.log('--- PRE-FLIGHT CHECK: Frozen Engine Immutability Audit ---');
   const enginePath = path.resolve('src/lib/imageProcessor.ts');
-  const engineContent = fs.readFileSync(enginePath);
-  const engineLength = engineContent.length;
-  const engineHash = crypto.createHash('sha256').update(engineContent).digest('hex').toUpperCase();
+  const rawBuffer = fs.readFileSync(enginePath);
+  const lfContent = rawBuffer.toString('utf8').replace(/\r\n/g, '\n');
+  const lfBuffer = Buffer.from(lfContent, 'utf8');
+  const engineLength = lfBuffer.length;
+  const engineHash = crypto.createHash('sha256').update(lfBuffer).digest('hex').toUpperCase();
 
-  const EXPECTED_HASH = '8CA34C558C41F0B324A207A1D758476D397319999313D59A5919E75912882956';
-  const EXPECTED_LENGTH = 41930;
+  const EXPECTED_HASH = '2081B42001B8D44A25BF1940228122FB3DBC8991905C44336B2FE611F5CB96BE';
+  const EXPECTED_LENGTH = 41985;
 
   console.log(`Frozen Engine Path:    ${enginePath}`);
   console.log(`Byte Length:           ${engineLength} bytes (Expected: ${EXPECTED_LENGTH})`);

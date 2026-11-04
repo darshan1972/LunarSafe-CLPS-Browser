@@ -162,8 +162,8 @@ export const ClpsVerificationModal: React.FC<ClpsVerificationModalProps> = ({
           <div className="flex items-start gap-2.5 p-3 rounded-lg bg-cyan-950/40 border border-cyan-500/30 text-cyan-300 text-[11px]">
             <Lock className="w-4 h-4 shrink-0 mt-0.5" />
             <div>
-              <span className="font-bold">Cryptographic Non-Repudiation Guarantee: </span>
-              Any bit-level alteration in elevation data, candidate coordinates, or slope calculations produces a completely different SHA-256 digest, preventing retrospective falsification of landing hazard assessments.
+              <span className="font-bold">Cryptographic Tamper-Evident Verification: </span>
+              Any bit-level alteration in elevation data, candidate coordinates, or slope calculations produces a completely different SHA-256 digest, providing a tamper-evident audit trail for landing hazard assessments.
             </div>
           </div>
         </div>

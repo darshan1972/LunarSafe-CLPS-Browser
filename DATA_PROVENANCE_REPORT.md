@@ -16,7 +16,7 @@ LunarSafe utilizes authentic, calibrated lunar planetary datasets sourced exclus
 * **NASA LRO LOLA Lunar South Pole Gridded Digital Elevation Model (GDR)**
   * **Repository Files**: 
     * `public/data/dem_heightmap.png` (Displacement heightmap texture)
-    * `public/data/slope_texture.png` (Horn 1981 slope classification texture)
+    * `public/data/slope_texture.png` (Horn slope classification texture)
     * `public/data/roughness_texture.png` (Surface roughness index texture)
     * `src/assets/dem/lola_sample.tif` & `lola_sample.png` (Raw 32-bit floating-point DEM sample)
     * `src/assets/dem/lola_sample.meta.json` (Companion geodetic metadata)
@@ -24,6 +24,15 @@ LunarSafe utilizes authentic, calibrated lunar planetary datasets sourced exclus
   * **Instrument**: Lunar Orbiter Laser Altimeter (LOLA)
   * **Original NASA PDS Identifiers**: `LDEM_875S_20M_FLOAT.IMG`, `LDEM_80S_80M_FLOAT.IMG`
   * **Dataset Representation**: Polar stereographic Digital Elevation Model (DEM) covering lunar latitudes from $84^\circ\text{S}$ to $90^\circ\text{S}$ at up to 20 meters/pixel spatial resolution. It encodes absolute terrain elevation relative to the lunar reference radius ($1,737,400\text{ m}$), utilized to generate displaced 3D terrain meshes, compute physical slope gradients, and derive surface roughness indices.
+
+* **Optimized 512×512 WebGL Regional Textures (Local Pre-Processing Pipeline)**
+  * **Repository Files**: `public/data/dem_heightmap.png`, `public/data/slope_texture.png`, `public/data/roughness_texture.png`
+  * **Pre-Processing Methodology**: To enable high-frame-rate 3D rendering in WebGL without compromising browser responsiveness or exceeding client GPU memory limits, the 512×512 PNG textures were pre-computed locally from the raw NASA LOLA polar DEM (`LDEM_875S_20M_FLOAT.IMG`) using an offline data-processing pipeline.
+  * **Texture Roles**:
+    1. `dem_heightmap.png`: Encodes normalized elevation values used by Three.js to displace vertices across the 3D lunar terrain mesh.
+    2. `slope_texture.png`: Pre-baked Horn (1981) 3×3 weighted finite-difference slope gradients color-banded into landing safety intervals ($\le 5^\circ$ green, $5^\circ\text{–}10^\circ$ amber, $>10^\circ$ crimson).
+    3. `roughness_texture.png`: Encodes the local moving-window elevation standard deviation, mapping micro-terrain roughness.
+  * **Full-Resolution Separation**: While the client-side 3D viewer samples these optimized 512×512 textures for real-time visualization and interactive slider updates, all rigorous flight-safety math, analytical uncertainty quantification, and benchmark test suites operate directly on the uncompressed floating-point GeoTIFF / raw DEM rasters.
 
 * **NASA LRO LOLA Specific Landing Site Benchmark DEMs (Ground-Truth Validation)**
   * **Repository Files**:
@@ -101,7 +110,7 @@ flowchart TD
 
     subgraph S2["2. Topographic & Slope Synthesis"]
         B1 --> C1["Elevation Matrix Normalization (Z-Range Mapping)"]
-        B1 --> C2["Horn (1981) 3rd-Order Finite Difference Algorithm (8 × GSD Weighting)"]
+        B1 --> C2["Horn (1981) 3×3 Weighted Finite-Difference Algorithm (8 × GSD Weighting)"]
         C2 --> D1["Physical Slope Angle Map (Degrees)"]
         D1 --> D2["Offscreen Texture Baking (Green ≤5°, Amber 5°-10°, Red >10°)"]
         C1 --> D3["Surface Roughness Index Texture (Local Elevation StdDev)"]
@@ -138,7 +147,7 @@ flowchart TD
 * **Elevation Displacement**: In `src/components/Terrain3DViewer.tsx`, the elevation raster is mapped onto an offscreen canvas. Vertices of a `THREE.PlaneGeometry` ($80 \times 80$ spatial units, $128 \times 128$ segments, 16,384 vertices) are displaced along the Y-axis:
   $$\text{pos.setY}(i, \text{elevationMeters}), \quad \text{where } \text{elevationMeters} = (\text{elevationNorm} \cdot 18.0 - 5.0) \cdot \left(\frac{\text{exaggeration}}{2.0}\right)$$
   True physical 3D lighting normals are then dynamically regenerated via `geometry.computeVertexNormals()`.
-* **Horn's (1981) Finite Difference Slope Formulation**: Local terrain slope is computed across each pixel $(x, y)$ using Horn's third-order finite difference scheme with $8 \times \text{GSD}$ weighting:
+* **Horn's (1981) Finite Difference Slope Formulation**: Local terrain slope is computed across each pixel $(x, y)$ using Horn's 3×3 weighted finite-difference scheme with $8 \times \text{GSD}$ weighting:
   $$\frac{\partial z}{\partial x} = \frac{(z_{20} + 2z_{21} + z_{22}) - (z_{00} + 2z_{01} + z_{02})}{8 \cdot \text{GSD}}$$
   $$\frac{\partial z}{\partial y} = \frac{(z_{02} + 2z_{12} + z_{22}) - (z_{00} + 2z_{10} + z_{20})}{8 \cdot \text{GSD}}$$
   $$\text{Slope}_{\text{degrees}} = \arctan\left(\sqrt{\left(\frac{\partial z}{\partial x}\right)^2 + \left(\frac{\partial z}{\partial y}\right)^2}\right) \cdot \left(\frac{180^\circ}{\pi}\right)$$

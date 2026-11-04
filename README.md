@@ -4,7 +4,7 @@ Team Rocket · AEROX Club · Parul University · Project Head: Darshan Patil
 
 > **NASA Space Apps Challenge 2026**: High-precision autonomous hazard assessment, candidate landing site verification, and 3D terrain exploration workstation developed for NASA Artemis III and Commercial Lunar Payload Services (CLPS) missions.
 
-LunarSafe 2.0 is an aerospace-grade planetary mission analysis and landing hazard assessment workstation developed for high-resolution orbital imagery and Digital Elevation Models (NASA LOLA DEMs, LRO NAC, and Lunar South Polar terrain maps). It pairs a strictly deterministic flight-physics computer vision engine with scoped external AI cross-validation and cryptographic telemetry verification.
+LunarSafe 2.0 is a research-grade planetary mission analysis and landing hazard assessment workstation developed for high-resolution orbital imagery and Digital Elevation Models (NASA LOLA DEMs, LRO NAC, and Lunar South Polar terrain maps). It pairs a strictly deterministic flight-physics computer vision engine with scoped external AI cross-validation and cryptographic telemetry verification.
 
 📖 **Official Data Specification**: For complete documentation on original NASA PDS identifiers, sensor calibrations, and planetary archives, see the comprehensive [NASA Data Provenance & Ingestion Report](./DATA_PROVENANCE_REPORT.md).
 
@@ -13,17 +13,18 @@ LunarSafe 2.0 is an aerospace-grade planetary mission analysis and landing hazar
 ## The 5 Core Pillars of LunarSafe 2.0
 
 1. **Interactive 3D Polar Terrain Engine**:
-   - Hardware-accelerated Three.js mesh displaced with real NASA LOLA DEM elevation models (`dem_heightmap.png`, 20m/pixel spatial GSD).
+   - Hardware-accelerated Three.js mesh displaced with real NASA LOLA DEM elevation models.
+   - The interactive 3D viewer renders an optimized 512×512 regional texture for real-time WebGL performance, while the offline deterministic flight-safety math operates directly on the full-resolution LOLA DEM floating-point raster.
    - Real-time normal vector synthesis, dynamic sun-angle lighting, and interactive 3D markers for all 13 official NASA Artemis III candidate landing regions.
    - Non-destructive GPU texture swapping between Natural Albedo, Horn Slope Overlay, and Surface Roughness Index.
 
 2. **Deterministic Mathematical Flight Physics**:
-   - Horn (1981) 3rd-order finite-difference slope gradient computations with $8 \times \text{GSD}$ spatial weighting.
+   - Horn (1981) 3×3 weighted finite-difference slope gradient computations with $8 \times \text{GSD}$ spatial weighting.
    - Morphological hazard filtering and 24-meter landing grid partitioning conforming to spacecraft stability tolerances ($<5^\circ$ optimal, $\le 10^\circ$ safe).
    - Zero neural networks in flight calculations: 100% bit-identical determinism on identical inputs across runs.
 
 3. **Dynamic "What-If" Slope Tolerance Engine**:
-   - Real-time interactive threshold slider allowing flight directors to test spacecraft slope tolerances ($5^\circ$ to $15^\circ$).
+   - Real-time interactive threshold slider allowing flight directors to test spacecraft slope tolerances ($8.0^\circ$ to $15.0^\circ$).
    - Dynamically re-samples color-coded Horn slope textures and computes instant site safety scores and touchdown recommendations on the fly.
 
 4. **Dual-Pipeline YOLO AI Cross-Validation**:
@@ -32,7 +33,7 @@ LunarSafe 2.0 is an aerospace-grade planetary mission analysis and landing hazar
 
 5. **FIPS 180-4 SHA-256 Cryptographic Audit Trail**:
    - End-to-end cryptographic hash ledger sealing every data transformation stage: Raw Input $\to$ Calibrated Slope Map $\to$ 24m Grid Classification $\to$ Candidate Landing Zones.
-   - Guarantees non-repudiation and telemetry integrity, preventing retrospective falsification of landing hazard assessments.
+   - Maintains a tamper-evident telemetry verification log across computational stages.
 
 ---
 
@@ -45,11 +46,11 @@ LunarSafe 2.0 is an aerospace-grade planetary mission analysis and landing hazar
 
 LunarSafe is organized into four modular layers with clear separation between deterministic flight-physics logic and external AI:
 
-1. **Deterministic CV Engine (`src/lib/imageProcessor.ts`, 41,930 bytes, SHA-256 `8ca34c558c41f0b324a207a1d758476d397319999313d59a5919e75912882956`, zero AI)**:
+1. **Deterministic CV Engine (`src/lib/imageProcessor.ts`, 41,985 bytes, SHA-256 `2081b42001b8d44a25bf1940228122fb3dbc8991905c44336b2fe611f5cb96be`, zero AI)**:
    - Evaluates orbital terrain topography, surface slope gradients, boulder distributions, and crater hazard boundaries.
    - Operates strictly on deterministic mathematical algorithms (Sobel spatial convolutions, Horn gradient estimators, morphological feature tracking, and BFS contiguous flood-fills).
    - Zero neural networks, zero probabilistic heuristics. Every run on identical input produces identical bits.
-   - **Baseline Integrity Note (CRLF vs. LF Line Endings)**: The authoritative SHA-256 hash (`8ca34c558c41f0b324a207a1d758476d397319999313d59a5919e75912882956`) is computed across normalized POSIX LF (`\n`) line endings. On Windows environments where Git may checkout files with CRLF (`\r\n`), line ending conversions will alter the file hash unless checked out with `git config core.autocrlf input` or normalized to LF before hashing.
+   - **Baseline Integrity Note (CRLF vs. LF Line Endings)**: The authoritative SHA-256 hash (`2081b42001b8d44a25bf1940228122fb3dbc8991905c44336b2fe611f5cb96be`) is computed across normalized POSIX LF (`\n`) line endings. On Windows environments where Git may checkout files with CRLF (`\r\n`), line ending conversions will alter the file hash unless checked out with `git config core.autocrlf input` or normalized to LF before hashing.
 
 2. **Real Gemini AI Modules (Scoped, External, Clearly Labeled)**:
    - **Gemini Vision Validator**: Receives raw base64 orbital imagery to perform broad geological morphology checks (confirming genuine lunar regolith vs terrestrial images). Strictly cannot compute or alter numeric slopes or hazard statistics.
@@ -58,11 +59,11 @@ LunarSafe is organized into four modular layers with clear separation between de
 
 3. **Agent OM State Reasoner (Live Telemetry & Deterministic Dispatch)**:
    - State-aware planetary science co-pilot reading live project telemetry (`ProjectState`).
-   - Reads `.scan_history.json`, dynamic component health, file hashes, and runtime environment.
+   - Reads dynamic component health, file hashes, and runtime environment.
    - Maps user queries across 6 discrete intent classes (`LAST_SCAN`, `COMPONENT_STATUS`, `HASH_CHAIN`, `RECOMMENDATION`, `ENVIRONMENT`, `OUT_OF_SCOPE`).
 
 4. **Cryptographic Audit Trail (4 SHA-256 Stages)**:
-   - Maintains an immutable cryptographic hash chain sealing each computation stage: Input Raw Image -> Calibrated Slope Map -> 24m Grid Classification -> Candidate Touchdown Zones.
+   - Maintains a tamper-evident cryptographic hash chain sealing each computation stage: Input Raw Image -> Calibrated Slope Map -> 24m Grid Classification -> Candidate Touchdown Zones.
 
 ---
 

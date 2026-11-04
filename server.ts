@@ -356,7 +356,7 @@ app.post('/api/analyze-dem', async (req: Request, res: Response) => {
 
     const siteName = meta?.site || (
       resolvedPath.includes('apollo11') ? 'Apollo 11 Tranquility Base' :
-      resolvedPath.includes('shiv_shakti') ? 'Shiv Shakti Point (Chandrayaan-3)' :
+      resolvedPath.includes('shiv_shakti') ? 'Shiv Shakti Point (High-Latitude Plains)' :
       resolvedPath.includes('shackleton') ? 'Shackleton Crater Rim' :
       resolvedPath.includes('marginal') ? 'Apollo 17 South Massif Rim (Marginal Site)' :
       'NASA LOLA Polar Elevation Model'
@@ -685,7 +685,7 @@ app.post('/api/gemini/validate', async (req: Request, res: Response) => {
     const payload = {
       contents: [{
         parts: [
-          { text: 'You are a lunar orbital imagery validator. Analyze this image and answer: (1) Is this image from a lunar panchromatic orbital sensor (TMC-2, OHRC, LROC NAC) or a terrestrial/color image? (2) Is the terrain lunar-like (craters, mare, highlands) or something else? (3) Confidence 0-100%. Respond ONLY as JSON: { "is_lunar": boolean, "confidence": number, "reason": string }' },
+          { text: 'You are a lunar orbital imagery validator. Analyze this image and answer: (1) Is this image from a lunar panchromatic orbital sensor (NASA LRO, LOLA, LROC NAC) or a terrestrial/color image? (2) Is the terrain lunar-like (craters, mare, highlands) or something else? (3) Confidence 0-100%. Respond ONLY as JSON: { "is_lunar": boolean, "confidence": number, "reason": string }' },
           { inline_data: { mime_type: effectiveMime, data: cleanBase64 } }
         ]
       }]

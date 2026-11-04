@@ -53,20 +53,20 @@ export const AgentOmModal: React.FC<AgentOmModalProps> = ({
       sender: 'om',
       text:
         `### 🛰️ Greetings! I am Agent OM (Orbital & Mission AI Co-Pilot)\n\n` +
-        `I am your autonomous lunar science and mission intelligence agent, fully grounded in authentic **ISRO** and **NASA** planetary science data.\n\n` +
+        `I am your autonomous lunar science and mission intelligence agent, fully grounded in authentic **NASA** planetary science data.\n\n` +
         `#### What I Can Do For You:\n` +
-        `- **Project Features & How-To**: Guide you step-by-step through every feature in LunarSafe (2D grid, 3D relief mesh, batch comparison, PDF reports, Disjoint-Set crater consolidation).\n` +
-        `- **Expected Outputs & Benchmarks**: Provide exact mathematical and cryptographic benchmarks for all 3 demo targets (\`CH2_TMC2_MANZINUS_C\`, \`CH2_OHRC_SHIVSHAKTI\`, \`CH2_PSR_SOUTH_POLE\`, and \`NON_LUNAR_COLOR\` rejection).\n` +
-        `- **Deep ISRO & NASA Science**: Explain Vikram lander dynamics (3.9m leg spread, ≤10° slope limit, 30cm boulder clearance) and 9 peer-reviewed papers authored by Dr. P. Veeramuthuvel, S. Somanath, Dr. Amitabh, and NASA teams.\n` +
+        `- **Project Features & How-To**: Guide you step-by-step through every feature in LunarSafe (3D terrain viewer, Artemis III site matrix, What-If slider, PDF reports, Disjoint-Set crater consolidation).\n` +
+        `- **Expected Outputs & Benchmarks**: Provide exact mathematical and cryptographic benchmarks for all demo targets (\`NASA_LRO_LOLA_DEM\`, \`NASA_LRO_NAC_SWATH\`, \`NASA_LRO_PSR_POLAR\`, and \`NON_LUNAR_COLOR\` rejection).\n` +
+        `- **Deep NASA Planetary Science**: Explain Artemis III candidate sites, lander dynamics (≤10° slope limit, 30cm boulder clearance), and peer-reviewed LOLA topography papers by Zuber, Rosenburg, and NASA teams.\n` +
         `- **Live Web / Internet Data**: Query NASA's live Planetary Data System (PDS) REST API in real time to fetch active lunar orbital products.\n\n` +
         `Tap any suggestion chip below or type your question!`,
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       suggestedQuestions: [
         'How do I use this project and its features?',
-        'What are the expected outputs for the 3 demo targets?',
+        'What are the expected outputs for the demo targets?',
         'Why is the slope limit strictly ≤10°?',
         'Fetch live data from NASA PDS Web API',
-        'Explain Dr. Veeramuthuvel\'s Chandrayaan-3 paper',
+        'Explain NASA Artemis III landing criteria',
       ],
     },
   ]);
@@ -203,7 +203,7 @@ export const AgentOmModal: React.FC<AgentOmModalProps> = ({
                   </span>
                 </h2>
                 <span className="hidden sm:inline-flex items-center px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-black text-white border border-zinc-700">
-                  ISRO & NASA GROUNDED
+                  NASA GROUNDED
                 </span>
               </div>
               <p className="text-[11px] text-zinc-400 font-mono flex items-center space-x-2">
@@ -469,7 +469,7 @@ export const AgentOmModal: React.FC<AgentOmModalProps> = ({
                   {/* Message Action Footer */}
                   {!isUser && (
                     <div className="mt-2.5 pt-2 border-t border-zinc-850 flex items-center justify-between text-[11px] font-mono text-zinc-400">
-                      <span>VERIFIED GROUNDED IN ISRO & NASA DATA</span>
+                      <span>VERIFIED GROUNDED IN NASA DATA</span>
                       <button
                         type="button"
                         onClick={() => handleCopy(msg.text, msg.id)}
@@ -528,7 +528,7 @@ export const AgentOmModal: React.FC<AgentOmModalProps> = ({
                   </span>
                 </div>
                 <p className="text-[10px] text-zinc-400">
-                  Cross-referencing ISRO 24m physics, peer-reviewed papers & live telemetry...
+                  Cross-referencing NASA 24m physics, peer-reviewed papers & live telemetry...
                 </p>
               </div>
             </div>
@@ -560,7 +560,7 @@ export const AgentOmModal: React.FC<AgentOmModalProps> = ({
             </button>
             <button
               type="button"
-              onClick={() => handleSend('What are the expected outputs for the 3 demo targets?')}
+              onClick={() => handleSend('What are the expected outputs for the demo targets?')}
               disabled={isQuerying}
               className="px-2.5 py-1 rounded-md bg-black hover:bg-zinc-900 text-zinc-300 hover:text-white border border-zinc-800 flex items-center space-x-1.5 shrink-0 transition-colors"
             >
@@ -576,11 +576,11 @@ export const AgentOmModal: React.FC<AgentOmModalProps> = ({
             </button>
             <button
               type="button"
-              onClick={() => handleSend('Explain Dr. Veeramuthuvel\'s Chandrayaan-3 paper')}
+              onClick={() => handleSend('Explain NASA Artemis III landing criteria')}
               disabled={isQuerying}
               className="px-2.5 py-1 rounded-md bg-black hover:bg-zinc-900 text-zinc-300 hover:text-white border border-zinc-800 flex items-center space-x-1.5 shrink-0 transition-colors"
             >
-              <span>ISRO PAPERS</span>
+              <span>NASA PAPERS</span>
             </button>
           </div>
 
@@ -597,7 +597,7 @@ export const AgentOmModal: React.FC<AgentOmModalProps> = ({
                 type="text"
                 value={inputQuery}
                 onChange={e => setInputQuery(e.target.value)}
-                placeholder="Ask Agent OM anything (features, expected output, ISRO/NASA papers, live data)..."
+                placeholder="Ask Agent OM anything (features, expected output, NASA papers, live data)..."
                 disabled={isQuerying}
                 className="w-full bg-black border border-zinc-800 focus:border-white rounded-xl px-4 py-3 text-xs sm:text-sm text-white placeholder-zinc-500 focus:outline-none focus:ring-1 focus:ring-white transition-all font-mono"
               />

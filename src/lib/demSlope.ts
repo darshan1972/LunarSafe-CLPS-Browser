@@ -2,7 +2,7 @@
  * LunarSafe Mission Software — DEM-Based Slope Computation
  * Team Rocket · AEROX Club · Parul University · Project Head: Darshan Patil
  *
- * Implements Horn's (1981) third-order finite difference slope algorithm
+ * Implements Horn's (1981) 3×3 weighted finite-difference slope algorithm
  * for genuine lunar elevation matrices (DEM / DTM) with true GSD spatial anchoring.
  */
 
@@ -22,7 +22,7 @@ export const THEORETICAL_MAX_SOBEL = Math.SQRT2 * 4 * 255;
 
 /**
  * Computes exact physical surface slope in degrees from a Digital Elevation Model (DEM)
- * using Horn's (1981) third-order finite difference scheme with 8 * GSD weighting.
+ * using Horn's (1981) 3×3 weighted finite-difference scheme with 8 * GSD weighting.
  *
  * Horn (1981) Formulation:
  *   dzdx = ((z[x+1, y-1] + 2*z[x+1, y] + z[x+1, y+1]) - (z[x-1, y-1] + 2*z[x-1, y] + z[x-1, y+1])) / (8 * gsd)
@@ -64,7 +64,7 @@ export function computeSlopeFromDEM(
       const z12 = getZ(x,     y + 1);
       const z22 = getZ(x + 1, y + 1);
 
-      // Horn's (1981) third-order finite difference
+      // Horn's (1981) 3×3 weighted finite-difference
       const dzdx = ((z20 + 2 * z21 + z22) - (z00 + 2 * z01 + z02)) / (8 * gsdMetersPerPixel);
       const dzdy = ((z02 + 2 * z12 + z22) - (z00 + 2 * z10 + z20)) / (8 * gsdMetersPerPixel);
 
