@@ -128,7 +128,7 @@ export const ClpsVerificationModal: React.FC<ClpsVerificationModalProps> = ({
             <div className="flex items-center justify-between text-zinc-400">
               <span className="flex items-center gap-1.5 font-bold uppercase tracking-wider text-[11px] text-white">
                 <Hash className="w-3.5 h-3.5 text-emerald-400" />
-                Immutable SHA-256 Hash Digest
+                Tamper-evident SHA-256 Hash Digest
               </span>
               <span className="text-[10px] text-zinc-500">WebCrypto API • 256 bits</span>
             </div>

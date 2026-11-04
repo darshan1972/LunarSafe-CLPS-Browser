@@ -124,7 +124,7 @@ const SiteComparisonModalComponent: React.FC<SiteComparisonModalProps> = ({
       'Elevation (m)',
       'Sampled Slope (deg)',
       'Lander Tolerance (deg)',
-      'LunarSafe Score (0-100)',
+      'Relative Safety Index (heuristic)',
       'Lighting (%)',
       'Roughness Index',
       'Touchdown Status',
@@ -313,7 +313,7 @@ const SiteComparisonModalComponent: React.FC<SiteComparisonModalProps> = ({
                   className="pb-2.5 cursor-pointer hover:text-white"
                 >
                   <div className="flex items-center gap-1">
-                    <span>Safety Score</span>
+                    <span>Relative Safety Index (heuristic)</span>
                     <ArrowUpDown className="w-3 h-3" />
                   </div>
                 </th>

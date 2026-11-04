@@ -1,3 +1,8 @@
+/**
+ * Approximate, illustrative base slope values; not computed by the Horn pipeline.
+ * The rigorous Horn pipeline runs on the 4 benchmark DEM tiles.
+ */
+
 export interface ArtemisSite {
   id: string;
   name: string;

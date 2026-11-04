@@ -114,7 +114,7 @@ const SiteSidePanelComponent: React.FC<SiteSidePanelProps> = ({
           {/* LunarSafe Score Bar */}
           <div className="space-y-1.5 mt-3 pt-2 border-t border-white/10">
             <div className="flex items-center justify-between text-[11px]">
-              <span className="text-zinc-300">LunarSafe Safety Score:</span>
+              <span className="text-zinc-300">Relative Safety Index (heuristic):</span>
               <span className={`font-bold text-sm ${isSafe ? 'text-emerald-300' : 'text-red-300'}`}>
                 {score} <span className="text-[10px] text-zinc-400 font-normal">/ 100</span>
               </span>

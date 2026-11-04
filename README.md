@@ -14,7 +14,7 @@ LunarSafe 2.0 is a research-grade planetary mission analysis and landing hazard 
 
 1. **Interactive 3D Polar Terrain Engine**:
    - Hardware-accelerated Three.js mesh displaced with real NASA LOLA DEM elevation models.
-   - The interactive 3D viewer renders an optimized 512×512 regional texture for real-time WebGL performance, while the offline deterministic flight-safety math operates directly on the full-resolution LOLA DEM floating-point raster.
+   - The interactive 3D viewer renders an optimized 512×512 regional texture for real-time WebGL performance. The rigorous Horn pipeline is applied to the 4 benchmark DEM tiles and to uploaded-image scans, while the 13 Artemis sites use `base_slope_deg` estimates plus sampling from the 512×512 texture.
    - Real-time normal vector synthesis, dynamic sun-angle lighting, and interactive 3D markers for all 13 official NASA Artemis III candidate landing regions.
    - Non-destructive GPU texture swapping between Natural Albedo, Horn Slope Overlay, and Surface Roughness Index.
 
@@ -92,7 +92,7 @@ LunarSafe includes an OPTIONAL external Python sidecar for YOLO-based crater det
 - Not part of the 4-stage SHA-256 hash chain
 - Not used to compute slope, safe area, or landing recommendations
 - Not deterministic (CPU float non-associativity applies)
-- Detected 7 craters on TMC-2 sample vs 65 craters from classical CV (different criteria, both correct)
+- Detected 7 craters on TMC-2 sample vs 65 craters from classical CV (different criteria, both correct). *(Note: The original SIH project used NASA LRO + public Chandrayaan-2 data).*
 
 ### Model Weights & Platform Compatibility
 - **Single Class Detection**: The YOLO model weights detect a single target class (`crater`). Boulder detection is handled strictly by the classical CV pipeline.
@@ -137,7 +137,7 @@ Verification Command:
 ```bash
 npm run test:determinism
 ```
-Baseline Golden Hashes (Chandrayaan-2 TMC-2 Nadir Strip, `src/assets/samples/ch2_tmc2_south_pole.png`):
+Baseline Golden Hashes (Chandrayaan-2 TMC-2 Nadir Strip, `src/assets/samples/ch2_tmc2_south_pole.png`; *Note: The original SIH project used NASA LRO + public Chandrayaan-2 data*):
 - Stage 1 Input: `fcb622e0c414539dad7b3ffac8b8b99b7da81ba59407a338b4532cf61ce7fb23`
 - Stage 2 Slope: `f28a0edce38c66060b2714c43bef3216fbbd0244139e7550a4b6aa3c5d707b7a`
 - Stage 3 Grid:  `bfd4a138861e05125a8e8399a887069ab140a79fb0793755b8b6823d223c56ab`
@@ -149,7 +149,7 @@ Raster grid cells dynamically discretize continuous terrain into integer pixel k
 - **Actual Cell Dimension**: $\text{actualCellMeters} = \text{pixelCount} \times \text{GSD}$
 - **Actual Cell Area**: $\text{cellAreaM2} = \text{actualCellMeters}^2$
 
-Examples across sensor modalities:
+Examples across sensor modalities (*The original SIH project used NASA LRO + public Chandrayaan-2 data*):
 - **TMC-2 Nominal (GSD = 5.0 m/px)**: $\lfloor 24 / 5 \rfloor = 4\text{ px} \implies 20\text{m} \times 20\text{m} = 400\text{ m}^2$
 - **TMC-2 Calibrated (GSD = 6.4 m/px)**: $\lfloor 24 / 6.4 \rfloor = 3\text{ px} \implies 19.2\text{m} \times 19.2\text{m} = 368.64\text{ m}^2$
 - **OHRC High-Res (GSD = 0.25 m/px)**: $\lfloor 24 / 0.25 \rfloor = 96\text{ px} \implies 24\text{m} \times 24\text{m} = 576\text{ m}^2$
@@ -171,7 +171,7 @@ LunarSafe's Horn slope estimation engine is validated against published lunar to
 | Site | Location | Sensor / Product | Horn Mean Slope | Published Slope | Absolute Error of Mean Slope (\|Bias\|) | Source & Citation | Evidence Strength |
 |---|---|---|---|---|---|---|---|
 | **Apollo 11 Landing Site** | Mare Tranquillitatis (0.67°N, 23.47°E) | LOLA 64 PPD Float32 DEM | 1.22° | 1.30° | 0.08° | Rosenburg et al. (2011, JGR 116, E02001, Table 1 mare plains 1.1°–1.5° midpoint: 1.30°) | Strong (Direct published range midpoint) |
-| **Shiv Shakti Point** | Chandrayaan-3 Site (69.37°S, 32.35°E) | LOLA South Pole 60m DEM | 2.33° | 2.00° | 0.33° | Durga Prasad et al. (2023, Current Science 125(7), modal bin 2°–3° lower bound) | Medium (Regional modal estimate) |
+| **Shiv Shakti Point** | High-Latitude Plains (69.37°S, 32.35°E; *original SIH project used NASA LRO + public Chandrayaan-2 data*) | LOLA South Pole 60m DEM | 2.33° | 2.00° | 0.33° | Durga Prasad et al. (2023, Current Science 125(7), modal bin 2°–3° lower bound) | Medium (Regional modal estimate) |
 | **Shackleton Crater Rim** | Lunar South Pole (89.9°S, 0.0°E) | LOLA Polar 20m DEM | 32.42° | 31.00° | 1.42° | Zuber et al. (2012, Nature 486, direct quote: "slopes of >30°") | Strong (Published peer-reviewed text) |
 | **Apollo 17 South Massif** | South Massif Rim | LOLA 64 PPD Float32 DEM | 9.98° | N/A | N/A | CHOSEN_FOR_SENSITIVITY_TEST_not_ground_truth | Synthetic / Sensitivity Calibration |
 

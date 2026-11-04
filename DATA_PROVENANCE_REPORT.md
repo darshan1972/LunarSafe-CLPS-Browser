@@ -27,12 +27,12 @@ LunarSafe utilizes authentic, calibrated lunar planetary datasets sourced exclus
 
 * **Optimized 512×512 WebGL Regional Textures (Local Pre-Processing Pipeline)**
   * **Repository Files**: `public/data/dem_heightmap.png`, `public/data/slope_texture.png`, `public/data/roughness_texture.png`
-  * **Pre-Processing Methodology**: To enable high-frame-rate 3D rendering in WebGL without compromising browser responsiveness or exceeding client GPU memory limits, the 512×512 PNG textures were pre-computed locally from the raw NASA LOLA polar DEM (`LDEM_875S_20M_FLOAT.IMG`) using an offline data-processing pipeline.
+  * **Pre-Processing Methodology**: To enable high-frame-rate 3D rendering in WebGL without compromising browser responsiveness or exceeding client GPU memory limits, the 512×512 PNG textures were pre-computed locally from the raw NASA LOLA polar DEM (`LDEM_875S_20M_FLOAT.IMG`) (pre-computed outside this repository; generation script not included).
   * **Texture Roles**:
     1. `dem_heightmap.png`: Encodes normalized elevation values used by Three.js to displace vertices across the 3D lunar terrain mesh.
     2. `slope_texture.png`: Pre-baked Horn (1981) 3×3 weighted finite-difference slope gradients color-banded into landing safety intervals ($\le 5^\circ$ green, $5^\circ\text{–}10^\circ$ amber, $>10^\circ$ crimson).
     3. `roughness_texture.png`: Encodes the local moving-window elevation standard deviation, mapping micro-terrain roughness.
-  * **Full-Resolution Separation**: While the client-side 3D viewer samples these optimized 512×512 textures for real-time visualization and interactive slider updates, all rigorous flight-safety math, analytical uncertainty quantification, and benchmark test suites operate directly on the uncompressed floating-point GeoTIFF / raw DEM rasters.
+  * **Method Scope & Separation**: The rigorous Horn pipeline is applied to the 4 benchmark DEM tiles and to uploaded-image scans. The 13 Artemis sites use `base_slope_deg` estimates plus sampling from the 512×512 texture. The uncompressed floating-point GeoTIFF / raw DEM rasters are evaluated in the benchmark test suites and validation modules.
 
 * **NASA LRO LOLA Specific Landing Site Benchmark DEMs (Ground-Truth Validation)**
   * **Repository Files**:

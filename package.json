@@ -13,6 +13,7 @@
     "serve": "npm run build && npm run start",
     "lint": "tsc --noEmit",
     "server": "tsx server.ts",
+    "test": "npm run test:multiSiteValidation && npm run test:determinism",
     "test:determinism": "tsx tests/determinism.test.ts",
     "test:gsd": "tsx tests/gsdGrid.test.ts",
     "test:dem": "tsx tests/demSlope.test.ts",

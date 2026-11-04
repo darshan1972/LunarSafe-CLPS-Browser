@@ -3,7 +3,7 @@
  * Team Rocket · AEROX Club · Parul University · Project Head: Darshan Patil
  *
  * Implements rigorous first-order error propagation through Horn's (1981)
- * third-order finite difference slope estimator based on DEM vertical accuracy (sigma_z)
+ * 3×3 weighted finite-difference slope estimator based on DEM vertical accuracy (sigma_z)
  * and horizontal ground sample distance (GSD).
  */
 

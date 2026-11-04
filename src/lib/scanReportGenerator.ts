@@ -150,7 +150,7 @@ export function generatePDF(record: ScanRecord, multiMethodInput?: MultiMethodAn
   // Section: Cryptographic Evidence Hashes
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(10);
-  doc.text('2. SHA-256 DETERMINISTIC EVIDENCE CHAIN (IMMUTABLE AUDIT)', margin, y + 3);
+  doc.text('2. SHA-256 DETERMINISTIC EVIDENCE CHAIN (TAMPER-EVIDENT AUDIT)', margin, y + 3);
   y += 6;
 
   const hashes = [
