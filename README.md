@@ -4,9 +4,20 @@ Team Rocket · AEROX Club · Parul University · Project Head: Darshan Patil
 
 > **NASA Space Apps Challenge 2026**: High-precision autonomous hazard assessment, candidate landing site verification, and 3D terrain exploration workstation developed for NASA Artemis III and Commercial Lunar Payload Services (CLPS) missions.
 
-LunarSafe 2.0 is a research-grade planetary mission analysis and landing hazard assessment workstation developed for high-resolution orbital imagery and Digital Elevation Models (NASA LOLA DEMs, LRO NAC, and Lunar South Polar terrain maps). It pairs a strictly deterministic flight-physics computer vision engine with scoped external AI cross-validation and cryptographic telemetry verification.
+LunarSafe 2.0 is a research-grade planetary mission analysis and landing hazard assessment workstation developed for high-resolution orbital imagery and Digital Elevation Models (NASA LOLA DEMs, LRO NAC, and Lunar South Polar terrain maps). It pairs a strictly deterministic mission-physics computer vision engine with scoped external AI cross-validation and cryptographic telemetry verification.
 
 📖 **Official Data Specification**: For complete documentation on original NASA PDS identifiers, sensor calibrations, and planetary archives, see the comprehensive [NASA Data Provenance & Ingestion Report](./DATA_PROVENANCE_REPORT.md).
+
+## What Is Computed vs. Estimated
+| Feature | Source / method | Status |
+|---|---|---|
+| 4 benchmark DEM tiles | Horn 3×3 slope + uncertainty on LOLA DEM tiles | Computed; results fall inside published ranges at 3 sites (Apollo 11, Shiv Shakti, Shackleton); Apollo 17 is a sensitivity test, not ground truth |
+| Uploaded-image scans | Sobel intensity proxy + 24 m grid + BFS | Computed, deterministic; proxy only |
+| 13 Artemis III sites | Hard-coded `base_slope_deg` estimates | Illustrative estimates, not Horn-computed |
+| 3D pins and what-if slider | Single-pixel decode of the 512×512 colour slope texture | Approximate, interactive |
+| Relative Safety Index | Heuristic formula | Not a mission-grade score |
+| YOLOv5 sidecar | Pretrained crater detector | Advisory only; never affects the safety result |
+| SHA-256 chain + session seal | Hashes of pipeline stages | Tamper-evident and reproducible; does not prove physical correctness |
 
 ---
 
@@ -18,18 +29,18 @@ LunarSafe 2.0 is a research-grade planetary mission analysis and landing hazard 
    - Real-time normal vector synthesis, dynamic sun-angle lighting, and interactive 3D markers for all 13 official NASA Artemis III candidate landing regions.
    - Non-destructive GPU texture swapping between Natural Albedo, Horn Slope Overlay, and Surface Roughness Index.
 
-2. **Deterministic Mathematical Flight Physics**:
+2. **Deterministic Mathematical Mission Physics**:
    - Horn (1981) 3×3 weighted finite-difference slope gradient computations with $8 \times \text{GSD}$ spatial weighting.
    - Morphological hazard filtering and 24-meter landing grid partitioning conforming to spacecraft stability tolerances ($<5^\circ$ optimal, $\le 10^\circ$ safe).
-   - Zero neural networks in flight calculations: 100% bit-identical determinism on identical inputs across runs.
+   - Zero neural networks in mission calculations: 100% bit-identical determinism on identical inputs across runs.
 
 3. **Dynamic "What-If" Slope Tolerance Engine**:
-   - Real-time interactive threshold slider allowing flight directors to test spacecraft slope tolerances ($8.0^\circ$ to $15.0^\circ$).
+   - Real-time interactive threshold slider allowing mission planners to test spacecraft slope tolerances ($8.0^\circ$ to $15.0^\circ$).
    - Dynamically re-samples color-coded Horn slope textures and computes instant site safety scores and touchdown recommendations on the fly.
 
 4. **Dual-Pipeline YOLO AI Cross-Validation**:
    - External advisory YOLOv5 deep learning sidecar (`Gurveer05/moon-crater-boulder-detection-yolov5`) running as an independent benchmark.
-   - Operates in parallel to provide neural cross-validation of crater detections against the classical deterministic CV engine without altering flight physics.
+   - Operates in parallel to provide neural cross-validation of crater detections against the classical deterministic CV engine without altering mission physics.
 
 5. **FIPS 180-4 SHA-256 Cryptographic Audit Trail**:
    - End-to-end cryptographic hash ledger sealing every data transformation stage: Raw Input $\to$ Calibrated Slope Map $\to$ 24m Grid Classification $\to$ Candidate Landing Zones.
@@ -44,7 +55,7 @@ LunarSafe 2.0 is a research-grade planetary mission analysis and landing hazard 
 
 ## 1. System Architecture
 
-LunarSafe is organized into four modular layers with clear separation between deterministic flight-physics logic and external AI:
+LunarSafe is organized into four modular layers with clear separation between deterministic mission-physics logic and external AI:
 
 1. **Deterministic CV Engine (`src/lib/imageProcessor.ts`, 41,985 bytes, SHA-256 `2081b42001b8d44a25bf1940228122fb3dbc8991905c44336b2fe611f5cb96be`, zero AI)**:
    - Evaluates orbital terrain topography, surface slope gradients, boulder distributions, and crater hazard boundaries.
@@ -54,7 +65,7 @@ LunarSafe is organized into four modular layers with clear separation between de
 
 2. **Real Gemini AI Modules (Scoped, External, Clearly Labeled)**:
    - **Gemini Vision Validator**: Receives raw base64 orbital imagery to perform broad geological morphology checks (confirming genuine lunar regolith vs terrestrial images). Strictly cannot compute or alter numeric slopes or hazard statistics.
-   - **Gemini Narrative Generator**: Translates deterministic scan numbers into a concise 3-sentence plain-English executive briefing for flight controllers.
+   - **Gemini Narrative Generator**: Translates deterministic scan numbers into a concise 3-sentence plain-English executive briefing for mission planners.
    - Isolated behind explicit API routes (`/api/gemini/validate`, `/api/gemini/narrative`) and clearly labeled in UI and logs as non-deterministic external AI.
 
 3. **Agent OM State Reasoner (Live Telemetry & Deterministic Dispatch)**:
@@ -170,17 +181,19 @@ LunarSafe's Horn slope estimation engine is validated against published lunar to
 
 | Site | Location | Sensor / Product | Horn Mean Slope | Published Slope | Absolute Error of Mean Slope (\|Bias\|) | Source & Citation | Evidence Strength |
 |---|---|---|---|---|---|---|---|
-| **Apollo 11 Landing Site** | Mare Tranquillitatis (0.67°N, 23.47°E) | LOLA 64 PPD Float32 DEM | 1.22° | 1.30° | 0.08° | Rosenburg et al. (2011, JGR 116, E02001, Table 1 mare plains 1.1°–1.5° midpoint: 1.30°) | Strong (Direct published range midpoint) |
-| **Shiv Shakti Point** | High-Latitude Plains (69.37°S, 32.35°E; *original SIH project used NASA LRO + public Chandrayaan-2 data*) | LOLA South Pole 60m DEM | 2.33° | 2.00° | 0.33° | Durga Prasad et al. (2023, Current Science 125(7), modal bin 2°–3° lower bound) | Medium (Regional modal estimate) |
-| **Shackleton Crater Rim** | Lunar South Pole (89.9°S, 0.0°E) | LOLA Polar 20m DEM | 32.42° | 31.00° | 1.42° | Zuber et al. (2012, Nature 486, direct quote: "slopes of >30°") | Strong (Published peer-reviewed text) |
+| **Apollo 11 Landing Site** | Mare Tranquillitatis (0.67°N, 23.47°E) | LOLA 64 PPD Float32 DEM | 1.22° | 1.30° | 0.08° | Rosenburg et al. (2011, JGR 116, E02001, Table 1 mare plains 1.1°–1.5° midpoint: 1.30°) | Moderate: Horn value lies inside the published 1.1°–1.5° range |
+| **Shiv Shakti Point** | High-Latitude Plains (69.37°S, 32.35°E; *original SIH project used NASA LRO + public Chandrayaan-2 data*) | LOLA South Pole 60m DEM | 2.33° | 2.00° | 0.33° | Durga Prasad et al. (2023, Current Science 125(7), modal bin 2°–3° lower bound) | Weak–moderate: Horn value lies inside the published 2°–3° modal bin |
+| **Shackleton Crater Rim** | Lunar South Pole (89.9°S, 0.0°E) | LOLA Polar 20m DEM | 32.42° | >30° (qualitative) | n/a (qualitative threshold) | Zuber et al. (2012, Nature 486, direct quote: "slopes of >30°") | Weak–moderate: consistent with the published threshold |
 | **Apollo 17 South Massif** | South Massif Rim | LOLA 64 PPD Float32 DEM | 9.98° | N/A | N/A | CHOSEN_FOR_SENSITIVITY_TEST_not_ground_truth | Synthetic / Sensitivity Calibration |
 
-*Note on Evaluation Metric: The benchmark compares the scalar mean slope of the DEM with the single published scalar ground-truth reference slope. Therefore, this metric is mathematically the absolute error of mean slope ($|\bar{\theta}_{\text{Horn}} - \bar{\theta}_{\text{pub}}|$), which equals the absolute bias ($|\text{Bias}|$). It is not an N-pixel spatial RMSE. (When evaluated against the 1.20° lower-mare estimate, Apollo 11 absolute bias is 0.02°).*
+*Note on Evaluation Metric: The benchmark is a within-range check comparing DEM-derived Horn slope against published literature ranges (within published ranges at 3 sites: Apollo 11, Shiv Shakti, and Shackleton; Apollo 17 is a sensitivity test, not ground truth). This metric evaluates scalar consistency against published ranges rather than an N-pixel spatial RMSE.*
 
 Verification Command:
 ```bash
 npm run test:groundtruth
 ```
+
+A separately implemented Python Horn script (`scripts/horn_check.py`) agrees with the TypeScript engine to within 0.1° on all 4 benchmark tiles.
 
 ---
 
@@ -227,7 +240,7 @@ Agent OM is a rule-based state-aware reasoner grounded strictly in system teleme
   1. `LAST_SCAN`: Queries last scan telemetry, hazard counts, safe zones, mean slope, and hash chain.
   2. `COMPONENT_STATUS`: Reports real-time health and sha256 checksums of internal engines.
   3. `HASH_CHAIN`: Returns 4-stage cryptographic seals.
-  4. `RECOMMENDATION`: Derives flight GO/CAUTION/ABORT recommendations based strictly on verified scan metrics.
+  4. `RECOMMENDATION`: Derives mission GO/CAUTION/ABORT recommendations based strictly on verified scan metrics.
   5. `ENVIRONMENT`: Inspects server host platform, Node runtime, and network ports.
   6. `OUT_OF_SCOPE`: Gracefully declines non-mission trivia (e.g. "What is the capital of France?").
 

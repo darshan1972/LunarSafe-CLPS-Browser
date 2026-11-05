@@ -215,7 +215,14 @@ export const App: React.FC = () => {
     const activeScan: ScanRecord = scans[0] || {
       id: `SCAN_${Date.now()}`,
       timestamp: analysis.evidence?.timestamp || new Date().toISOString(),
-      instrument: gsd === 0.25 ? 'LROC-NAC' : isTmc2Calibrated ? 'NASA LRO' : gsd === 5.0 ? 'NASA LRO' : 'NASA LRO',
+      instrument:
+        selectedSample?.toLowerCase().includes('lroc') || pds4Metadata?.instrumentName?.includes('LROC') || pds4Metadata?.instrumentName === 'LROC-NAC'
+          ? 'LROC-NAC'
+          : (selectedSample === 'ohrc' || gsd === 0.25)
+          ? 'ISRO Chandrayaan-2 OHRC'
+          : (selectedSample === 'tmc2' || selectedSample === 'isro_calibrated_tmc2' || isTmc2Calibrated || gsd === 5.0)
+          ? 'ISRO Chandrayaan-2 TMC-2'
+          : 'Unknown',
       gsdMetersPerPixel: gsd,
       coordinates: pds4Metadata?.centerLatitude != null
         ? { lat: pds4Metadata.centerLatitude, lon: pds4Metadata.centerLongitude || 0 }
@@ -396,7 +403,7 @@ export const App: React.FC = () => {
 
     const realHash = await sha256Json(clpsPayload);
 
-    // Update EvidencePanel in right column to simulate active flight audit trail
+    // Update EvidencePanel in right column to simulate active mission audit trail
     setAnalysis(prev => {
       if (!prev) return prev;
       return {
@@ -430,7 +437,7 @@ export const App: React.FC = () => {
     addMissionLog(
       'SUCCESS',
       'Crypto Ledger',
-      `> Generated WebCrypto SHA-256 audit proof for [${selectedClpsSite.properties?.name}]: ${realHash.substring(0, 16)}... (Recorded in Flight Evidence Chain)`
+      `> Generated WebCrypto SHA-256 audit proof for [${selectedClpsSite.properties?.name}]: ${realHash.substring(0, 16)}... (Recorded in Mission Evidence Chain)`
     );
 
     setIsVerificationModalOpen(true);
@@ -449,7 +456,7 @@ export const App: React.FC = () => {
     addMissionLog(
       'INFO',
       'AI Cross-Validation',
-      '> [AI Cross-Validation Benchmark] YOLOv5 Sidecar active on port 8000. Verified: Safety math is 100% deterministic. YOLO AI is used only for independent cross-validation to prevent generative hallucination in flight-critical decisions.'
+      '> [AI Cross-Validation Benchmark] YOLOv5 Sidecar active on port 8000. Verified: Safety math is 100% deterministic. YOLO AI is used only for independent cross-validation to prevent generative hallucination in mission-critical decisions.'
     );
   }, [addMissionLog]);
 

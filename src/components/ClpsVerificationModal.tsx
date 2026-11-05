@@ -85,7 +85,7 @@ export const ClpsVerificationModal: React.FC<ClpsVerificationModalProps> = ({
                 </span>
               </div>
               <p className="text-[11px] text-zinc-400">
-                NASA Space Apps Challenge 2026 • Cryptographic Flight Safety Audit Trail
+                NASA Space Apps Challenge 2026 • Cryptographic Mission Safety Audit Trail
               </p>
             </div>
           </div>
@@ -116,7 +116,7 @@ export const ClpsVerificationModal: React.FC<ClpsVerificationModalProps> = ({
               </span>
             </div>
             <div>
-              <span className="text-zinc-500 block text-[10px] uppercase">LunarSafe Score</span>
+              <span className="text-zinc-500 block text-[10px] uppercase">Relative Safety Index (heuristic)</span>
               <span className={`text-xs font-bold ${score >= 60 ? 'text-emerald-400' : 'text-red-400'}`}>
                 {score} / 100 ({sampledSlope <= tolerance ? 'SAFE' : 'HAZARD'})
               </span>

@@ -269,7 +269,7 @@ async function runMultiSiteValidation() {
     if (site.publishedSlopeDeg !== null && absError !== null && bias !== null) {
       console.log(`  Absolute Error (|Δ|):  ${absError.toFixed(2)}° (Threshold: < ${ERROR_THRESHOLD_DEG.toFixed(1)}°)`);
       console.log(`  Error Bias (Horn-Pub): ${bias >= 0 ? '+' : ''}${bias.toFixed(2)}°`);
-      console.log(`  Root Mean Sq Error:    ${rmse?.toFixed(2)}°`);
+      console.log(`  Scalar Difference:     ${rmse?.toFixed(2)}°`);
       console.log(`  Validation Status:     ${siteStatus}`);
       console.log(`  [ASSERT ${siteNum}] ${site.name} Absolute Error < 2.0°: ${isAssertPassed ? 'PASS' : 'FAIL'}\n`);
     } else {
@@ -340,7 +340,7 @@ async function runMultiSiteValidation() {
   console.log('--- AGGREGATE STATISTICAL METRICS (GROUND-TRUTH SITES 1-3) ---');
   console.log(`Total Ground Truth Sites Evaluated: ${gtSites.length}`);
   console.log(`Mean Absolute Error (MAE):          ${mae.toFixed(3)}°`);
-  console.log(`Root Mean Square Error (RMSE):      ${aggregateRmse.toFixed(3)}°`);
+  console.log(`Aggregate RMS Difference:           ${aggregateRmse.toFixed(3)}°`);
   console.log(`Maximum Observed Absolute Error:    ${maxError.toFixed(2)}°`);
   console.log(`Permissible Error Threshold:        < ${ERROR_THRESHOLD_DEG.toFixed(1)}°`);
   console.log(`Aggregate Statistical Status:       ${maxError < ERROR_THRESHOLD_DEG ? 'ALL SITES MEET ISRO TOLERANCE' : 'EXCEEDS TOLERANCE'}\n`);
