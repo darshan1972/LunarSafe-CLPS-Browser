@@ -21,6 +21,36 @@ LunarSafe 2.0 is a research-grade planetary mission analysis and landing hazard 
 
 ---
 
+## 🏗️ System Architecture & Workflow
+
+```mermaid
+graph TD
+    A[NASA LRO LOLA DEMs] --> B[3D Lunar Terrain Viewer]
+    A --> C[Horn 1981 Slope Calculator]
+    C --> D[Deterministic Safety Classification]
+    B --> D
+    D --> E[SHA-256 Cryptographic Ledger]
+    E --> F[Artemis III Rank Matrix & Mission Report]
+    
+    G[YOLOv5 AI Sidecar] -.->|Advisory Cross-Validation| C
+```
+
+---
+
+## 📸 Application Screenshots
+
+![3D Moon](public/screenshots/1.png)
+
+![Slope Overlay](public/screenshots/2.png)
+
+![Safety Score](public/screenshots/3.png)
+
+![Rank Matrix](public/screenshots/4.png)
+
+![SHA-256 Hash](public/screenshots/5.png)
+
+---
+
 ## The 5 Core Pillars of LunarSafe 2.0
 
 1. **Interactive 3D Polar Terrain Engine**:
