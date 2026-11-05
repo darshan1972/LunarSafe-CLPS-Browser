@@ -91,8 +91,8 @@ export function getProjectState(): ProjectState {
       components: {
         deterministicEngine: {
           status: 'ONLINE',
-          byteSize: 41985,
-          sha256: '2081b42001b8d44a25bf1940228122fb3dbc8991905c44336b2fe611f5cb96be',
+          byteSize: 42045,
+          sha256: 'c50568bd719eb755d702a5debdba0785e95b9f6422504be5295cfea07543570b',
         },
         uncertaintyFilter: {
           status: 'ONLINE',

@@ -380,7 +380,7 @@ export class DeterministicLunarEngine {
       const scanRecord: ScanRecord = {
         id: `scan-${Date.now()}-${inputImageHash.substring(0, 8)}`,
         timestamp: evidence.timestamp,
-        instrument: pixelScaleMeters === 0.25 ? 'LROC-NAC' : pixelScaleMeters === 5.0 ? 'NASA LRO' : pixelScaleMeters === 0.5 ? 'LROC-NAC' : 'NASA LRO',
+        instrument: pixelScaleMeters === 0.25 ? 'ISRO Chandrayaan-2 OHRC' : (pixelScaleMeters === 5.0 || pixelScaleMeters === 6.4) ? 'ISRO Chandrayaan-2 TMC-2' : pixelScaleMeters === 0.5 ? 'LROC-NAC' : 'Unknown',
         gsdMetersPerPixel: pixelScaleMeters,
         coordinates: options.pds4Coordinates || null,
         meanSlopeDeg: Number(meanSlopeDeg.toFixed(2)),

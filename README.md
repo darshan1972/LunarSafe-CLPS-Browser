@@ -57,11 +57,11 @@ LunarSafe 2.0 is a research-grade planetary mission analysis and landing hazard 
 
 LunarSafe is organized into four modular layers with clear separation between deterministic mission-physics logic and external AI:
 
-1. **Deterministic CV Engine (`src/lib/imageProcessor.ts`, 41,985 bytes, SHA-256 `2081b42001b8d44a25bf1940228122fb3dbc8991905c44336b2fe611f5cb96be`, zero AI)**:
+1. **Deterministic CV Engine (`src/lib/imageProcessor.ts`, 42,045 bytes, SHA-256 `c50568bd719eb755d702a5debdba0785e95b9f6422504be5295cfea07543570b`, zero AI)**:
    - Evaluates orbital terrain topography, surface slope gradients, boulder distributions, and crater hazard boundaries.
    - Operates strictly on deterministic mathematical algorithms (Sobel spatial convolutions, Horn gradient estimators, morphological feature tracking, and BFS contiguous flood-fills).
    - Zero neural networks, zero probabilistic heuristics. Every run on identical input produces identical bits.
-   - **Baseline Integrity Note (CRLF vs. LF Line Endings)**: The authoritative SHA-256 hash (`2081b42001b8d44a25bf1940228122fb3dbc8991905c44336b2fe611f5cb96be`) is computed across normalized POSIX LF (`\n`) line endings. On Windows environments where Git may checkout files with CRLF (`\r\n`), line ending conversions will alter the file hash unless checked out with `git config core.autocrlf input` or normalized to LF before hashing.
+   - **Baseline Integrity Note (CRLF vs. LF Line Endings)**: The authoritative SHA-256 hash (`c50568bd719eb755d702a5debdba0785e95b9f6422504be5295cfea07543570b`) is computed across normalized POSIX LF (`\n`) line endings. On Windows environments where Git may checkout files with CRLF (`\r\n`), line ending conversions will alter the file hash unless checked out with `git config core.autocrlf input` or normalized to LF before hashing.
 
 2. **Real Gemini AI Modules (Scoped, External, Clearly Labeled)**:
    - **Gemini Vision Validator**: Receives raw base64 orbital imagery to perform broad geological morphology checks (confirming genuine lunar regolith vs terrestrial images). Strictly cannot compute or alter numeric slopes or hazard statistics.

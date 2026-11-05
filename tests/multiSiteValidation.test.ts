@@ -80,8 +80,8 @@ async function runMultiSiteValidation() {
   const engineLength = lfBuffer.length;
   const engineHash = crypto.createHash('sha256').update(lfBuffer).digest('hex').toUpperCase();
 
-  const EXPECTED_HASH = '2081B42001B8D44A25BF1940228122FB3DBC8991905C44336B2FE611F5CB96BE';
-  const EXPECTED_LENGTH = 41985;
+  const EXPECTED_HASH = 'C50568BD719EB755D702A5DEBDBA0785E95B9F6422504BE5295CFEA07543570B';
+  const EXPECTED_LENGTH = 42045;
 
   console.log(`Frozen Engine Path:    ${enginePath}`);
   console.log(`Byte Length:           ${engineLength} bytes (Expected: ${EXPECTED_LENGTH})`);
