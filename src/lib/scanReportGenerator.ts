@@ -300,7 +300,7 @@ export function generatePDF(record: ScanRecord, multiMethodInput?: MultiMethodAn
 
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(7);
-  doc.text('Flight safety analysis performed using NASA CLPS / Artemis III criteria. This is an independent research tool developed for NASA Space Apps 2026.', margin + 4, y + 11);
+  doc.text('Mission-planning analysis using configurable assumptions (not NASA CLPS requirements). Independent research tool developed for NASA Space Apps 2026.', margin + 4, y + 11);
   doc.text('Project Head: Darshan Patil  |  Team: Team Rocket  |  AEROX Club, Parul University', margin + 4, y + 15);
 
   // Page 2 Footer

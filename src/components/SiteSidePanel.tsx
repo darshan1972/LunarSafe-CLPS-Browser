@@ -55,9 +55,7 @@ const SiteSidePanelComponent: React.FC<SiteSidePanelProps> = ({
   const lonStr = `${Math.abs(lon).toFixed(2)}° ${lon < 0 ? 'W' : 'E'}`;
 
   // Earth communication direct line-of-sight status
-  const hasEarthComm = props.earth_comm !== undefined
-    ? Boolean(props.earth_comm)
-    : !(props.name?.toLowerCase().includes('haworth') || props.name?.toLowerCase().includes('rim 2'));
+  const hasEarthComm = props.earth_comm !== undefined ? Boolean(props.earth_comm) : null;
 
   return (
     <div className="fixed top-16 right-0 bottom-0 z-40 w-full sm:w-[420px] bg-space-900/95 backdrop-blur-xl border-l border-white/10 shadow-2xl flex flex-col transform transition-transform duration-300 ease-in-out font-mono text-white animate-slideInRight">
@@ -203,13 +201,29 @@ const SiteSidePanelComponent: React.FC<SiteSidePanelProps> = ({
             <div className="p-2 rounded bg-black/40 border border-white/5">
               <span className="text-zinc-400 block text-[10px]">Solar Illumination:</span>
               <span className="font-bold text-amber-300 text-xs">
-                {props.lighting_pct !== undefined ? `${props.lighting_pct}% Annual Lighting` : '91.5% Annual Lighting'} <span className="text-[9px] text-zinc-400 font-normal">(illustrative)</span>
+                {props.lighting_pct !== undefined ? (
+                  <>
+                    {props.lighting_pct}% Annual Lighting{' '}
+                    <span className="text-[9px] text-zinc-400 font-normal">(illustrative)</span>
+                  </>
+                ) : (
+                  <span className="text-zinc-400 font-normal">n/a</span>
+                )}
               </span>
             </div>
             <div className="p-2 rounded bg-black/40 border border-white/5">
               <span className="text-zinc-400 block text-[10px]">Earth Comm Visibility:</span>
-              <span className={`font-bold text-xs ${hasEarthComm ? 'text-emerald-400' : 'text-amber-400'}`}>
-                Direct Line of Sight: {hasEarthComm ? 'YES' : 'NO'} <span className="text-[9px] text-zinc-400 font-normal">(illustrative)</span>
+              <span className="font-bold text-xs">
+                {hasEarthComm !== null ? (
+                  <>
+                    <span className={hasEarthComm ? 'text-emerald-400' : 'text-amber-400'}>
+                      Direct Line of Sight: {hasEarthComm ? 'YES' : 'NO'}
+                    </span>{' '}
+                    <span className="text-[9px] text-zinc-400 font-normal">(illustrative)</span>
+                  </>
+                ) : (
+                  <span className="text-zinc-400 font-normal">n/a</span>
+                )}
               </span>
             </div>
             <div className="p-2 rounded bg-black/40 border border-white/5">

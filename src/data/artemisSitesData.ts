@@ -12,11 +12,11 @@ export interface ArtemisSite {
   elevation_m: number;
   clps_mission: string;
   primary_target: string;
-  lighting_pct: number;
+  lighting_pct?: number;
   base_slope_deg: number;
   roughness_index: number;
   description: string;
-  earth_comm: boolean;
+  earth_comm?: boolean;
 }
 
 export function computeLunarSafeScore(slope: number, tolerance: number): number {

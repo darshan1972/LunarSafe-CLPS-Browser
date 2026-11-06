@@ -48,11 +48,11 @@ const SiteComparisonModalComponent: React.FC<SiteComparisonModalProps> = ({
             elevation_m: f.properties?.elevation_m ?? 0,
             clps_mission: f.properties?.clps_mission || 'CLPS Polar Explorer',
             primary_target: f.properties?.primary_target || 'Candidate Landing Zone',
-            lighting_pct: f.properties?.lighting_pct ?? 75.0,
+            lighting_pct: f.properties?.lighting_pct !== undefined ? Number(f.properties.lighting_pct) : undefined,
             base_slope_deg: f.properties?.base_slope_deg ?? 7.0,
             roughness_index: f.properties?.roughness_index ?? 0.28,
             description: f.properties?.description || '',
-            earth_comm: f.properties?.earth_comm !== undefined ? Boolean(f.properties?.earth_comm) : !(f.properties?.name?.includes('Haworth') || f.properties?.name?.includes('Rim 2')),
+            earth_comm: f.properties?.earth_comm !== undefined ? Boolean(f.properties.earth_comm) : undefined,
           }));
           setGeoSites(parsed);
         }
@@ -81,7 +81,7 @@ const SiteComparisonModalComponent: React.FC<SiteComparisonModalProps> = ({
       let cmp = 0;
       if (sortBy === 'score') cmp = b.score - a.score;
       else if (sortBy === 'slope') cmp = a.base_slope_deg - b.base_slope_deg;
-      else if (sortBy === 'lighting') cmp = b.lighting_pct - a.lighting_pct;
+      else if (sortBy === 'lighting') cmp = (b.lighting_pct ?? -1) - (a.lighting_pct ?? -1);
       else if (sortBy === 'name') cmp = a.name.localeCompare(b.name);
       return sortAsc ? -cmp : cmp;
     });
@@ -143,8 +143,8 @@ const SiteComparisonModalComponent: React.FC<SiteComparisonModalProps> = ({
       s.base_slope_deg,
       tolerance,
       s.score,
-      s.lighting_pct,
-      s.earth_comm ? 'YES' : 'NO',
+      s.lighting_pct !== undefined ? s.lighting_pct : 'n/a',
+      s.earth_comm !== undefined ? (s.earth_comm ? 'YES' : 'NO') : 'n/a',
       s.roughness_index,
       s.isSafe ? 'VERIFIED_SAFE' : 'LIMIT_EXCEEDED',
       `"${s.clps_mission}"`,
@@ -406,21 +406,29 @@ const SiteComparisonModalComponent: React.FC<SiteComparisonModalProps> = ({
                       </div>
                     </td>
                     <td className="py-3 pr-2 font-mono text-xs text-amber-300">
-                      <div className="flex items-center gap-1">
-                        <Sun className="w-3 h-3 text-amber-400" />
-                        <span>{site.lighting_pct.toFixed(1)}%</span>
-                      </div>
+                      {site.lighting_pct !== undefined ? (
+                        <div className="flex items-center gap-1">
+                          <Sun className="w-3 h-3 text-amber-400" />
+                          <span>{site.lighting_pct.toFixed(1)}%</span>
+                        </div>
+                      ) : (
+                        <span className="text-zinc-500 font-normal">n/a</span>
+                      )}
                     </td>
                     <td className="py-3 pr-2 font-mono text-xs">
-                      <span
-                        className={`inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold border ${
-                          site.earth_comm
-                            ? 'bg-emerald-950/60 text-emerald-300 border-emerald-500/40'
-                            : 'bg-zinc-800/80 text-zinc-400 border-zinc-700/50'
-                        }`}
-                      >
-                        {site.earth_comm ? 'YES' : 'NO'}
-                      </span>
+                      {site.earth_comm !== undefined ? (
+                        <span
+                          className={`inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold border ${
+                            site.earth_comm
+                              ? 'bg-emerald-950/60 text-emerald-300 border-emerald-500/40'
+                              : 'bg-zinc-800/80 text-zinc-400 border-zinc-700/50'
+                          }`}
+                        >
+                          {site.earth_comm ? 'YES' : 'NO'}
+                        </span>
+                      ) : (
+                        <span className="text-zinc-500 font-normal">n/a</span>
+                      )}
                     </td>
                     <td className="py-3 pr-2 font-mono text-[11px] text-zinc-400 hidden sm:table-cell">
                       <div className="flex items-center gap-1">
