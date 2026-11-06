@@ -1969,6 +1969,7 @@ export const App: React.FC = () => {
         onClose={handleDeselectClpsSite}
         onOpenVerificationModal={handleClpsCryptoBadgeClick}
         onOpenComparisonModal={handleOpenComparisonModal}
+        sunAngleDeg={sunAngleDeg}
       />
 
       {/* CLPS Cryptographic Audit Verification Modal */}

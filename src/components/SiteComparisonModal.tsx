@@ -52,6 +52,7 @@ const SiteComparisonModalComponent: React.FC<SiteComparisonModalProps> = ({
             base_slope_deg: f.properties?.base_slope_deg ?? 7.0,
             roughness_index: f.properties?.roughness_index ?? 0.28,
             description: f.properties?.description || '',
+            earth_comm: f.properties?.earth_comm !== undefined ? Boolean(f.properties?.earth_comm) : !(f.properties?.name?.includes('Haworth') || f.properties?.name?.includes('Rim 2')),
           }));
           setGeoSites(parsed);
         }
@@ -126,6 +127,7 @@ const SiteComparisonModalComponent: React.FC<SiteComparisonModalProps> = ({
       'Lander Tolerance (deg)',
       'Relative Safety Index (heuristic)',
       'Lighting (%)',
+      'Earth Comm Visibility',
       'Roughness Index',
       'Touchdown Status',
       'CLPS Target Mission',
@@ -142,6 +144,7 @@ const SiteComparisonModalComponent: React.FC<SiteComparisonModalProps> = ({
       tolerance,
       s.score,
       s.lighting_pct,
+      s.earth_comm ? 'YES' : 'NO',
       s.roughness_index,
       s.isSafe ? 'VERIFIED_SAFE' : 'LIMIT_EXCEEDED',
       `"${s.clps_mission}"`,
@@ -332,6 +335,7 @@ const SiteComparisonModalComponent: React.FC<SiteComparisonModalProps> = ({
                     <ArrowUpDown className="w-3 h-3" />
                   </div>
                 </th>
+                <th className="pb-2.5">Earth Comm</th>
                 <th className="pb-2.5 hidden sm:table-cell">Roughness</th>
                 <th className="pb-2.5">Status</th>
                 <th className="pb-2.5 text-right pr-2">Action</th>
@@ -406,6 +410,17 @@ const SiteComparisonModalComponent: React.FC<SiteComparisonModalProps> = ({
                         <Sun className="w-3 h-3 text-amber-400" />
                         <span>{site.lighting_pct.toFixed(1)}%</span>
                       </div>
+                    </td>
+                    <td className="py-3 pr-2 font-mono text-xs">
+                      <span
+                        className={`inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold border ${
+                          site.earth_comm
+                            ? 'bg-emerald-950/60 text-emerald-300 border-emerald-500/40'
+                            : 'bg-zinc-800/80 text-zinc-400 border-zinc-700/50'
+                        }`}
+                      >
+                        {site.earth_comm ? 'YES' : 'NO'}
+                      </span>
                     </td>
                     <td className="py-3 pr-2 font-mono text-[11px] text-zinc-400 hidden sm:table-cell">
                       <div className="flex items-center gap-1">

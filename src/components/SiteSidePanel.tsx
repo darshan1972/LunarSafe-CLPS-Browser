@@ -16,6 +16,7 @@ interface SiteSidePanelProps {
   onToleranceChange: (val: number) => void;
   onOpenVerificationModal: () => void;
   onOpenComparisonModal?: () => void;
+  sunAngleDeg?: number;
 }
 
 const SiteSidePanelComponent: React.FC<SiteSidePanelProps> = ({
@@ -26,6 +27,7 @@ const SiteSidePanelComponent: React.FC<SiteSidePanelProps> = ({
   onToleranceChange,
   onOpenVerificationModal,
   onOpenComparisonModal,
+  sunAngleDeg = 20,
 }) => {
   if (!site) return null;
 
@@ -51,6 +53,11 @@ const SiteSidePanelComponent: React.FC<SiteSidePanelProps> = ({
   // Format selenographic coordinates
   const latStr = `${Math.abs(lat).toFixed(2)}° ${lat < 0 ? 'S' : 'N'}`;
   const lonStr = `${Math.abs(lon).toFixed(2)}° ${lon < 0 ? 'W' : 'E'}`;
+
+  // Earth communication direct line-of-sight status
+  const hasEarthComm = props.earth_comm !== undefined
+    ? Boolean(props.earth_comm)
+    : !(props.name?.toLowerCase().includes('haworth') || props.name?.toLowerCase().includes('rim 2'));
 
   return (
     <div className="fixed top-16 right-0 bottom-0 z-40 w-full sm:w-[420px] bg-space-900/95 backdrop-blur-xl border-l border-white/10 shadow-2xl flex flex-col transform transition-transform duration-300 ease-in-out font-mono text-white animate-slideInRight">
@@ -194,6 +201,24 @@ const SiteSidePanelComponent: React.FC<SiteSidePanelProps> = ({
               </span>
             </div>
             <div className="p-2 rounded bg-black/40 border border-white/5">
+              <span className="text-zinc-400 block text-[10px]">Solar Illumination:</span>
+              <span className="font-bold text-amber-300 text-xs">
+                {props.lighting_pct !== undefined ? `${props.lighting_pct}% Annual Lighting` : '91.5% Annual Lighting'}
+              </span>
+            </div>
+            <div className="p-2 rounded bg-black/40 border border-white/5">
+              <span className="text-zinc-400 block text-[10px]">Earth Comm Visibility:</span>
+              <span className={`font-bold text-xs ${hasEarthComm ? 'text-emerald-400' : 'text-amber-400'}`}>
+                Direct Line of Sight: {hasEarthComm ? 'YES' : 'NO'}
+              </span>
+            </div>
+            <div className="p-2 rounded bg-black/40 border border-white/5">
+              <span className="text-zinc-400 block text-[10px]">Sun Angle (Polar):</span>
+              <span className="font-bold text-amber-300 text-xs">
+                {sunAngleDeg.toFixed(0)}°
+              </span>
+            </div>
+            <div className="p-2 rounded bg-black/40 border border-white/5">
               <span className="text-zinc-400 block text-[10px]">Roughness Index (LRO):</span>
               <span className="font-bold text-amber-300 text-xs">
                 {props.sampled_roughness_index !== undefined
@@ -201,12 +226,6 @@ const SiteSidePanelComponent: React.FC<SiteSidePanelProps> = ({
                   : props.roughness_index !== undefined
                   ? props.roughness_index.toFixed(2)
                   : '0.28'}
-              </span>
-            </div>
-            <div className="p-2 rounded bg-black/40 border border-white/5">
-              <span className="text-zinc-400 block text-[10px]">Solar Exposure:</span>
-              <span className="font-bold text-amber-300 text-xs">
-                {props.lighting_pct ? `${props.lighting_pct}%` : '80.5%'}
               </span>
             </div>
             <div className="p-2 rounded bg-black/40 border border-white/5 col-span-2 sm:col-span-1">

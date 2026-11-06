@@ -16,6 +16,7 @@ export interface ArtemisSite {
   base_slope_deg: number;
   roughness_index: number;
   description: string;
+  earth_comm: boolean;
 }
 
 export function computeLunarSafeScore(slope: number, tolerance: number): number {
@@ -42,6 +43,7 @@ export const ARTEMIS_III_SITES: ArtemisSite[] = [
     base_slope_deg: 6.8,
     roughness_index: 0.28,
     description: 'High-altitude rim crest bordering permanently shadowed region (PSR). Offers favorable direct-to-Earth communications and extended solar illumination periods.',
+    earth_comm: true,
   },
   {
     id: 'A3-02',
@@ -56,6 +58,7 @@ export const ARTEMIS_III_SITES: ArtemisSite[] = [
     base_slope_deg: 8.4,
     roughness_index: 0.42,
     description: 'Topographic peak 0.46 degrees from the true Lunar South Pole. Prime location for polar solar arrays with access to the floor of Shackleton crater.',
+    earth_comm: true,
   },
   {
     id: 'A3-03',
@@ -70,6 +73,7 @@ export const ARTEMIS_III_SITES: ArtemisSite[] = [
     base_slope_deg: 5.2,
     roughness_index: 0.22,
     description: 'Narrow elevated ridge linking Shackleton crater to the de Gerlache rim. Exceptionally low local slopes suitable for commercial landing pads.',
+    earth_comm: true,
   },
   {
     id: 'A3-04',
@@ -84,6 +88,7 @@ export const ARTEMIS_III_SITES: ArtemisSite[] = [
     base_slope_deg: 7.1,
     roughness_index: 0.31,
     description: 'Northwest continuation of the Connecting Ridge feature. Broad terrain facilitating multi-lander surface infrastructure deployment.',
+    earth_comm: true,
   },
   {
     id: 'A3-05',
@@ -98,6 +103,7 @@ export const ARTEMIS_III_SITES: ArtemisSite[] = [
     base_slope_deg: 9.6,
     roughness_index: 0.38,
     description: 'Prominent eastern crest of de Gerlache crater. Direct line-of-sight to Earth combined with proximity to deep hydrogen deposits inside the crater floor.',
+    earth_comm: true,
   },
   {
     id: 'A3-06',
@@ -112,6 +118,7 @@ export const ARTEMIS_III_SITES: ArtemisSite[] = [
     base_slope_deg: 11.2,
     roughness_index: 0.45,
     description: 'Secondary shoulder along de Gerlache rim. Moderate slopes requiring real-time hazard avoidance during final powered descent phase.',
+    earth_comm: false,
   },
   {
     id: 'A3-07',
@@ -126,6 +133,7 @@ export const ARTEMIS_III_SITES: ArtemisSite[] = [
     base_slope_deg: 13.8,
     roughness_index: 0.58,
     description: 'Massive elevated plateau standing over 1.4 km above adjacent floor. Offers long-duration solar exposure but steeper localized flank slopes.',
+    earth_comm: true,
   },
   {
     id: 'A3-08',
@@ -140,6 +148,7 @@ export const ARTEMIS_III_SITES: ArtemisSite[] = [
     base_slope_deg: 6.3,
     roughness_index: 0.25,
     description: 'Smooth saddle region perched above Haworth crater interior, identified by LRO LAMP and Mini-RF as harboring surficial water-ice signatures.',
+    earth_comm: false,
   },
   {
     id: 'A3-09',
@@ -154,6 +163,7 @@ export const ARTEMIS_III_SITES: ArtemisSite[] = [
     base_slope_deg: 4.9,
     roughness_index: 0.19,
     description: 'Historic landing site candidate for Intuitive Machines IM-1. Malapert Mountain stands over 5 km high with flat crest summits receiving over 90% annual illumination.',
+    earth_comm: true,
   },
   {
     id: 'A3-10',
@@ -168,6 +178,7 @@ export const ARTEMIS_III_SITES: ArtemisSite[] = [
     base_slope_deg: 5.8,
     roughness_index: 0.24,
     description: 'Extensive elevated plateau on the South Pole-Aitken basin margin. Flat, smooth landing areas with clear line of sight to Earth stations.',
+    earth_comm: true,
   },
   {
     id: 'A3-11',
@@ -182,6 +193,7 @@ export const ARTEMIS_III_SITES: ArtemisSite[] = [
     base_slope_deg: 6.1,
     roughness_index: 0.26,
     description: 'Selected landing region for the Astrobotic Griffin lander and NASA VIPER rover mission. Characterized by wide, gently undulating terrain with shallow impact craters.',
+    earth_comm: true,
   },
   {
     id: 'A3-12',
@@ -196,6 +208,7 @@ export const ARTEMIS_III_SITES: ArtemisSite[] = [
     base_slope_deg: 8.1,
     roughness_index: 0.33,
     description: 'Western terrace flanking Nobile crater. Good mobility access corridor across multiple permanently shadowed cold traps.',
+    earth_comm: true,
   },
   {
     id: 'A3-13',
@@ -210,5 +223,6 @@ export const ARTEMIS_III_SITES: ArtemisSite[] = [
     base_slope_deg: 7.4,
     roughness_index: 0.30,
     description: 'Northernmost candidate region offering direct communications with Earth ground antennas and smooth terrace steps for safe touchdown.',
+    earth_comm: true,
   },
 ];
