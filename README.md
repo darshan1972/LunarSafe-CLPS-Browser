@@ -62,6 +62,29 @@ graph TD
 
 ![SHA-256 Hash](public/screenshots/5.png)
 
+### More Screenshots
+
+![What-If Analysis at 8.0° Tolerance (de Gerlache Rim 1 Hazard)](public/screenshots/6a.png)
+*What-If Parameter Sensitivity at 8.0° Tolerance: `de Gerlache Rim 1` (slope 9.60°) classified as LIMIT EXCEEDED.*
+
+![What-If Analysis at 15.0° Tolerance (de Gerlache Rim 1 Safe)](public/screenshots/6b.png)
+*What-If Parameter Sensitivity at 15.0° Tolerance: Same site dynamically re-ranked as PERMISSIBLE (Safe).*
+
+![2D Hazard Analyzer Scan of TMC-2 South Pole Strip](public/screenshots/7.png)
+*2D Hazard Analyzer scan of Chandrayaan-2 TMC-2 Nadir Strip: 16,384 evaluated 24m cells, 99.16% safe area, 4-stage hash chain.*
+
+![Multi-Method Cross-Validation Analysis (CV vs YOLOv5)](public/screenshots/8.png)
+*Multi-Method Cross-Validation: Deterministic CV vs advisory YOLOv5 AI sidecar with IoU matching and non-deterministic advisory caveats.*
+
+![Automated Determinism Test Suite Terminal Output](public/screenshots/9.png)
+*Automated Determinism Test Suite terminal run (`npm run test:determinism`): 3 consecutive passes with 100% bit-identical hash chain matching.*
+
+![Aerospace Mission Audit Report Page 1](public/screenshots/10.png)
+*Aerospace Mission Audit Report (Page 1): Rendered from `evidence/mission_report.pdf` with full telemetry and 4-stage hashes.*
+
+![Aerospace Mission Audit Report Page 2](public/screenshots/11.png)
+*Aerospace Mission Audit Report (Page 2): Multi-Method analysis, IoU cross-validation, and advisory non-flight disclaimer.*
+
 ---
 
 ## The 5 Core Pillars of LunarSafe 2.0
