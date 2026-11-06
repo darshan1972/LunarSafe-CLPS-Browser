@@ -1,3 +1,11 @@
+![Branch](https://img.shields.io/badge/Branch-nasa--submission-blue)
+![Tests](https://img.shields.io/badge/Tests-12%2F14%20Passing-success)
+![NASA](https://img.shields.io/badge/Data-NASA%20LRO%20%2F%20LOLA-orange)
+![License](https://img.shields.io/badge/License-MIT-lightgrey)
+
+## 🎥 Demo Video
+[Watch the demo video on YouTube](https://youtu.be/2K-ZDVdD_g8)
+
 # LunarSafe 2.0: Autonomous CLPS & Artemis III Mission Browser
 
 Team Rocket · AEROX Club · Parul University · Project Head: Darshan Patil
@@ -440,3 +448,9 @@ Our ground-truth validation confirms consistency with published LOLA ranges. Our
 - **Organization**: Team Rocket · AEROX Club · Parul University
 - **Project Head**: Darshan Patil
 - **Affiliation**: Centre of Excellence in Space Science & Technology, Faculty of Engineering & Technology, Parul University, Vadodara, Gujarat, India.
+
+---
+
+## 📚 How to Cite
+If you use LunarSafe 2.0 in your research, please cite:
+> Patil, Darshan. (2026). *LunarSafe 2.0: Autonomous Artemis III & CLPS Landing Assessment*. Team Rocket, Parul University. NASA Space Apps Challenge 2026. GitHub Repository: https://github.com/darshan1972/LunarSafe-CLPS-Browser
