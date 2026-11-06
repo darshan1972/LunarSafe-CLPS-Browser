@@ -19,6 +19,9 @@ LunarSafe 2.0 is a research-grade planetary mission analysis and landing hazard 
 | YOLOv5 sidecar | Pretrained crater detector | Advisory only; never affects the safety result |
 | SHA-256 chain + session seal | Hashes of pipeline stages | Tamper-evident and reproducible; does not prove physical correctness |
 
+> [!NOTE]
+> The `lighting_pct`, `earth_comm`, and `sunAngleDeg` values in the 13 Artemis III sites are illustrative estimates from the catalog, not live-computed solar/communication windows.
+
 ---
 
 ## 🏗️ System Architecture & Workflow

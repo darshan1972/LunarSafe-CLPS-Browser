@@ -1049,7 +1049,7 @@ const Terrain3DViewerComponent: React.FC<Terrain3DViewerProps> = ({
             <div>Coords: {Math.abs(hoveredSite.geometry?.coordinates?.[1] || 0).toFixed(2)}°S, {Math.abs(hoveredSite.geometry?.coordinates?.[0] || 0).toFixed(2)}°{hoveredSite.geometry?.coordinates?.[0] < 0 ? 'W' : 'E'}</div>
             <div className="text-amber-300 font-semibold">{hoveredSite.properties?.clps_mission}</div>
             <div className="text-emerald-400">Base Slope: ~{hoveredSite.properties?.base_slope_deg}° • Illum: {hoveredSite.properties?.lighting_pct}%</div>
-            <div className="text-[9px] text-zinc-500 pt-1">Click marker to inspect flight safety telemetry</div>
+            <div className="text-[9px] text-zinc-500 pt-1">Click marker to inspect mission safety telemetry</div>
           </div>
         </div>
       )}

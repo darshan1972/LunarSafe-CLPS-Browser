@@ -48,6 +48,7 @@ LunarSafe utilizes authentic, calibrated lunar planetary datasets sourced exclus
   * **Mission**: Artemis Program (Artemis III) & Commercial Lunar Payload Services (CLPS)
   * **Instrument / Source**: NASA Artemis III Candidate Landing Regions Announcement & NASA Solar System Treks (Moon Trek)
   * **Dataset Representation**: GeoJSON FeatureCollection detailing all 13 official Artemis III candidate landing regions (Faustini Rim A, Peak Near Shackleton, Connecting Ridge, Connecting Ridge Extension, de Gerlache Rim 1 & 2, de Gerlache-Kocher Massif, Haworth, Malapert Mountain, Leibnitz Beta Plateau, Nobile Rim 1 & 2, and Amundsen Rim). Attributes include selenographic coordinates (latitude, longitude), base elevation ($m$), annual lighting percentages ($71.0\%\text{–}91.5\%$), base slope gradients ($4.9^\circ\text{–}13.8^\circ$), surface roughness indices, and target CLPS mission delivery payloads (IM-1, IM-2 PRIME-1, VIPER/Griffin, Firefly Blue Ghost 2, Draper APEX 1.0).
+  * **Illustrative Telemetry Note**: The `lighting_pct`, `earth_comm`, and `sunAngleDeg` values in the 13 Artemis III sites are illustrative estimates from the catalog, not live-computed solar/communication windows.
 
 * **NASA Planetary Data System (PDS) Live Product Search Feed**
   * **Code Module**: `src/lib/nasaPdsClient.ts`

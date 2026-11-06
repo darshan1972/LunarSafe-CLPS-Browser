@@ -387,7 +387,7 @@ export const App: React.FC = () => {
       },
       elevationMeters: selectedClpsSite.properties?.elevation_m ?? 0,
       clpsMissionTarget: selectedClpsSite.properties?.clps_mission || 'NASA CLPS Initiative',
-      measuredSlopeDeg: currentSlope,
+      estimatedSlopeDeg: currentSlope,
       landerSlopeToleranceDeg: maxSlopeTolerance,
       lunarSafeScore: score,
       safetyClassification: isSafe ? 'VERIFIED_SAFE' : 'HAZARDOUS_SLOPE_EXCEEDED',

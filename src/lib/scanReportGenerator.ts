@@ -124,7 +124,7 @@ export function generatePDF(record: ScanRecord, multiMethodInput?: MultiMethodAn
   doc.setTextColor(cNavy[0], cNavy[1], cNavy[2]);
   doc.text('Telemetry Parameter', margin + 2, y + 4.2);
   doc.text('Evaluated Value', margin + col1 + 2, y + 4.2);
-  doc.text('Flight Standard / Limit', margin + col1 + col2 + 2, y + 4.2);
+  doc.text('Mission Standard / Limit', margin + col1 + col2 + 2, y + 4.2);
   y += rowHeight;
 
   // Table Rows

@@ -203,13 +203,13 @@ const SiteSidePanelComponent: React.FC<SiteSidePanelProps> = ({
             <div className="p-2 rounded bg-black/40 border border-white/5">
               <span className="text-zinc-400 block text-[10px]">Solar Illumination:</span>
               <span className="font-bold text-amber-300 text-xs">
-                {props.lighting_pct !== undefined ? `${props.lighting_pct}% Annual Lighting` : '91.5% Annual Lighting'}
+                {props.lighting_pct !== undefined ? `${props.lighting_pct}% Annual Lighting` : '91.5% Annual Lighting'} <span className="text-[9px] text-zinc-400 font-normal">(illustrative)</span>
               </span>
             </div>
             <div className="p-2 rounded bg-black/40 border border-white/5">
               <span className="text-zinc-400 block text-[10px]">Earth Comm Visibility:</span>
               <span className={`font-bold text-xs ${hasEarthComm ? 'text-emerald-400' : 'text-amber-400'}`}>
-                Direct Line of Sight: {hasEarthComm ? 'YES' : 'NO'}
+                Direct Line of Sight: {hasEarthComm ? 'YES' : 'NO'} <span className="text-[9px] text-zinc-400 font-normal">(illustrative)</span>
               </span>
             </div>
             <div className="p-2 rounded bg-black/40 border border-white/5">

@@ -36,7 +36,7 @@ export const ClpsVerificationModal: React.FC<ClpsVerificationModalProps> = ({
       },
       elevationMeters: site.properties?.elevation_m ?? 0,
       clpsMissionTarget: site.properties?.clps_mission || 'NASA CLPS Initiative',
-      measuredSlopeDeg: sampledSlope,
+      estimatedSlopeDeg: sampledSlope,
       landerSlopeToleranceDeg: tolerance,
       lunarSafeScore: score,
       safetyClassification: sampledSlope <= tolerance ? 'VERIFIED_SAFE' : 'HAZARDOUS_SLOPE_EXCEEDED',

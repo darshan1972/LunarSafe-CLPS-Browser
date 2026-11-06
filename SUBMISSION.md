@@ -17,6 +17,9 @@
 | YOLOv5 sidecar | Pretrained crater detector | Advisory only; never affects the safety result |
 | SHA-256 chain + session seal | Hashes of pipeline stages | Tamper-evident and reproducible; does not prove physical correctness |
 
+> [!NOTE]
+> The `lighting_pct`, `earth_comm`, and `sunAngleDeg` values in the 13 Artemis III sites are illustrative estimates from the catalog, not live-computed solar/communication windows.
+
 ## Executive Summary
 
 LunarSafe 2.0 is a research-grade 3D planetary mission planning and hazard characterization workstation developed for NASA's Artemis III and Commercial Lunar Payload Services (CLPS) missions. Designed to evaluate the rugged topography of the lunar South Pole, the platform renders hardware-accelerated 3D terrain meshes displaced by authentic NASA Lunar Reconnaissance Orbiter (LRO) LOLA Digital Elevation Models (DEMs) and maps all 13 official Artemis III candidate landing regions in real-time. The 3D viewer utilizes an optimized 512×512 regional texture for high-performance interactive exploration; the rigorous Horn pipeline is applied to the 4 benchmark DEM tiles and to uploaded-image scans, whereas the 13 Artemis sites use `base_slope_deg` estimates plus sampling from the 512×512 texture.
