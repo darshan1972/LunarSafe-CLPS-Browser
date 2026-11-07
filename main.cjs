@@ -138,7 +138,7 @@ function buildMenu() {
               message: 'LunarSafe v1.0.0',
               detail: 'Autonomous Lunar Landing Hazard Assessment Platform\n' +
                       'Team Rocket · AEROX Club · Parul University\n' +
-                      'Project Head: Darshan Patil\n\n' +
+                      'Project Head: DARSHAN BAGUL (PATIL)\n\n' +
                       'Frozen Engine: 41,930 bytes\n' +
                       'SHA-256: 8CA34C558C41F0B324A207A1D758476D397319999313D59A5919E75912882956',
             });

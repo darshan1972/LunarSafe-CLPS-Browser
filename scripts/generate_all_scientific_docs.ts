@@ -1,6 +1,6 @@
 /**
  * LunarSafe Mission Software — Scientific Documentation Package Generator (6 PDFs)
- * Team Rocket · AEROX Club · Parul University · Project Head: Darshan Patil
+ * Team Rocket · AEROX Club · Parul University · Project Head: DARSHAN BAGUL (PATIL)
  *
  * Generates the full publication-quality documentation suite for ISRO submission:
  *   1. LunarSafe_Methodology.pdf
@@ -198,7 +198,7 @@ function generateDoc1_Methodology(): string {
     ctx,
     'LUNARSAFE // AUTONOMOUS HAZARD DETECTION METHODOLOGY',
     'AEROSPACE RESEARCH & ENGINEERING · TEAM ROCKET · PARUL UNIVERSITY, VADODARA',
-    'STANDARD: ISRO Chandrayaan-3 LHDAC & NASA PDS4 Guidelines | Project Head: Darshan Patil'
+    'STANDARD: ISRO Chandrayaan-3 LHDAC & NASA PDS4 Guidelines | Project Head: DARSHAN BAGUL (PATIL)'
   );
 
   // Abstract

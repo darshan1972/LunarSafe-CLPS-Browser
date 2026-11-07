@@ -1,6 +1,6 @@
 /**
  * LunarSafe Mission Software — Multi-Site LOLA DEM Hazard Validation Suite
- * Team Rocket · AEROX Club · Parul University · Project Head: Darshan Patil
+ * Team Rocket · AEROX Club · Parul University · Project Head: DARSHAN BAGUL (PATIL)
  *
  * Validates Horn's (1981) DEM slope algorithm, first-order uncertainty propagation,
  * and deterministic/conservative hazard classification across 4 NASA LOLA DEM benchmark sites:

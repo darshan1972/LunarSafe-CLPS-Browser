@@ -1,7 +1,7 @@
 """
 LunarSafe AI Sidecar — FastAPI Server
 Team Rocket · AEROX Club · Parul University
-Project Head: Darshan Patil
+Project Head: DARSHAN BAGUL (PATIL)
 
 Runs on port 8000. Called by the TypeScript LunarSafe backend for 
 external YOLO-based crater and boulder detection benchmarks.

@@ -1,6 +1,6 @@
 /**
  * LunarSafe Mission Software — DEM Slope Uncertainty Quantification Engine
- * Team Rocket · AEROX Club · Parul University · Project Head: Darshan Patil
+ * Team Rocket · AEROX Club · Parul University · Project Head: DARSHAN BAGUL (PATIL)
  *
  * Implements rigorous first-order error propagation through Horn's (1981)
  * 3×3 weighted finite-difference slope estimator based on DEM vertical accuracy (sigma_z)

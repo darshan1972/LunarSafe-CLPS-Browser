@@ -1,6 +1,6 @@
 /**
  * LunarSafe Mission Software — DEM-Based Slope Computation
- * Team Rocket · AEROX Club · Parul University · Project Head: Darshan Patil
+ * Team Rocket · AEROX Club · Parul University · Project Head: DARSHAN BAGUL (PATIL)
  *
  * Implements Horn's (1981) 3×3 weighted finite-difference slope algorithm
  * for genuine lunar elevation matrices (DEM / DTM) with true GSD spatial anchoring.

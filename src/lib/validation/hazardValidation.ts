@@ -1,6 +1,6 @@
 /**
  * LunarSafe Mission Software — Hazard Detection Validation Suite
- * Team Rocket · AEROX Club · Parul University · Project Head: Darshan Patil
+ * Team Rocket · AEROX Club · Parul University · Project Head: DARSHAN BAGUL (PATIL)
  *
  * Implements ground-truth validation for crater and boulder detection against
  * authentic lunar surface features. Calculates Precision, Recall, F1-Score,

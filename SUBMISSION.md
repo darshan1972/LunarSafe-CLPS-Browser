@@ -3,7 +3,8 @@
 - **Project Name**: LunarSafe 2.0
 - **Challenge**: CLPS Lunar Mission Browser / Planetary Landing Site Selection
 - **Team**: Team Rocket · AEROX Club · Parul University
-- **Project Lead**: Darshan Patil
+- **Project Lead**: DARSHAN BAGUL (PATIL)
+- **Author**: DARSHAN BAGUL (PATIL)
 - **GitHub Repository**: [https://github.com/darshan1972/LunarSafe-CLPS-Browser/tree/nasa-submission](https://github.com/darshan1972/LunarSafe-CLPS-Browser/tree/nasa-submission)
 
 ## What Is Computed vs. Estimated

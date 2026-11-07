@@ -1,7 +1,7 @@
 """
 LunarSafe YOLO Model Loader (Legacy YOLOv5)
 Team Rocket · AEROX Club · Parul University
-Project Head: Darshan Patil
+Project Head: DARSHAN BAGUL (PATIL)
 
 Loads the YOLOv5 moon crater/boulder detection model using torch.hub 
 (ultralytics/yolov5). The modern 'ultralytics' package does NOT support 

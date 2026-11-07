@@ -1,6 +1,6 @@
 /**
  * LunarSafe Mission Software — Multi-Site LOLA DEM Validation PDF Report Generator
- * Team Rocket · AEROX Club · Parul University · Project Head: Darshan Patil
+ * Team Rocket · AEROX Club · Parul University · Project Head: DARSHAN BAGUL (PATIL)
  *
  * Generates LunarSafe_multi_site_validation_report.pdf
  */
@@ -157,7 +157,7 @@ async function generateMultiSitePdf() {
 
   doc.setTextColor(180, 195, 215);
   doc.setFontSize(7.5);
-  doc.text('MISSION STANDARD: ISRO Chandrayaan-3 LHDAC / NASA LOLA PDS4 GDR | Project Head: Darshan Patil', margin + 5, y + 20);
+  doc.text('MISSION STANDARD: ISRO Chandrayaan-3 LHDAC / NASA LOLA PDS4 GDR | Project Head: DARSHAN BAGUL (PATIL)', margin + 5, y + 20);
 
   y += 28;
 

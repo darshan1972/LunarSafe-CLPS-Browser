@@ -123,7 +123,7 @@ async function generateAuditPdf() {
   drawHeader(
     'LUNARSAFE // COMPLETE SYSTEM AUDIT & VERIFICATION DOSSIER',
     'EXHAUSTIVE TECHNICAL AUDIT, MATHEMATICAL PROOF & EVIDENCE RECORD',
-    'PARUL UNIVERSITY · AEROX CLUB · TEAM ROCKET | PROJECT HEAD: DARSHAN PATIL'
+    'PARUL UNIVERSITY · AEROX CLUB · TEAM ROCKET | PROJECT HEAD: DARSHAN BAGUL (PATIL)'
   );
 
   drawSectionTitle('EXECUTIVE AUDIT SUMMARY');
@@ -539,7 +539,7 @@ async function generateAuditPdf() {
     'all empirical ground-truth benchmarks, all cryptographic ledgers, and all operational workflows have achieved 100% pass rates ' +
     'with zero defects remaining.\n\n' +
     'Team Rocket · AEROX Club · Parul University\n' +
-    'Project Head: Darshan Patil | Lead Developer: Antigravity AI Engineering Team\n' +
+    'Project Head: DARSHAN BAGUL (PATIL) | Lead Developer: Antigravity AI Engineering Team\n' +
     'Date of Verification: October 8, 2026';
   const certLines = doc.splitTextToSize(certText, CONTENT_W);
   doc.text(certLines, MARGIN, y);

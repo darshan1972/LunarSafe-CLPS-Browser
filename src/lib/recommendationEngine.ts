@@ -1,6 +1,6 @@
 /**
  * LunarSafe Mission Software — Aerospace Landing Site Recommendation Engine
- * Team Rocket · AEROX Club · Parul University · Project Head: Darshan Patil
+ * Team Rocket · AEROX Club · Parul University · Project Head: DARSHAN BAGUL (PATIL)
  *
  * Grounded in official lunar landing criteria:
  * Reference 1 (NASA): NASA CLPS / Artemis III Landing Site Hazard Avoidance specifications:

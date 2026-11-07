@@ -950,7 +950,7 @@ app.get('/api/scan/report/:id', async (req: Request, res: Response) => {
 
 // -------------------------------------------------------------
 // DIRECT DOWNLOAD ENDPOINTS FOR MISSION ARTIFACTS
-// Project Head: Darshan Patil | Team: Team Rocket
+// Project Head: DARSHAN BAGUL (PATIL) | Team: Team Rocket
 // -------------------------------------------------------------
 app.get('/download/zip', (_req: Request, res: Response) => {
   const zipPath = path.resolve('LunarSafe_Final_Verified_Mission_Software.zip');
@@ -1045,7 +1045,7 @@ app.get('/download', (_req: Request, res: Response) => {
   <div class="card-container">
     <div class="header">
       <h1>🚀 LUNARSAFE MISSION DOWNLOAD CENTER</h1>
-      <p>Project Head: <strong>Darshan Patil</strong> &nbsp;|&nbsp; Team: <strong>Team Rocket</strong></p>
+      <p>Project Head: <strong>DARSHAN BAGUL (PATIL)</strong> &nbsp;|&nbsp; Team: <strong>Team Rocket</strong></p>
     </div>
     <div class="download-grid">
       <div class="download-card featured">
@@ -1076,7 +1076,7 @@ app.get('/download', (_req: Request, res: Response) => {
     </div>
     <div class="footer">
       Files are also directly available on your Windows Desktop: <code>Desktop\\LUNARSAFE_COMPLETE_MASTER_PROJECT_DOSSIER.pdf</code><br>
-      LunarSafe Platform &copy; Team Rocket &mdash; Project Head: <strong>Darshan Patil</strong>
+      LunarSafe Platform &copy; Team Rocket &mdash; Project Head: <strong>DARSHAN BAGUL (PATIL)</strong>
     </div>
   </div>
 </body>

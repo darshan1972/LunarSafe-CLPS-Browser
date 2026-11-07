@@ -1,6 +1,6 @@
 /**
  * LunarSafe Mission Software — Scan History & Recommendation Table Component
- * Team Rocket · AEROX Club · Parul University · Project Head: Darshan Patil
+ * Team Rocket · AEROX Club · Parul University · Project Head: DARSHAN BAGUL (PATIL)
  */
 
 import React, { useEffect, useState } from 'react';
@@ -77,7 +77,7 @@ export const ScanHistoryTable: React.FC = () => {
             📋 Scan History & Mission Recommendations
           </h2>
           <div className="text-xs text-space-400 font-mono mt-0.5">
-            Project Head: <span className="text-white font-semibold">Darshan Patil</span> &nbsp;|&nbsp; Standard: <span className="text-cyan-400">NASA CLPS / Artemis III Criteria</span>
+            Project Head: <span className="text-white font-semibold">DARSHAN BAGUL (PATIL)</span> &nbsp;|&nbsp; Standard: <span className="text-cyan-400">NASA CLPS / Artemis III Criteria</span>
           </div>
         </div>
 

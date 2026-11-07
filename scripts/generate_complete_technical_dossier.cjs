@@ -211,7 +211,7 @@ const html = `<!DOCTYPE html>
       <table class="meta-table">
         <tr>
           <td class="key">Project Head / Defender</td>
-          <td><strong>Darshan Patil</strong></td>
+          <td><strong>DARSHAN BAGUL (PATIL)</strong></td>
         </tr>
         <tr>
           <td class="key">Engineering Team</td>
@@ -576,7 +576,7 @@ const html = `<!DOCTYPE html>
     <li><strong>Library Used:</strong> <code>jspdf</code> (v4.2.1). Pure JavaScript execution compatible with both browser Web Workers and Node server environments.</li>
     <li><strong>Page 1 Contents:</strong>
       <ul>
-        <li>Official Letterhead: <em>Team Rocket · AEROX Club · Parul University, Vadodara · Project Head: Darshan Patil</em>.</li>
+        <li>Official Letterhead: <em>Team Rocket · AEROX Club · Parul University, Vadodara · Project Head: DARSHAN BAGUL (PATIL)</em>.</li>
         <li>Recommendation Banner: Colored status block (Green SAFE, Amber CAUTION, Red UNSAFE) with confidence badge and 1-sentence reasoning.</li>
         <li>Metrics Table: 12 parameters (GSD, Coordinates, Mean Slope, Max Slope, Safe Regolith %, Craters, Boulders, Top Site Area, Contiguous Zones).</li>
         <li>4-Stage Cryptographic Evidence Hashes: Input, Slope, Grid, and Zones SHA-256 signatures in monospace type.</li>
@@ -894,7 +894,7 @@ const html = `<!DOCTYPE html>
     </p>
     <div style="display: flex; justify-content: space-between; margin-top: 20px; font-size: 8.5pt; font-family: monospace;">
       <div>
-        <strong>PROJECT HEAD:</strong> Darshan Patil<br>
+        <strong>PROJECT HEAD:</strong> DARSHAN BAGUL (PATIL)<br>
         <strong>TEAM:</strong> Team Rocket · AEROX Club<br>
         <strong>INSTITUTION:</strong> Parul University, Vadodara
       </div>

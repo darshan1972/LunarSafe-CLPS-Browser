@@ -3,7 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "description": "Autonomous Lunar Landing-Site Hazard Assessment Platform",
-  "author": "Team Rocket · Parul University",
+  "author": "DARSHAN BAGUL (PATIL)",
   "type": "module",
   "main": "main.cjs",
   "scripts": {

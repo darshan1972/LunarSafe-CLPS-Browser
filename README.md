@@ -8,7 +8,7 @@
 
 # LunarSafe 2.0: Autonomous CLPS & Artemis III Mission Browser
 
-Team Rocket · AEROX Club · Parul University · Project Head: Darshan Patil
+Team Rocket · AEROX Club · Parul University · Project Head: DARSHAN BAGUL (PATIL)
 
 > **NASA Space Apps Challenge 2026**: High-precision autonomous hazard assessment, candidate landing site verification, and 3D terrain exploration workstation developed for NASA Artemis III and Commercial Lunar Payload Services (CLPS) missions.
 
@@ -446,11 +446,11 @@ Our ground-truth validation confirms consistency with published LOLA ranges. Our
 
 - **Project**: LunarSafe Autonomous Planetary Landing Hazard Detection System
 - **Organization**: Team Rocket · AEROX Club · Parul University
-- **Project Head**: Darshan Patil
+- **Project Head**: DARSHAN BAGUL (PATIL)
 - **Affiliation**: Centre of Excellence in Space Science & Technology, Faculty of Engineering & Technology, Parul University, Vadodara, Gujarat, India.
 
 ---
 
 ## 📚 How to Cite
 If you use LunarSafe 2.0 in your research, please cite:
-> Patil, Darshan. (2026). *LunarSafe 2.0: Autonomous Artemis III & CLPS Landing Assessment*. Team Rocket, Parul University. NASA Space Apps Challenge 2026. GitHub Repository: https://github.com/darshan1972/LunarSafe-CLPS-Browser
+> DARSHAN BAGUL (PATIL). (2026). *LunarSafe 2.0: Autonomous Artemis III & CLPS Landing Assessment*. Team Rocket, Parul University. NASA Space Apps Challenge 2026. GitHub Repository: https://github.com/darshan1972/LunarSafe-CLPS-Browser

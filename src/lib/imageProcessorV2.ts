@@ -1,6 +1,6 @@
 /**
  * LunarSafe Mission Software — Lunar Engine V2 (Deterministic + Uncertainty Wrapper)
- * Team Rocket · AEROX Club · Parul University · Project Head: Darshan Patil
+ * Team Rocket · AEROX Club · Parul University · Project Head: DARSHAN BAGUL (PATIL)
  *
  * Wraps the frozen DeterministicLunarEngine to add propagated slope uncertainty (sigma)
  * and conservative hazard classification while maintaining 100% bit-identical hash chain integrity.

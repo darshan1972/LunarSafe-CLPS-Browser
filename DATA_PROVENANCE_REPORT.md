@@ -2,6 +2,7 @@
 
 > **Prepared for**: NASA Space Apps Challenge Judges, Technical Reviewers, and Industry Mentors (StarLab, CLPS, Artemis)  
 > **Project**: LunarSafe (Autonomous Lunar Landing Site Characterization & Hazard Assessment)  
+> **Project Head**: DARSHAN BAGUL (PATIL)  
 > **Organization**: Team Rocket · AEROX Club · Parul University  
 > **Status**: Open data used under NASA Open Data Policy (17 U.S.C. § 105)
 
@@ -179,4 +180,4 @@ flowchart TD
 
 ---
 
-*Report prepared by Team Rocket (AEROX Club · Parul University). Maintained in the LunarSafe project repository for review by NASA Space Apps Judges, CLPS commercial partners, and aerospace industry mentors.*
+*Report prepared by Team Rocket (Project Head: DARSHAN BAGUL (PATIL), AEROX Club · Parul University). Maintained in the LunarSafe project repository for review by NASA Space Apps Judges, CLPS commercial partners, and aerospace industry mentors.*

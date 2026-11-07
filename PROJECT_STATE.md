@@ -53,7 +53,7 @@
 # LunarSafe — Complete Project State Handoff
 **Generated for:** Claude (or any AI assistant scanning this project)
 **Generated on:** September 28, 2026
-**Project Head:** Darshan Patil
+**Project Head:** DARSHAN BAGUL (PATIL)
 **Team:** Team Rocket · AEROX Club · Parul University
 
 ---

@@ -1,6 +1,6 @@
 /**
  * LunarSafe Mission Software — Conservative Hazard Classifier with Uncertainty
- * Team Rocket · AEROX Club · Parul University · Project Head: Darshan Patil
+ * Team Rocket · AEROX Club · Parul University · Project Head: DARSHAN BAGUL (PATIL)
  *
  * Integrates deterministic slope maps with propagated DEM vertical uncertainty (sigma)
  * over ISRO standard 24m landing cells to provide conservative landing safety labels.

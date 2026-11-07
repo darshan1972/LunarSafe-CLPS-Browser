@@ -1,6 +1,6 @@
 /**
  * LunarSafe Mission Software — Marginal Site Sensitivity Analyzer
- * Team Rocket · AEROX Club · Parul University · Project Head: Darshan Patil
+ * Team Rocket · AEROX Club · Parul University · Project Head: DARSHAN BAGUL (PATIL)
  *
  * Evaluates the sensitivity of safe landing site selection to DEM vertical accuracy (sigma_z)
  * across candidate terrain, quantifying the reduction in safe landing area under conservative

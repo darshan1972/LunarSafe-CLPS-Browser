@@ -79,7 +79,7 @@ async function generateReportPdf() {
 
   doc.setTextColor(180, 195, 215);
   doc.setFontSize(7.5);
-  doc.text('STANDARD: ISRO Chandrayaan-3 LHDAC / PDS4 Planetary Data System | Project Head: Darshan Patil', margin + 5, y + 20);
+  doc.text('STANDARD: ISRO Chandrayaan-3 LHDAC / PDS4 Planetary Data System | Project Head: DARSHAN BAGUL (PATIL)', margin + 5, y + 20);
 
   y += 28;
 

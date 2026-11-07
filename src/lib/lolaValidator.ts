@@ -1,6 +1,6 @@
 /**
  * LunarSafe Mission Software — Ground-Truth LOLA Validation Engine
- * Team Rocket · AEROX Club · Parul University · Project Head: Darshan Patil
+ * Team Rocket · AEROX Club · Parul University · Project Head: DARSHAN BAGUL (PATIL)
  *
  * Validates Horn's (1981) DEM slope algorithm against published NASA Lunar Orbiter Laser Altimeter (LOLA)
  * ground-truth benchmark slopes for verified lunar landing sites (Apollo 11, Shiv Shakti Point, etc.).

@@ -12,7 +12,7 @@
 | **Team Name** | **Team Rocket** |
 | **Club Affiliation** | **AEROX Club** |
 | **Academic Institution** | **Parul University**, Vadodara, Gujarat, India |
-| **Project Head** | **Darshan Patil** |
+| **Project Head** | **DARSHAN BAGUL (PATIL)** |
 | **National Problem Statement** | **SIH1732** — Enhancement of Permissible Slope and Hazard Assessment for Safe Lunar Landing |
 | **Verification Timestamp** | **2026-09-15 20:50:00 IST** |
 | **Audit Classification** | **AEROSPACE-GRADE EMPIRICAL SYSTEM AUDIT — 100% UNMODIFIED RAW EVIDENCE** |
@@ -444,7 +444,7 @@ $$H_3 = \text{SHA-256}(H_2 \mathbin{\Vert} \text{ContiguousSafeZones})$$
 
 This document certifies that the **LunarSafe Flight Safety Verification Engine** operates with **100% genuine mathematical determinism, real spatial scaling, real cryptographic hash chains, real multi-format reporting, and zero synthetic hallucination**.
 
-- **Project Head**: **Darshan Patil**
+- **Project Head**: **DARSHAN BAGUL (PATIL)**
 - **Team**: **Team Rocket**
 - **Club**: **AEROX Club**
 - **Institution**: **Parul University**, Vadodara, Gujarat, India

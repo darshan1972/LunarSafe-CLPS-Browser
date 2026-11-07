@@ -51,7 +51,7 @@ function addLetterhead(doc: jsPDF, title: string, subtitle: string, pageNum: num
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(7.5);
   doc.setTextColor(cMuted[0], cMuted[1], cMuted[2]);
-  doc.text('Team Rocket · AEROX Club · Parul University, Vadodara · Project Head: Darshan Patil', margin, footerY + 5);
+  doc.text('Team Rocket · AEROX Club · Parul University, Vadodara · Project Head: DARSHAN BAGUL (PATIL)', margin, footerY + 5);
   doc.text(`Page ${pageNum} of ${totalPages}`, margin + contentWidth - 18, footerY + 5);
 }
 
@@ -115,7 +115,7 @@ export async function generateCoverLetter(): Promise<string> {
   y += 6;
 
   // Body Paragraphs
-  const p1 = `On behalf of Team Rocket, the student aerospace and robotics division of the AEROX Club at Parul University, Vadodara, under the technical supervision of Project Head Darshan Patil, we have the distinct honour of submitting the complete verification dossiers, scientific methodology package, and source distribution for LunarSafe—an autonomous, deterministic lunar landing-site hazard assessment engine engineered specifically for robotic lunar landers.`;
+  const p1 = `On behalf of Team Rocket, the student aerospace and robotics division of the AEROX Club at Parul University, Vadodara, under the technical supervision of Project Head DARSHAN BAGUL (PATIL), we have the distinct honour of submitting the complete verification dossiers, scientific methodology package, and source distribution for LunarSafe—an autonomous, deterministic lunar landing-site hazard assessment engine engineered specifically for robotic lunar landers.`;
   const splitP1 = doc.splitTextToSize(p1, contentWidth);
   doc.text(splitP1, margin, y);
   y += splitP1.length * 4.4 + 3;
@@ -279,7 +279,7 @@ export async function generateCoverLetter(): Promise<string> {
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(9.5);
   doc.setTextColor(cNavy[0], cNavy[1], cNavy[2]);
-  doc.text('Darshan Patil', margin, y);
+  doc.text('DARSHAN BAGUL (PATIL)', margin, y);
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(8);
   doc.setTextColor(cMuted[0], cMuted[1], cMuted[2]);
@@ -545,7 +545,7 @@ export async function generateExecutiveSummary(): Promise<string> {
   doc.text('7. Institutional Contact & Collaboration', margin, y);
   y += 4.5;
 
-  const contactText = `Project Head: Darshan Patil | Lead Developer: Team Rocket · AEROX Club
+  const contactText = `Project Head: DARSHAN BAGUL (PATIL) | Lead Developer: Team Rocket · AEROX Club
 Institution: Parul University, Post Limda, Waghodia, Vadodara - 391760, Gujarat, India
 Direct Inquiries: darshan.patil@paruluniversity.ac.in | aerox@paruluniversity.ac.in`;
   const splitContact = doc.splitTextToSize(contactText, contentWidth);

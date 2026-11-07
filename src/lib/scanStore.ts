@@ -1,6 +1,6 @@
 /**
  * LunarSafe Mission Software — Persistent Scan Store
- * Team Rocket · AEROX Club · Parul University · Project Head: Darshan Patil
+ * Team Rocket · AEROX Club · Parul University · Project Head: DARSHAN BAGUL (PATIL)
  *
  * Persists up to 50 ScanRecords in localStorage ('lunarsafe_scan_history') and file system in Node.
  */

@@ -3,6 +3,8 @@
 This directory contains real, authentic sample telemetry outputs exported from the live build of LunarSafe 2.0 for external auditor and judge verification.
 
 ## 1. Generation Metadata
+- **Project Head**: DARSHAN BAGUL (PATIL)
+- **Organization**: Team Rocket · AEROX Club · Parul University
 - **Input Sample**: `src/assets/samples/ch2_tmc2_south_pole.png` (ISRO Chandrayaan-2 TMC-2 South Polar Strip & Corridor Profile, 512×512 px, 110,426 bytes)
 - **Generation Date**: 2026-11-06
 - **Git Commit Hash at Generation Time**: `610ddf0a3d6727445b35fb991ab15c9b34f5811c`

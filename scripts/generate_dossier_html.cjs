@@ -52,7 +52,7 @@ const html = `<!DOCTYPE html>
   <div class="banner">
     <div>
       <h1>🚀 LUNARSAFE MISSION DOSSIER</h1>
-      <div class="meta">Project Head: <strong>Darshan Patil</strong> &nbsp;|&nbsp; Team: <strong>Team Rocket</strong> &nbsp;|&nbsp; Version: <strong>1.0.0 Production</strong></div>
+      <div class="meta">Project Head: <strong>DARSHAN BAGUL (PATIL)</strong> &nbsp;|&nbsp; Team: <strong>Team Rocket</strong> &nbsp;|&nbsp; Version: <strong>1.0.0 Production</strong></div>
     </div>
     <div class="btn-group">
       <button class="btn btn-success" onclick="window.print()">🖨️ Print / Save as PDF</button>

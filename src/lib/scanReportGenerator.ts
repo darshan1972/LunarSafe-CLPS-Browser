@@ -1,6 +1,6 @@
 /**
  * LunarSafe Mission Software — Scan Report Generator
- * Team Rocket · AEROX Club · Parul University · Project Head: Darshan Patil
+ * Team Rocket · AEROX Club · Parul University · Project Head: DARSHAN BAGUL (PATIL)
  *
  * Generates PDF, CSV, and JSON mission reports from a ScanRecord.
  */
@@ -60,7 +60,7 @@ export function generatePDF(record: ScanRecord, multiMethodInput?: MultiMethodAn
 
   doc.setFontSize(7.5);
   doc.setTextColor(203, 213, 225);
-  doc.text(`Project Head: Darshan Patil  |  Standard: NASA CLPS / Artemis III  |  Timestamp: ${record.timestamp}`, margin + 5, y + 20);
+  doc.text(`Project Head: DARSHAN BAGUL (PATIL)  |  Standard: NASA CLPS / Artemis III  |  Timestamp: ${record.timestamp}`, margin + 5, y + 20);
 
   y += 28;
 
@@ -301,7 +301,7 @@ export function generatePDF(record: ScanRecord, multiMethodInput?: MultiMethodAn
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(7);
   doc.text('Mission-planning analysis using configurable assumptions (not NASA CLPS requirements). Independent research tool developed for NASA Space Apps 2026.', margin + 4, y + 11);
-  doc.text('Project Head: Darshan Patil  |  Team: Team Rocket  |  AEROX Club, Parul University', margin + 4, y + 15);
+  doc.text('Project Head: DARSHAN BAGUL (PATIL)  |  Team: Team Rocket  |  AEROX Club, Parul University', margin + 4, y + 15);
 
   // Page 2 Footer
   doc.setFont('helvetica', 'normal');
