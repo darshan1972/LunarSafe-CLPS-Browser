@@ -23,7 +23,6 @@ import { DeterministicLunarEngine } from './lib/imageProcessor';
 import { CraterConsolidationService } from './lib/craterConsolidation';
 import { SpaceBagManager, SpaceBagItem } from './lib/spaceBagManager';
 import { getAllScans, addScan } from './lib/scanStore';
-import { NasaPdsClient } from './lib/nasaPdsClient';
 import { IsroPradanConnector, IsroPds4Metadata } from './lib/isroPradanParser';
 import { compareDetections, Detection, ComparisonResult } from './lib/comparisonEngine';
 import { getWorkflowRecommendation } from './lib/workflowSelector';
@@ -42,6 +41,8 @@ type AppAnalysisResult = ProcessedAnalysisResult & {
   craterCount: number;
   boulderCount: number;
 };
+
+const NASA_PDS_CACHE_KEY = 'lunarsafe_nasa_pds_cache';
 
 export const App: React.FC = () => {
 
@@ -80,6 +81,19 @@ export const App: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const [nasaStatus, setNasaStatus] = useState<DataSourceStatus | null>(null);
+  const [cachedNasaStatus, setCachedNasaStatus] = useState<DataSourceStatus | null>(() => {
+    try {
+      const raw = window.localStorage?.getItem(NASA_PDS_CACHE_KEY);
+      if (!raw) return null;
+      const parsed = JSON.parse(raw) as DataSourceStatus;
+      if (parsed && (parsed.status === 'ONLINE' || parsed.status === 'CONNECTED')) {
+        return parsed;
+      }
+    } catch {
+      // ignore corrupt cache
+    }
+    return null;
+  });
   const [isroStatus, setIsroStatus] = useState<DataSourceStatus | null>(null);
   const [isRefreshingNasa, setIsRefreshingNasa] = useState<boolean>(false);
   const [pds4Metadata, setPds4Metadata] = useState<IsroPds4Metadata | null>(null);
@@ -469,10 +483,7 @@ export const App: React.FC = () => {
       // ignore
     }
 
-    // 1. Initial NASA PDS Ping
-    refreshNasaPds();
-
-    // 2. Connect to Mission Terminal SSE Stream if server is running
+    // 1. Connect to Mission Terminal SSE Stream if server is running
     let eventSource: EventSource | null = null;
     try {
       eventSource = new EventSource('/api/stream');
@@ -488,6 +499,9 @@ export const App: React.FC = () => {
       // EventSource fallback to local logging
     }
 
+    // 2. Initial NASA PDS Ping (via backend gateway)
+    refreshNasaPds();
+
     addMissionLog(
       'INFO',
       'CLPS Mission Control',
@@ -501,14 +515,99 @@ export const App: React.FC = () => {
 
   const refreshNasaPds = async () => {
     setIsRefreshingNasa(true);
-    addMissionLog('INFO', 'NASA PDS', 'Pinging NASA Planetary Data System Search API...');
+    addMissionLog('INFO', 'NASA PDS', 'Pinging NASA Planetary Data System Search API via backend (/api/sources/nasa)...');
+    const controller = new AbortController();
+    const timeoutId = window.setTimeout(() => controller.abort(), 22000);
+    const startTime = performance.now();
+
     try {
-      const { status } = await NasaPdsClient.queryLunarProducts(8);
+      const response = await fetch('/api/sources/nasa', {
+        method: 'GET',
+        headers: { 'Accept': 'application/json' },
+        signal: controller.signal,
+      });
+
+      if (!response.ok) {
+        const errBody = await response.json().catch(() => ({}));
+        const errMsg = errBody.error || `HTTP ${response.status}${response.statusText ? ` ${response.statusText}` : ''}`;
+        const failureStatus: DataSourceStatus = {
+          id: 'nasa-pds',
+          name: 'NASA Planetary Data System (PDS)',
+          organization: 'NASA',
+          url: 'https://pds.nasa.gov',
+          status: 'HTTP_ERROR',
+          httpStatus: response.status,
+          error: errMsg,
+          lastChecked: new Date().toISOString(),
+          latencyMs: Math.round(performance.now() - startTime),
+          notice: `Backend gateway returned HTTP ${response.status}: ${errMsg}`,
+        };
+        setNasaStatus(failureStatus);
+        addMissionLog('WARN', 'NASA PDS', `HTTP ${response.status}: ${errMsg}`);
+        return;
+      }
+
+      const data = await response.json();
+      const status: DataSourceStatus | undefined = data?.status;
+      if (!status) {
+        throw new Error('Malformed response from NASA PDS backend gateway');
+      }
+
       setNasaStatus(status);
-      addMissionLog('SUCCESS', 'NASA PDS', `Connected (Latency: ${status.latencyMs}ms, Found ${status.productCount} lunar products)`);
+      if (status.status === 'ONLINE' || status.status === 'CONNECTED') {
+        setCachedNasaStatus(status);
+        try {
+          window.localStorage?.setItem(NASA_PDS_CACHE_KEY, JSON.stringify(status));
+        } catch {
+          // ignore localStorage write failure
+        }
+
+        const shown = status.sampleProducts?.length ?? 0;
+        const countStr = (status.productCount ?? shown).toLocaleString('en-US');
+        const first = status.sampleProducts?.[0];
+        const firstDetail = first
+          ? ` | First: "${first.title}" (ID: ${first.id}${first.mission ? `, Mission: ${first.mission}` : ''})`
+          : '';
+        addMissionLog(
+          'SUCCESS',
+          'NASA PDS',
+          `Connected (HTTP ${status.httpStatus || 200} OK | Latency: ${status.latencyMs ?? Math.round(performance.now() - startTime)}ms) — NASA reports ${countStr} products whose target is the Moon (any mission); showing the first ${shown}${firstDetail}`
+        );
+      } else {
+        const failureLabel =
+          status.status === 'TIMED_OUT'
+            ? 'TIMED OUT'
+            : status.status === 'HTTP_ERROR' && status.httpStatus
+            ? `HTTP ${status.httpStatus}`
+            : 'OFFLINE';
+        addMissionLog(
+          'WARN',
+          'NASA PDS',
+          `${failureLabel}: ${status.error || status.notice || 'Request failed'}`
+        );
+      }
     } catch (err: any) {
-      addMissionLog('WARN', 'NASA PDS', `Could not reach NASA PDS: ${err.message}`);
+      const latencyMs = Math.round(performance.now() - startTime);
+      const isTimeout = err?.name === 'AbortError' || String(err?.message).toLowerCase().includes('abort');
+      const errMsg = err?.message || (isTimeout ? 'Request timed out after 22000ms' : 'Network error');
+      const notice = isTimeout
+        ? `Request timed out after 22000ms (${errMsg}).`
+        : `Connection error: ${errMsg}`;
+
+      setNasaStatus({
+        id: 'nasa-pds',
+        name: 'NASA Planetary Data System (PDS)',
+        organization: 'NASA',
+        url: 'https://pds.nasa.gov',
+        status: isTimeout ? 'TIMED_OUT' : 'OFFLINE',
+        error: errMsg,
+        lastChecked: new Date().toISOString(),
+        latencyMs,
+        notice,
+      });
+      addMissionLog('WARN', 'NASA PDS', `${isTimeout ? 'TIMED OUT' : 'OFFLINE'}: ${errMsg}`);
     } finally {
+      window.clearTimeout(timeoutId);
       setIsRefreshingNasa(false);
     }
   };
@@ -1362,6 +1461,7 @@ export const App: React.FC = () => {
           <div className="lg:col-span-3 space-y-4">
             <DataSourcesPanel
               nasaStatus={nasaStatus}
+              cachedNasaStatus={cachedNasaStatus}
               isroStatus={isroStatus}
               onRefreshNasa={refreshNasaPds}
               isRefreshingNasa={isRefreshingNasa}

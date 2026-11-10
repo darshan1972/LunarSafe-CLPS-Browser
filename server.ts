@@ -266,12 +266,45 @@ app.post('/api/analyze', async (req: Request, res: Response) => {
 // -------------------------------------------------------------
 // GET /api/sources/nasa: Real Live Query to NASA Planetary Data System
 // -------------------------------------------------------------
-app.get('/api/sources/nasa', async (_req: Request, res: Response) => {
+app.get('/api/sources/nasa', async (req: Request, res: Response) => {
   try {
-    const { status, products } = await NasaPdsClient.queryLunarProducts(8);
-    res.json({ status, products });
+    const limit = Math.min(25, Math.max(1, Number(req.query?.limit) || 8));
+    broadcastMissionLog('INFO', 'NASA PDS Gateway', 'Initiating live query to NASA Planetary Data System (pds.nasa.gov)...');
+
+    const { status, products } = await NasaPdsClient.queryLunarProducts(limit);
+
+    if (status.status === 'ONLINE') {
+      const countStr = (status.productCount ?? products.length).toLocaleString('en-US');
+      const first = products[0];
+      const firstDetail = first
+        ? ` | First: "${first.title}" (ID: ${first.id}${first.mission ? `, Mission: ${first.mission}` : ''})`
+        : '';
+      console.log(`[NASA PDS Gateway] HTTP ${status.httpStatus || 200} OK | Latency: ${status.latencyMs}ms | Hits: ${status.productCount}`);
+      broadcastMissionLog(
+        'SUCCESS',
+        'NASA PDS Gateway',
+        `HTTP ${status.httpStatus || 200} OK (${status.latencyMs}ms) — NASA reports ${countStr} products whose target is the Moon (any mission); showing the first ${products.length}${firstDetail}`
+      );
+    } else {
+      const failureLabel =
+        status.status === 'TIMED_OUT'
+          ? 'TIMED OUT'
+          : status.status === 'HTTP_ERROR' && status.httpStatus
+          ? `HTTP ${status.httpStatus}`
+          : 'OFFLINE';
+      console.warn(`[NASA PDS Gateway] ${failureLabel} | ${status.error || status.notice}`);
+      broadcastMissionLog(
+        'WARN',
+        'NASA PDS Gateway',
+        `${failureLabel}: ${status.error || status.notice || 'Request failed'}`
+      );
+    }
+
+    return res.json({ status, products });
   } catch (err: any) {
-    res.status(500).json({ error: err.message });
+    console.error(`[NASA PDS Gateway] Error: ${err.message}`);
+    broadcastMissionLog('HAZARD', 'NASA PDS Gateway', `OFFLINE: ${err.message}`);
+    return res.status(500).json({ error: err.message });
   }
 });
 
@@ -1087,9 +1120,9 @@ app.get('/download', (_req: Request, res: Response) => {
 // SERVE STATIC FRONTEND (Production build)
 // -------------------------------------------------------------
 const baseDir = typeof __dirname !== 'undefined' ? __dirname : process.cwd();
-const distDir = fs.existsSync(path.resolve(baseDir, 'index.html'))
-  ? path.resolve(baseDir)
-  : (fs.existsSync(path.resolve('dist')) ? path.resolve('dist') : path.resolve(baseDir, 'dist'));
+const distDir = fs.existsSync(path.resolve('dist', 'index.html'))
+  ? path.resolve('dist')
+  : (fs.existsSync(path.resolve(baseDir, 'index.html')) ? path.resolve(baseDir) : path.resolve(baseDir, 'dist'));
 
 const samplesDir = fs.existsSync(path.resolve(distDir, 'src/assets/samples'))
   ? path.resolve(distDir, 'src/assets/samples')

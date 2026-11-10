@@ -1,0 +1,18 @@
+MISSION TERMINAL (LIVE TELEMETRY)
+4 EVENTS
+06:37:54
+[INFO]
+[NASA PDS]:
+Pinging NASA Planetary Data System Search API via backend (/api/sources/nasa)...
+06:37:54
+[INFO]
+[NASA PDS Gateway]:
+Initiating live query to NASA Planetary Data System (pds.nasa.gov)...
+06:37:56
+[SUCCESS]
+[NASA PDS Gateway]:
+HTTP 200 OK (1983ms) — NASA reports 3,465,394 products whose target is the Moon (any mission); showing the first 8 | First: "Cassini ISS Image 1313633756n.img" (ID: urn:nasa:pds:cassini_iss_cruise:data_raw:1313633756n::1.0, Mission: Cassini-Huygens)
+06:37:56
+[SUCCESS]
+[NASA PDS]:
+Connected (HTTP 200 OK | Latency: 1983ms) — NASA reports 3,465,394 products whose target is the Moon (any mission); showing the first 8 | First: "Cassini ISS Image 1313633756n.img" (ID: urn:nasa:pds:cassini_iss_cruise:data_raw:1313633756n::1.0, Mission: Cassini-Huygens)

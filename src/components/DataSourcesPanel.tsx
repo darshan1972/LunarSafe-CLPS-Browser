@@ -11,17 +11,107 @@ import { DataSourceStatus } from '../types';
 
 interface DataSourcesPanelProps {
   nasaStatus: DataSourceStatus | null;
+  cachedNasaStatus?: DataSourceStatus | null;
   isroStatus?: DataSourceStatus | null;
   onRefreshNasa: () => Promise<void>;
   isRefreshingNasa: boolean;
   pds4Metadata?: any;
 }
 
+function getFailureLabel(status: DataSourceStatus): string {
+  if (status.status === 'TIMED_OUT') return 'TIMED OUT';
+  if (status.status === 'HTTP_ERROR' && status.httpStatus) return `HTTP ${status.httpStatus}`;
+  return 'OFFLINE';
+}
+
+function renderCatalogResults(statusData: DataSourceStatus, isCached: boolean) {
+  const products = statusData.sampleProducts || [];
+  const totalCount = (statusData.productCount ?? products.length).toLocaleString('en-US');
+  const firstProduct = products[0];
+  const verifiedTime = statusData.lastChecked
+    ? statusData.lastChecked.replace('T', ' ').substring(0, 19) + ' UTC'
+    : 'unknown';
+
+  return (
+    <div
+      className={`space-y-2 rounded border p-2.5 text-xs font-mono ${
+        isCached
+          ? 'border-amber-700/60 bg-amber-950/20'
+          : 'border-space-750 bg-space-850/60'
+      }`}
+    >
+      <div className={`text-[11px] font-bold ${isCached ? 'text-amber-300' : 'text-space-300'}`}>
+        {isCached
+          ? `CACHED (not live) - last verified ${verifiedTime}`
+          : 'LIVE OBSERVATIONAL PRODUCTS RETRIEVED:'}
+      </div>
+
+      <div className="text-[11px] text-space-200 leading-snug">
+        NASA reports <span className="text-cyan-300 font-semibold">{totalCount}</span> products whose target is the Moon (any mission); showing the first{' '}
+        <span className="text-cyan-300 font-semibold">{products.length}</span>.
+      </div>
+
+      {firstProduct && (
+        <div className="rounded bg-space-900/90 border border-space-700 p-2 space-y-1 text-[10px]">
+          <div className="text-space-400 uppercase font-semibold">First Returned Product:</div>
+          <div className="text-white font-semibold break-words">{firstProduct.title}</div>
+          <div className="text-space-300 break-all">
+            <span className="text-space-400">ID:</span> {firstProduct.id}
+          </div>
+          {firstProduct.mission && (
+            <div className="text-cyan-300">
+              <span className="text-space-400">Mission:</span> {firstProduct.mission}
+            </div>
+          )}
+        </div>
+      )}
+
+      {products.length > 0 && (
+        <div className="space-y-1 max-h-36 overflow-y-auto divide-y divide-space-800 bg-space-900/60 rounded border border-space-750 p-2 text-xs font-mono">
+          {products.map(p => (
+            <div key={p.id} className="pt-1.5 first:pt-0 space-y-0.5">
+              <div className="flex items-center justify-between gap-2">
+                <span className="font-semibold text-space-200 truncate max-w-[260px]" title={p.title}>
+                  {p.title}
+                </span>
+                {p.url && (
+                  <a
+                    href={p.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-cyan-400 hover:underline flex items-center space-x-1 text-[10px] shrink-0"
+                  >
+                    <span>PDS4 Data</span>
+                    <ExternalLink className="w-2.5 h-2.5" />
+                  </a>
+                )}
+              </div>
+              <div className="text-[10px] text-space-400 flex flex-wrap gap-x-2">
+                {p.mission && <span>Mission: {p.mission}</span>}
+                {p.instrument && <span>Inst: {p.instrument}</span>}
+                {p.time && <span>Time: {p.time.substring(0, 10)}</span>}
+              </div>
+              <div className="text-[9px] text-space-500 truncate" title={p.id}>
+                ID: {p.id}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 const DataSourcesPanelComponent: React.FC<DataSourcesPanelProps> = ({
   nasaStatus,
+  cachedNasaStatus,
   onRefreshNasa,
   isRefreshingNasa,
 }) => {
+  const isOnline = nasaStatus?.status === 'ONLINE' || nasaStatus?.status === 'CONNECTED';
+  const isFailure = nasaStatus !== null && !isOnline && !isRefreshingNasa;
+  const failureLabel = isFailure && nasaStatus ? getFailureLabel(nasaStatus) : null;
+
   return (
     <div className="bg-space-800 rounded-lg border border-space-700 p-4 space-y-3.5 shadow-lg">
       {/* Header */}
@@ -41,7 +131,17 @@ const DataSourcesPanelComponent: React.FC<DataSourcesPanelProps> = ({
       <div className="space-y-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
+            <span
+              className={`w-2.5 h-2.5 rounded-full ${
+                isRefreshingNasa
+                  ? 'bg-cyan-400 animate-pulse'
+                  : isOnline
+                  ? 'bg-emerald-400 animate-pulse'
+                  : isFailure
+                  ? 'bg-red-500'
+                  : 'bg-zinc-500'
+              }`}
+            />
             <span className="text-xs font-mono font-bold text-white">
               NASA Planetary Data System (PDS Search API)
             </span>
@@ -54,9 +154,13 @@ const DataSourcesPanelComponent: React.FC<DataSourcesPanelProps> = ({
             className="flex items-center space-x-1 px-2.5 py-1 text-[11px] font-mono rounded bg-space-750 hover:bg-space-700 border border-space-600 text-cyan-300 transition-colors cursor-pointer disabled:opacity-50"
           >
             <RefreshCw className={`w-3 h-3 ${isRefreshingNasa ? 'animate-spin' : ''}`} />
-            <span>{isRefreshingNasa ? 'QUERYING...' : 'PING API'}</span>
+            <span>{isRefreshingNasa ? 'PINGING...' : 'PING API'}</span>
           </button>
         </div>
+
+        <p className="text-[10px] text-zinc-400 font-sans leading-snug bg-space-900/50 border border-space-750 rounded px-2.5 py-1.5">
+          Live catalog query - informational. It does not feed the hazard calculations or the 3D map (those use bundled NASA LOLA files).
+        </p>
 
         <div className="bg-space-850 rounded border border-space-750 p-3 space-y-2 text-xs font-mono">
           <div className="flex justify-between">
@@ -73,11 +177,27 @@ const DataSourcesPanelComponent: React.FC<DataSourcesPanelProps> = ({
           </div>
           <div className="flex justify-between">
             <span className="text-space-400">Connection Status:</span>
-            <span className={nasaStatus?.status === 'ONLINE' ? 'text-emerald-400 font-semibold' : 'text-amber-400 font-semibold'}>
-              {nasaStatus?.status === 'ONLINE' ? 'CONNECTED (HTTP 200 OK)' : 'STANDBY'}
+            <span
+              className={
+                isRefreshingNasa
+                  ? 'text-cyan-300 font-semibold'
+                  : isOnline
+                  ? 'text-emerald-400 font-semibold'
+                  : isFailure
+                  ? 'text-red-400 font-semibold'
+                  : 'text-zinc-400 font-semibold'
+              }
+            >
+              {isRefreshingNasa
+                ? 'PINGING...'
+                : isOnline
+                ? `CONNECTED (HTTP ${nasaStatus?.httpStatus || 200} OK)`
+                : failureLabel
+                ? failureLabel
+                : 'NOT CHECKED'}
             </span>
           </div>
-          {nasaStatus?.latencyMs && (
+          {nasaStatus?.latencyMs !== undefined && (
             <div className="flex justify-between">
               <span className="text-space-400">Query Latency:</span>
               <span className="text-space-200">{nasaStatus.latencyMs} ms</span>
@@ -87,42 +207,19 @@ const DataSourcesPanelComponent: React.FC<DataSourcesPanelProps> = ({
             <span className="text-space-400">Target Query:</span>
             <span className="text-cyan-400">q=(pds:Target_Identification.pds:name eq &quot;Moon&quot;)</span>
           </div>
+          {isFailure && (nasaStatus?.error || nasaStatus?.notice) && (
+            <div className="text-[10px] text-red-300 bg-red-950/50 p-2 rounded border border-red-800/70 leading-snug break-words">
+              <span className="font-bold text-red-400">{failureLabel}:</span>{' '}
+              {nasaStatus.error || nasaStatus.notice}
+            </div>
+          )}
         </div>
 
-        {/* Sample live products from NASA PDS */}
-        {nasaStatus?.sampleProducts && nasaStatus.sampleProducts.length > 0 && (
-          <div className="space-y-1.5">
-            <div className="text-[11px] font-mono text-space-400">
-              LIVE OBSERVATIONAL PRODUCTS RETRIEVED:
-            </div>
-            <div className="space-y-1 max-h-36 overflow-y-auto divide-y divide-space-800 bg-space-850 rounded border border-space-750 p-2 text-xs font-mono">
-              {nasaStatus.sampleProducts.map(p => (
-                <div key={p.id} className="pt-1.5 first:pt-0 space-y-0.5">
-                  <div className="flex items-center justify-between">
-                    <span className="font-semibold text-space-200 truncate max-w-[280px]">
-                      {p.title}
-                    </span>
-                    {p.url && (
-                      <a
-                        href={p.url}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="text-cyan-400 hover:underline flex items-center space-x-1 text-[10px]"
-                      >
-                        <span>PDS4 Data</span>
-                        <ExternalLink className="w-2.5 h-2.5" />
-                      </a>
-                    )}
-                  </div>
-                  <div className="text-[10px] text-space-400 flex space-x-2">
-                    <span>Inst: {p.instrument}</span>
-                    {p.time && <span>Time: {p.time.substring(0, 10)}</span>}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
+        {/* Live products when ONLINE */}
+        {isOnline && nasaStatus && renderCatalogResults(nasaStatus, false)}
+
+        {/* Cached last ONLINE result shown after a failure */}
+        {isFailure && cachedNasaStatus && renderCatalogResults(cachedNasaStatus, true)}
       </div>
 
       {/* 2. NASA LRO LOLA POLAR TOPOGRAPHY SOURCE */}

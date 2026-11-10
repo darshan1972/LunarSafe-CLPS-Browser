@@ -123,14 +123,17 @@ export interface DataSourceStatus {
   name: string;
   organization: 'NASA' | 'ISRO' | 'JOINT_MISSION';
   url: string;
-  status: 'ONLINE' | 'CONNECTED' | 'PORTAL_AUTH_REQUIRED' | 'OFFLINE';
+  status: 'ONLINE' | 'CONNECTED' | 'PORTAL_AUTH_REQUIRED' | 'OFFLINE' | 'TIMED_OUT' | 'HTTP_ERROR';
+  httpStatus?: number;
+  error?: string;
   lastChecked: string;
   latencyMs?: number;
   productCount?: number;
   sampleProducts?: Array<{
     id: string;
     title: string;
-    instrument: string;
+    instrument?: string;
+    mission?: string;
     time?: string;
     url?: string;
   }>;

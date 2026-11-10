@@ -25,7 +25,8 @@
     "test:comparison": "tsx tests/comparisonEngine.test.ts",
     "test:workflow": "tsx tests/workflowSelector.test.ts",
     "test:security": "tsx tests/security.test.ts",
-    "test:multiSiteValidation": "tsx tests/multiSiteValidation.test.ts"
+    "test:multiSiteValidation": "tsx tests/multiSiteValidation.test.ts",
+    "verify:evidence": "tsx scripts/verify_evidence.ts"
   },
   "dependencies": {
     "@types/three": "^0.186.0",
