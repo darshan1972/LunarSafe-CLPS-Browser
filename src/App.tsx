@@ -1552,7 +1552,7 @@ export const App: React.FC = () => {
 
                     {!isControlsCollapsed && (
                       <>
-                        {/* NASA Slope Overlay Toggle */}
+                        {/* LOLA-Derived Slope Overlay Toggle */}
                         <div
                           onClick={() => setSlopeOverlayActive(!slopeOverlayActive)}
                           className={`p-2 rounded-lg border transition-all cursor-pointer flex items-center justify-between ${
@@ -1564,7 +1564,7 @@ export const App: React.FC = () => {
                           <div className="space-y-0.5">
                             <div className="flex items-center gap-1.5 font-bold text-white text-[11px]">
                               <span className={`w-2 h-2 rounded-full ${slopeOverlayActive ? 'bg-emerald-400' : 'bg-zinc-600'}`} />
-                              <span>NASA Slope Overlay</span>
+                              <span>LOLA-Derived Slope Overlay</span>
                             </div>
                             <span className="text-[9px] text-zinc-400 block font-mono">
                               Horn (1981) Calibrated Map

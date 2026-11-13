@@ -361,7 +361,7 @@ const htmlContent = `<!DOCTYPE html>
     If a lander touches down on a slope steeper than <strong>10 degrees</strong>, or if one of its landing pads touches down on a rock taller than <strong>30 centimeters</strong>, the entire spacecraft can tip over, puncture its propellant tanks, and be permanently destroyed.
   </p>
   <p>
-    <strong>LunarSafe</strong> is an aerospace-grade software platform built to solve this life-or-death challenge. It scans raw satellite photographs captured by lunar orbiters, processes the images in under 300 milliseconds, and tells flight controllers with 100% mathematical certainty: <em>"Where is it safe to touch down, where is it dangerous, and which exact 24-meter landing zone offers the highest probability of mission success?"</em>
+    <strong>LunarSafe</strong> is a research-grade software platform built to solve this life-or-death challenge. It scans raw satellite photographs captured by lunar orbiters, processes the images in under 300 milliseconds, and tells flight controllers with 100% mathematical certainty: <em>"Where is it safe to touch down, where is it dangerous, and which exact 24-meter landing zone offers the highest probability of mission success?"</em>
   </p>
 
   <h2>1.2 The Core Problem Solved: Why Deep Learning AI Fails Lunar Safety</h2>
@@ -540,7 +540,7 @@ function findContiguousSafeZones(grid: CellType[][]): SafeZone[] {
 
   <h2>2.8 Stage 8: Cryptographic SHA-256 Checksum & Evidence Sealing</h2>
   <p>
-    To guarantee complete chain-of-custody and tamper-proof telemetry, the finalized analysis state (including the slope histogram, crater counts, cell matrices, and timestamp) is serialized and hashed using the <strong>SHA-256 cryptographic algorithm</strong>:
+    To guarantee complete chain-of-custody and tamper-evident telemetry, the finalized analysis state (including the slope histogram, crater counts, cell matrices, and timestamp) is serialized and hashed using the <strong>SHA-256 cryptographic algorithm</strong>:
   </p>
   <pre>
 Telemetry Audit Hash: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855</pre>

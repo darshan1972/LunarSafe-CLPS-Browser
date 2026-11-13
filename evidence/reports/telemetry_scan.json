@@ -1,0 +1,90 @@
+{
+  "id": "scan-1793935884992-fcb622e0",
+  "timestamp": "2026-11-06T03:31:24.991Z",
+  "instrument": "ISRO Chandrayaan-2 TMC-2",
+  "gsdMetersPerPixel": 5,
+  "coordinates": null,
+  "meanSlopeDeg": 0.73,
+  "maxSlopeDeg": 41.21,
+  "craterCount": 65,
+  "boulderCount": 55,
+  "safeAreaPercentage": 99.16,
+  "hazardAreaPercentage": 0.84,
+  "contiguousZoneCount": 1,
+  "topSiteAreaM2": 6498800,
+  "recommendation": "SAFE",
+  "confidence": "LOW",
+  "reasoning": "Terrain nominal with mean slope of 0.73° (<5°), selected zone max slope of 9.50° (<10°, frame max: 41.21°), 99.2% safe regolith coverage, and minimal zone boulders (0) conforming to NASA CLPS / Artemis III touchdown criteria.",
+  "inputImageHash": "fcb622e0c414539dad7b3ffac8b8b99b7da81ba59407a338b4532cf61ce7fb23",
+  "slopeMapHash": "f28a0edce38c66060b2714c43bef3216fbbd0244139e7550a4b6aa3c5d707b7a",
+  "gridClassificationHash": "bfd4a138861e05125a8e8399a887069ab140a79fb0793755b8b6823d223c56ab",
+  "candidateZonesHash": "8e3f02a2159b86b09cbae59fc2b1871154f5c0536e872f1d6cf0b6f22f65a58d",
+  "executionLog": [
+    {
+      "module": "Panchromatic Validation Filter",
+      "status": "DONE",
+      "timingMs": 3,
+      "output": "Chromatic fraction: 0.000% ≤ 0.100% (Panchromatic Confirmed)"
+    },
+    {
+      "module": "Contrast & Brightness Enhancer",
+      "status": "DONE",
+      "timingMs": 5.4,
+      "output": "Histogram dynamic range expanded for 262144 pixels"
+    },
+    {
+      "module": "High-Pass Sharpening",
+      "status": "DONE",
+      "timingMs": 3.3,
+      "output": "3x3 kernel convolution applied with zero phase shift"
+    },
+    {
+      "module": "Sobel Gradient Edge Detector",
+      "status": "DONE",
+      "timingMs": 16.6,
+      "output": "Slope Range: [0.0°, 41.2°], Mean: 0.7°"
+    },
+    {
+      "module": "Grid Feature Density Classifier",
+      "status": "DONE",
+      "timingMs": 4.3,
+      "output": "Detected 65 craters (65 hazardous) and 55 boulders (55 hazardous)"
+    },
+    {
+      "module": "NASA 24m Grid Classifier",
+      "status": "DONE",
+      "timingMs": 33.5,
+      "output": "Total: 16384 cells (Actual cell size: 20.0m × 20.0m, 400.0 m²) | Safe: 16247 (99.2%) | Hazard: 137"
+    },
+    {
+      "module": "BFS Contiguous Safe Zone Finder",
+      "status": "DONE",
+      "timingMs": 26.2,
+      "output": "Identified 1 contiguous landing candidates (Top zone area: 6,498,800 m²)"
+    },
+    {
+      "module": "A* Pathfinding Traversal",
+      "status": "DONE",
+      "timingMs": 12.5,
+      "output": "Calculated path length: 1560.0m across 66 waypoints"
+    },
+    {
+      "module": "AI-Assisted Mission Validation (Gemini Vision)",
+      "status": "IDLE",
+      "timingMs": 0,
+      "output": "Ready for user invocation on upload"
+    },
+    {
+      "module": "AI Narrative Generator (Gemini)",
+      "status": "IDLE",
+      "timingMs": 0,
+      "output": "Awaits completed deterministic analysis"
+    }
+  ],
+  "rawImageDataUrl": "",
+  "hazardOverlayDataUrl": "",
+  "hazardPatchCount": 65,
+  "hazardCount": 65,
+  "safeZoneCount": 1,
+  "sessionIntegrityHash": null
+}

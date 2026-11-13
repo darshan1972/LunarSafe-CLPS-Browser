@@ -669,7 +669,7 @@ const html = `<!DOCTYPE html>
     <tr><td><code>clsx</code></td><td>^2.1.1</td><td>Class name string builder</td><td>Zero-dependency lightweight conditional class merging.</td><td>UI utilities</td></tr>
     <tr><td><code>tailwind-merge</code></td><td>^2.5.2</td><td>Tailwind conflict resolver</td><td>Eliminates conflicting utility classes dynamically.</td><td>UI utilities</td></tr>
     <tr><td><code>tsx</code></td><td>^4.19.1</td><td>TypeScript execute CLI</td><td>Instant execution of test suites via esbuild without separate compilation step.</td><td>Test suites</td></tr>
-    <tr><td><code>typescript</code></td><td>^5.5.4</td><td>Type-safe language system</td><td>Guarantees compile-time type correctness for aerospace-grade determinism.</td><td>Entire codebase</td></tr>
+    <tr><td><code>typescript</code></td><td>^5.5.4</td><td>Type-safe language system</td><td>Guarantees compile-time type correctness for research-grade determinism.</td><td>Entire codebase</td></tr>
   </table>
 
   <div class="page-break"></div>
@@ -809,7 +809,7 @@ const html = `<!DOCTYPE html>
   <h1>PART N — The New Features Explained</h1>
   <ul>
     <li><strong>Scan History & Recommendation Table:</strong> Logs every completed flight analysis into persistent storage with ISRO-grounded recommendations, confidence levels, and instant report download buttons. Solves the issue of ephemeral data loss on page refresh.</li>
-    <li><strong>Multi-Format Report Downloads:</strong> Implements endpoints for PDF, CSV, and JSON exports. Provides aerospace-grade documentation signed off with team attribution.</li>
+    <li><strong>Multi-Format Report Downloads:</strong> Implements endpoints for PDF, CSV, and JSON exports. Provides research-grade documentation signed off with team attribution.</li>
     <li><strong>GSD Propagation:</strong> Replaces hardcoded pixel dimensions with optical ground resolution calculated dynamically from PDS4 labels.</li>
     <li><strong>Boulder Resolution Gate:</strong> Enforces the Nyquist-Shannon sampling limit by throwing an explicit <code>InstrumentResolutionError</code> when attempting to detect sub-meter boulders on coarse imagery ($GSD > 1.0\\text{m/px}$).</li>
   </ul>

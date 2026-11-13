@@ -143,7 +143,7 @@ const DataSourcesPanelComponent: React.FC<DataSourcesPanelProps> = ({
               }`}
             />
             <span className="text-xs font-mono font-bold text-white">
-              NASA Planetary Data System (PDS Search API)
+              NASA Planetary Data System (PDS Search API — Catalog Metadata Only)
             </span>
           </div>
 
@@ -159,7 +159,7 @@ const DataSourcesPanelComponent: React.FC<DataSourcesPanelProps> = ({
         </div>
 
         <p className="text-[10px] text-zinc-400 font-sans leading-snug bg-space-900/50 border border-space-750 rounded px-2.5 py-1.5">
-          Live catalog query - informational. It does not feed the hazard calculations or the 3D map (those use bundled NASA LOLA files).
+          <strong className="text-zinc-300 font-mono">Catalog Metadata Only:</strong> Live catalog query - informational. It does not feed the safety score, hazard calculations, or the 3D map (those use bundled NASA LOLA files).
         </p>
 
         <div className="bg-space-850 rounded border border-space-750 p-3 space-y-2 text-xs font-mono">

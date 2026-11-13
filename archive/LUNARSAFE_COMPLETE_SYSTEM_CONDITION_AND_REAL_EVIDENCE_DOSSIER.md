@@ -15,7 +15,7 @@
 | **Project Head** | **DARSHAN BAGUL (PATIL)** |
 | **National Problem Statement** | **SIH1732** — Enhancement of Permissible Slope and Hazard Assessment for Safe Lunar Landing |
 | **Verification Timestamp** | **2026-09-15 20:50:00 IST** |
-| **Audit Classification** | **AEROSPACE-GRADE EMPIRICAL SYSTEM AUDIT — 100% UNMODIFIED RAW EVIDENCE** |
+| **Audit Classification** | **research-grade EMPIRICAL SYSTEM AUDIT — 100% UNMODIFIED RAW EVIDENCE** |
 
 ---
 

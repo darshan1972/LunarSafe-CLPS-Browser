@@ -61,7 +61,7 @@
 ## SECTION 1 — PROJECT OVERVIEW
 
 ### 1.1 What LunarSafe Is
-LunarSafe is an aerospace-grade, ground-segment lunar landing hazard assessment and flight safety verification engine developed in TypeScript and Node.js. It ingests orbital panchromatic imagery (ISRO Chandrayaan-2 TMC-2 / OHRC, NASA LROC NAC) and LOLA Digital Elevation Models (DEMs) to evaluate terrain slopes, crater hazards, boulder distributions, and contiguous landing zones on a standardized 24-meter grid. The core computation pipeline is 100% deterministic, backed by an immutable 4-stage SHA-256 cryptographic ledger, and strictly isolates probabilistic AI models behind an architectural firewall.
+LunarSafe is a research-grade, ground-segment lunar landing hazard assessment and flight safety verification engine developed in TypeScript and Node.js. It ingests orbital panchromatic imagery (ISRO Chandrayaan-2 TMC-2 / OHRC, NASA LROC NAC) and LOLA Digital Elevation Models (DEMs) to evaluate terrain slopes, crater hazards, boulder distributions, and contiguous landing zones on a standardized 24-meter grid. The core computation pipeline is 100% deterministic, backed by an immutable 4-stage SHA-256 cryptographic ledger, and strictly isolates probabilistic AI models behind an architectural firewall.
 
 ### 1.2 Problem Statement
 **SIH1732 — Enhancement of Permissible Slope and Hazard Assessment for Safe Lunar Landing (ISRO)**  

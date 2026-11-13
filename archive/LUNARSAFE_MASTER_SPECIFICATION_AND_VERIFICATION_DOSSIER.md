@@ -19,7 +19,7 @@
 ### What is LunarSafe in Simple Language?
 When a robotic spacecraft like **ISRO's Vikram Lander (Chandrayaan-3)** or an astronaut crew descends toward the Moon, it travels at supersonic speed toward an alien surface filled with hidden craters, steep slopes, and car-sized boulders. Touching down on a slope steeper than $10^\circ$ or landing on a rock taller than $30\text{ cm}$ can cause the spacecraft to tip over, rupture its fuel tanks, or crash.
 
-**LunarSafe** is an aerospace-grade software platform that scans orbital satellite photographs of the Moon and automatically determines **where it is 100% safe to land and where it is dangerous**.
+**LunarSafe** is an research-grade software platform that scans orbital satellite photographs of the Moon and automatically determines **where it is 100% safe to land and where it is dangerous**.
 
 ### The Core Architectural Philosophy: The "Code-Level Separation" Firewall
 In aerospace engineering, human lives and multi-million-dollar missions depend on calculations that are **predictable, auditable, and mathematically exact**. Generative AI models (like ChatGPT or Google Gemini) are brilliant at conversation, but they are *stochastic* (probabilistic)—meaning they might give slightly different answers or make up numbers.
