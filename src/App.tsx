@@ -34,7 +34,7 @@ import {
   MissionLog,
   ModuleExecutionState,
 } from './types';
-import { AlertTriangle, Sparkles, X, Bot, Satellite, Sun, Sliders, ChevronDown, ChevronUp, Info } from 'lucide-react';
+import { AlertTriangle, Sparkles, X, Bot, Satellite, Sun, Sliders, ChevronDown, ChevronUp, Info, Layers } from 'lucide-react';
 import { sha256Json } from './lib/cryptoUtils';
 
 type AppAnalysisResult = ProcessedAnalysisResult & {
@@ -724,6 +724,7 @@ export const App: React.FC = () => {
   };
 
   const loadPresetSample = async (sampleKey: string) => {
+    setCurrentView('ANALYZER');
     setSelectedSample(sampleKey);
     setIsProcessing(true);
     setErrorMessage(null);
@@ -910,6 +911,7 @@ export const App: React.FC = () => {
 
     if (!file) return;
 
+    setCurrentView('ANALYZER');
     setSelectedSample(null);
     setIsProcessing(true);
     setErrorMessage(null);
@@ -1400,8 +1402,8 @@ export const App: React.FC = () => {
     }
   }
 
-  // Preserve references to retained backend ingestion handlers without UI rendering
-  void [ImageDropzone, handleImageSelected, handlePds4XmlSelected, handleRunBatchComparison, handleAnalyzeIsroProduct, isBatchProcessing, setIsroStatus];
+  // Retain references to background ingestion utilities
+  void [handleAnalyzeIsroProduct, setIsroStatus];
 
   return (
     <div className="min-h-screen bg-black text-white flex flex-col selection:bg-white selection:text-black">
@@ -1459,19 +1461,102 @@ export const App: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
           {/* LEFT COLUMN: Ingestion & Data Sources (3 cols) */}
           <div className="lg:col-span-3 space-y-4">
-            <DataSourcesPanel
-              nasaStatus={nasaStatus}
-              cachedNasaStatus={cachedNasaStatus}
-              isroStatus={isroStatus}
-              onRefreshNasa={refreshNasaPds}
-              isRefreshingNasa={isRefreshingNasa}
-              pds4Metadata={pds4Metadata}
-            />
+            {/* 1. NASA Live Connection */}
+            <div className="space-y-1.5">
+              <div className="flex items-center justify-between px-1">
+                <span className="text-xs font-mono font-bold uppercase tracking-wider text-cyan-400 flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
+                  NASA Live Connection
+                </span>
+                <span className="text-[10px] font-mono text-zinc-400">PDS Search API / LRO</span>
+              </div>
+              <DataSourcesPanel
+                nasaStatus={nasaStatus}
+                cachedNasaStatus={cachedNasaStatus}
+                isroStatus={isroStatus}
+                onRefreshNasa={refreshNasaPds}
+                isRefreshingNasa={isRefreshingNasa}
+                pds4Metadata={pds4Metadata}
+              />
+            </div>
+
+            {/* 2. ISRO PDS4 Ingestion */}
+            <div className="space-y-1.5">
+              <div className="flex items-center justify-between px-1">
+                <span className="text-xs font-mono font-bold uppercase tracking-wider text-orange-400 flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-orange-400 animate-pulse" />
+                  ISRO PDS4 Ingestion
+                </span>
+                <span className="text-[10px] font-mono text-zinc-400">TMC-2 / OHRC / PDS4 XML</span>
+              </div>
+              <ImageDropzone
+                onImageSelected={handleImageSelected}
+                onPds4XmlSelected={handlePds4XmlSelected}
+                isProcessing={isProcessing}
+                selectedSample={selectedSample}
+                onRunBatchComparison={handleRunBatchComparison}
+                isBatchProcessing={isBatchProcessing}
+                onOpenSpaceBag={(initialTab) => {
+                  setSpaceBagInitialTab(initialTab || 'BAG');
+                  setIsSpaceBagOpen(true);
+                }}
+              />
+            </div>
           </div>
 
           {/* CENTER COLUMN: Hazard Canvas / 3D Terrain Viewer (6 cols) */}
           <div className="lg:col-span-6 space-y-4 flex flex-col">
-            <div className={currentView === 'CLPS_BROWSER' ? 'w-full max-h-[500px] h-[480px] aspect-[16/10] sm:aspect-video relative rounded-xl overflow-hidden border border-space-700 bg-space-950 shadow-2xl flex flex-col font-mono mx-auto' : 'hidden'}>
+            {/* View Mode Toggle: CLPS 3D Browser (NASA) vs 2D Hazard Canvas (ISRO) */}
+            <div className="flex flex-wrap items-center justify-between p-2 rounded-xl bg-space-900 border border-space-700/80 shadow-lg gap-2">
+              <div className="flex items-center space-x-2">
+                <button
+                  type="button"
+                  onClick={() => setCurrentView('CLPS_BROWSER')}
+                  className={`flex items-center space-x-2 px-3.5 py-1.5 rounded-lg text-xs font-mono font-bold transition-all cursor-pointer ${
+                    currentView === 'CLPS_BROWSER'
+                      ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-400 shadow-sm'
+                      : 'text-zinc-400 hover:text-white hover:bg-space-800'
+                  }`}
+                >
+                  <Satellite className="w-4 h-4 text-cyan-400" />
+                  <span>CLPS 3D Browser</span>
+                  <span className="text-[10px] px-1.5 py-0.2 rounded bg-cyan-950/80 text-cyan-300 border border-cyan-800/60 font-semibold">
+                    NASA LOLA
+                  </span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setCurrentView('ANALYZER')}
+                  className={`flex items-center space-x-2 px-3.5 py-1.5 rounded-lg text-xs font-mono font-bold transition-all cursor-pointer ${
+                    currentView === 'ANALYZER'
+                      ? 'bg-orange-500/20 text-orange-300 border border-orange-400 shadow-sm'
+                      : 'text-zinc-400 hover:text-white hover:bg-space-800'
+                  }`}
+                >
+                  <Layers className="w-4 h-4 text-orange-400" />
+                  <span>2D Hazard Canvas</span>
+                  <span className="text-[10px] px-1.5 py-0.2 rounded bg-orange-950/80 text-orange-300 border border-orange-800/60 font-semibold">
+                    ISRO TMC-2 / OHRC
+                  </span>
+                </button>
+              </div>
+
+              {/* Status and Honesty Badge */}
+              <div className="flex items-center space-x-2">
+                {currentView === 'ANALYZER' && (
+                  <span className="px-2 py-0.5 rounded bg-amber-950/80 border border-amber-500/50 text-amber-300 font-mono text-[10px] font-bold tracking-wider uppercase shadow-sm">
+                    IMAGE-BASED PROXY - not physical slope
+                  </span>
+                )}
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-space-850 border border-space-700 text-zinc-400">
+                  LUNARSAFE HYBRID
+                </span>
+              </div>
+            </div>
+
+            {currentView === 'CLPS_BROWSER' && (
+            <div className="w-full max-h-[500px] h-[480px] aspect-[16/10] sm:aspect-video relative rounded-xl overflow-hidden border border-space-700 bg-space-950 shadow-2xl flex flex-col font-mono mx-auto">
               {/* NASA Telemetry Sub-header */}
               <div className="px-3.5 py-2 bg-space-900/90 border-b border-white/10 flex items-center justify-between text-xs text-zinc-300 z-20 backdrop-blur-md">
                 <div className="flex items-center space-x-2">
@@ -1708,9 +1793,11 @@ export const App: React.FC = () => {
                   )}
                 </div>
               </div>
+            )}
 
-              {/* Classical Hazard Analyzer Viewport */}
-              <div className={currentView !== 'CLPS_BROWSER' ? 'flex-1 min-h-[480px]' : 'hidden'}>
+            {/* Classical Hazard Analyzer Viewport */}
+            {currentView === 'ANALYZER' && (
+              <div className="flex-1 min-h-[480px]">
                 <HazardCanvas
                   analysis={analysis}
                   rawImageBitmap={rawImageBitmap}
@@ -1718,6 +1805,7 @@ export const App: React.FC = () => {
                   errorMessage={errorMessage}
                 />
               </div>
+            )}
 
             {/* Multi-Method Analysis Panel */}
             {currentView === 'ANALYZER' && analysis && (

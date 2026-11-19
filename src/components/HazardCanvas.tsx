@@ -369,9 +369,14 @@ export const HazardCanvas: React.FC<HazardCanvasProps> = ({
               Hazard Terrain Map (24m NASA Grid)
             </span>
             {analysis && (
-              <span className="text-[11px] font-mono text-space-400">
-                [{analysis.width}×{analysis.height} px · {analysis.gridCols}×{analysis.gridRows} cells]
-              </span>
+              <>
+                <span className="text-[11px] font-mono text-space-400">
+                  [{analysis.width}×{analysis.height} px · {analysis.gridCols}×{analysis.gridRows} cells]
+                </span>
+                <span className="px-2 py-0.5 rounded bg-amber-950/80 border border-amber-500/50 text-amber-300 font-mono text-[10px] font-bold tracking-wider uppercase shadow-sm">
+                  IMAGE-BASED PROXY - not physical slope
+                </span>
+              </>
             )}
           </div>
 

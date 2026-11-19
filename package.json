@@ -26,6 +26,8 @@
     "test:workflow": "tsx tests/workflowSelector.test.ts",
     "test:security": "tsx tests/security.test.ts",
     "test:multiSiteValidation": "tsx tests/multiSiteValidation.test.ts",
+    "test:isro": "tsx tests/isroData.test.ts",
+    "test:isroFullPipeline": "tsx tests/isroFullPipeline.test.ts",
     "verify:evidence": "tsx scripts/verify_evidence.ts"
   },
   "dependencies": {
