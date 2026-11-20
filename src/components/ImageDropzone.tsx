@@ -96,7 +96,7 @@ export const ImageDropzone: React.FC<ImageDropzoneProps> = ({
         <div className="flex items-center space-x-2">
           <Upload className="w-4 h-4 text-isro-cyan" />
           <h2 className="text-sm font-semibold tracking-wide text-white uppercase font-mono">
-            Lunar Imagery Ingestion
+            Select image to scan
           </h2>
         </div>
         <span className="text-[11px] font-mono text-space-400">PANCHROMATIC ONLY</span>
@@ -116,7 +116,7 @@ export const ImageDropzone: React.FC<ImageDropzoneProps> = ({
         <input
           ref={fileInputRef}
           type="file"
-          accept="image/png, image/jpeg, image/tiff, image/bmp"
+          accept="image/png, image/jpeg, image/tiff, image/bmp, .png, .jpg, .jpeg, .tif, .tiff"
           onChange={handleFileChange}
           className="hidden"
           disabled={isProcessing}
@@ -131,7 +131,7 @@ export const ImageDropzone: React.FC<ImageDropzoneProps> = ({
               Drag and drop lunar image or <span className="text-isro-cyan underline">browse files</span>
             </p>
             <p className="text-xs text-space-400">
-              Supports NASA LRO / LOLA DEM (PNG, JPG, TIFF) · Max 50MB
+              Supports NASA LRO / LOLA DEM (PNG, JPG, TIF) · Max 50MB
             </p>
           </div>
           <div className="flex items-center space-x-2 text-[11px] text-space-400 font-mono">

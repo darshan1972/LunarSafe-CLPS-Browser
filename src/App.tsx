@@ -904,12 +904,14 @@ export const App: React.FC = () => {
 
   const handleImageSelected = async (file: File | null, sampleId?: string) => {
     if (sampleId) {
+      setCurrentView('ANALYZER');
       await loadPresetSample(sampleId);
       return;
     }
 
     if (!file) return;
 
+    setCurrentView('ANALYZER');
     setSelectedSample(null);
     setIsProcessing(true);
     setErrorMessage(null);
@@ -1401,7 +1403,7 @@ export const App: React.FC = () => {
   }
 
   // Preserve references to retained backend ingestion handlers without UI rendering
-  void [ImageDropzone, handleImageSelected, handlePds4XmlSelected, handleRunBatchComparison, handleAnalyzeIsroProduct, isBatchProcessing, setIsroStatus];
+  void [handleAnalyzeIsroProduct, setIsroStatus];
 
   return (
     <div className="min-h-screen bg-black text-white flex flex-col selection:bg-white selection:text-black">
@@ -1459,6 +1461,18 @@ export const App: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
           {/* LEFT COLUMN: Ingestion & Data Sources (3 cols) */}
           <div className="lg:col-span-3 space-y-4">
+            <ImageDropzone
+              onImageSelected={handleImageSelected}
+              onPds4XmlSelected={handlePds4XmlSelected}
+              isProcessing={isProcessing}
+              selectedSample={selectedSample}
+              onRunBatchComparison={handleRunBatchComparison}
+              isBatchProcessing={isBatchProcessing}
+              onOpenSpaceBag={(tab) => {
+                setSpaceBagInitialTab(tab || 'BAG');
+                setIsSpaceBagOpen(true);
+              }}
+            />
             <DataSourcesPanel
               nasaStatus={nasaStatus}
               cachedNasaStatus={cachedNasaStatus}

@@ -30,6 +30,21 @@ LunarSafe 2.0 is a research-grade planetary mission analysis and landing hazard 
 > [!NOTE]
 > The `lighting_pct`, `earth_comm`, and `sunAngleDeg` values in the 13 Artemis III sites are illustrative estimates from the catalog, not live-computed solar/communication windows.
 
+## Results at a Glance
+
+**Sample scan (Chandrayaan-2 TMC-2 strip, 512x512 px, 5 m/pixel, 10 degree tolerance):** 16,384 cells of 24 m; 16,247 safe (99.16%); 137 hazard; 65 craters and 55 boulders detected; one contiguous safe zone of 6,498,800 m2 (mean slope 0.68 degrees). Slope here is an image-intensity proxy, not physical slope. Outputs: evidence/. Reproduce: npm run test:determinism or npx tsx scripts/verify_evidence.ts.
+
+### Consistency check against published slopes (Horn on 64x64 LOLA tiles)
+
+| Site | Reference | TypeScript engine | Python scripts/horn_check.py |
+|---|---|---|---|
+| Apollo 11 | 1.1-1.5 degrees (range) | 1.22 | 1.22 |
+| Shiv Shakti | 2-3 degrees (range) | 2.33 | 2.29 |
+| Shackleton rim | qualitative: consistent with ~30 degrees or steeper (Zuber et al. 2012) | 32.42 | 32.44 |
+| Apollo 17 South Massif | none (sensitivity test, not ground truth) | 9.98 | 9.90 |
+
+These are consistency checks, not independent validation (n = 3; references are LOLA-derived).
+
 ---
 
 ## Sample Outputs & Evidence
