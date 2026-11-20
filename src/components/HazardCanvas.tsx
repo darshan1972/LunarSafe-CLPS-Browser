@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, useMemo } from 'react';
 import {
   Layers,
   Eye,
@@ -8,9 +8,13 @@ import {
   RotateCcw,
   AlertOctagon,
   Sparkles,
+  Compass,
+  Zap,
 } from 'lucide-react';
 import { ProcessedAnalysisResult, GridCell } from '../types';
 import { Terrain3DViewer } from './Terrain3DViewer';
+import { CraterMorphometryService, EnrichedCraterDetection } from '../lib/craterMorphometry';
+import { TerramechanicsPlannerService, TerramechanicsPlanResult } from '../lib/terramechanicsPlanner';
 
 interface HazardCanvasProps {
   analysis: ProcessedAnalysisResult | null;
@@ -60,6 +64,28 @@ export const HazardCanvas: React.FC<HazardCanvasProps> = ({
   const toggleLayer = (key: keyof LayerVisibility) => {
     setLayers(prev => ({ ...prev, [key]: !prev[key] }));
   };
+
+  // Memoize crater morphometry calculations (Pike 1977 scaling + moment tensor ellipse fitting)
+  const enrichedCraters: EnrichedCraterDetection[] = useMemo(() => {
+    if (!analysis?.craters || analysis.craters.length === 0) return [];
+    return CraterMorphometryService.enrichDetections(
+      analysis.craters,
+      analysis.pixelScaleMeters || 0.25
+    );
+  }, [analysis?.craters, analysis?.pixelScaleMeters]);
+
+  // Memoize terramechanics traversal telemetry for active A* rover path
+  const terramechanicsTelemetry: TerramechanicsPlanResult | null = useMemo(() => {
+    if (!analysis?.roverPath || !analysis.roverPath.waypoints || analysis.roverPath.waypoints.length < 2) {
+      return null;
+    }
+    return TerramechanicsPlannerService.evaluateTraverse(
+      analysis.roverPath.waypoints,
+      analysis.slopeMap,
+      analysis.width || 512,
+      analysis.pixelScaleMeters || 0.25
+    );
+  }, [analysis?.roverPath, analysis?.slopeMap, analysis?.width, analysis?.pixelScaleMeters]);
 
   // Render on canvas whenever analysis, bitmap, zoom, or layer visibility changes
   useEffect(() => {
@@ -183,17 +209,42 @@ export const HazardCanvas: React.FC<HazardCanvasProps> = ({
       }
     }
 
-    // 4. Detected Craters Layer
-    if (layers.craters && analysis.craters) {
-      for (const crater of analysis.craters) {
+    // 4. Detected Craters Layer (Moment Tensor Ellipse Fitting + Pike 1977 Morphometry)
+    if (layers.craters && enrichedCraters.length > 0) {
+      for (const crater of enrichedCraters) {
         const [cx, cy] = crater.center;
-        const radius = Math.max(3, (crater.box.x2 - crater.box.x1) / 2);
+        const semiMajor = crater.ellipse.semiMajorPixels;
+        const semiMinor = crater.ellipse.semiMinorPixels;
+        const orientationRad = (crater.ellipse.orientationDeg * Math.PI) / 180;
+        const isHazard = crater.isHazard;
+
+        // Draw 2nd-order moment fitted ellipse
+        ctx.save();
+        ctx.translate(cx, cy);
+        ctx.rotate(orientationRad);
 
         ctx.beginPath();
-        ctx.arc(cx, cy, radius, 0, Math.PI * 2);
-        ctx.strokeStyle = crater.isHazard ? '#EF4444' : '#38BDF8';
-        ctx.lineWidth = crater.isHazard ? 2 : 1.5;
+        ctx.ellipse(0, 0, Math.max(3, semiMajor), Math.max(2, semiMinor), 0, 0, Math.PI * 2);
+        ctx.strokeStyle = isHazard ? '#EF4444' : '#38BDF8';
+        ctx.lineWidth = isHazard ? 2 : 1.5;
         ctx.stroke();
+
+        if (isHazard) {
+          ctx.fillStyle = 'rgba(239, 68, 68, 0.12)';
+          ctx.fill();
+        }
+
+        // Major and Minor axis cross lines
+        ctx.beginPath();
+        ctx.moveTo(-semiMajor, 0);
+        ctx.lineTo(semiMajor, 0);
+        ctx.moveTo(0, -semiMinor);
+        ctx.lineTo(0, semiMinor);
+        ctx.strokeStyle = isHazard ? 'rgba(239, 68, 68, 0.45)' : 'rgba(56, 189, 248, 0.45)';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+
+        ctx.restore();
 
         // Crosshairs in crater center
         ctx.beginPath();
@@ -201,15 +252,15 @@ export const HazardCanvas: React.FC<HazardCanvasProps> = ({
         ctx.lineTo(cx + 2, cy);
         ctx.moveTo(cx, cy - 2);
         ctx.lineTo(cx, cy + 2);
-        ctx.strokeStyle = crater.isHazard ? '#EF4444' : '#38BDF8';
+        ctx.strokeStyle = isHazard ? '#EF4444' : '#38BDF8';
         ctx.stroke();
 
         // Label if sufficiently large
-        if (radius > 8) {
-          ctx.font = '9px monospace';
-          ctx.fillStyle = crater.isHazard ? '#EF4444' : '#FFFFFF';
+        if (semiMajor > 8) {
+          ctx.font = 'bold 9px monospace';
+          ctx.fillStyle = isHazard ? '#EF4444' : '#FFFFFF';
           ctx.textAlign = 'center';
-          ctx.fillText(`Ø${crater.diameterM.toFixed(1)}m`, cx, cy - radius - 3);
+          ctx.fillText(`Ø${crater.diameterM.toFixed(1)}m (d/D:${crater.ellipse.depthToDiameterRatio.toFixed(2)})`, cx, cy - semiMinor - 4);
         }
       }
     }
@@ -296,7 +347,7 @@ export const HazardCanvas: React.FC<HazardCanvasProps> = ({
       });
     }
 
-    // 7. A* Rover / Descent Traversal Path
+    // 7. A* Rover / Descent Traversal Path (Terramechanics-Aware)
     if (layers.roverPath && analysis.roverPath && analysis.roverPath.waypoints.length > 1) {
       const pts = analysis.roverPath.waypoints;
       ctx.beginPath();
@@ -305,20 +356,24 @@ export const HazardCanvas: React.FC<HazardCanvasProps> = ({
         ctx.lineTo(pts[i][0], pts[i][1]);
       }
       ctx.setLineDash([5, 3]);
-      ctx.strokeStyle = '#38BDF8'; // Blue trajectory
+      ctx.strokeStyle = '#F59E0B'; // Amber trajectory for rover traverse
       ctx.lineWidth = 2.5;
       ctx.stroke();
       ctx.setLineDash([]);
 
       // Waypoint nodes
-      for (const [wx, wy] of pts) {
+      for (let i = 0; i < pts.length; i++) {
+        const [wx, wy] = pts[i];
         ctx.beginPath();
-        ctx.arc(wx, wy, 2.5, 0, Math.PI * 2);
-        ctx.fillStyle = '#FFFFFF';
+        ctx.arc(wx, wy, i === 0 || i === pts.length - 1 ? 4 : 2.5, 0, Math.PI * 2);
+        ctx.fillStyle = i === 0 ? '#10B981' : i === pts.length - 1 ? '#EF4444' : '#FFFFFF';
         ctx.fill();
+        ctx.strokeStyle = '#000000';
+        ctx.lineWidth = 1;
+        ctx.stroke();
       }
     }
-  }, [analysis, rawImageBitmap, layers, zoom, errorMessage]);
+  }, [analysis, rawImageBitmap, layers, zoom, errorMessage, enrichedCraters]);
 
   // Handle Mouse Move over Canvas to identify hovered 24m cell
   const handleMouseMove = (e: React.MouseEvent<HTMLCanvasElement>) => {
@@ -549,6 +604,50 @@ export const HazardCanvas: React.FC<HazardCanvasProps> = ({
           </span>
         </div>
       </div>
+
+      {/* Bekker Terramechanics Traverse Telemetry HUD */}
+      {terramechanicsTelemetry && (
+        <div className="bg-space-950 border-b border-space-700/80 px-4 py-2 flex flex-wrap items-center justify-between gap-2 text-xs font-mono">
+          <div className="flex flex-wrap items-center gap-2.5">
+            <span className="text-amber-400 font-bold flex items-center gap-1.5">
+              <Compass className="w-3.5 h-3.5 text-amber-400" />
+              <span>BEKKER ROVER TRAVERSE:</span>
+            </span>
+            <div className="flex items-center space-x-1 px-2 py-0.5 rounded bg-space-900 border border-space-700">
+              <span className="text-zinc-400">Distance:</span>
+              <span className="text-white font-bold">{terramechanicsTelemetry.totalDistanceM.toFixed(1)}m</span>
+            </div>
+            <div className="flex items-center space-x-1 px-2 py-0.5 rounded bg-space-900 border border-space-700">
+              <span className="text-zinc-400">Duration:</span>
+              <span className="text-white font-bold">{terramechanicsTelemetry.traverseDurationMin.toFixed(1)} min</span>
+            </div>
+            <div className="flex items-center space-x-1 px-2 py-0.5 rounded bg-space-900 border border-space-700">
+              <span className="text-zinc-400">Net Energy:</span>
+              <span className={terramechanicsTelemetry.netEnergyWh <= 0 ? 'text-emerald-400 font-bold' : 'text-amber-400 font-bold'}>
+                {terramechanicsTelemetry.netEnergyWh >= 0 ? `+${terramechanicsTelemetry.netEnergyWh.toFixed(2)} Wh` : `${terramechanicsTelemetry.netEnergyWh.toFixed(2)} Wh`}
+              </span>
+            </div>
+            <div className="flex items-center space-x-1 px-2 py-0.5 rounded bg-space-900 border border-space-700">
+              <span className="text-zinc-400">Peak Force:</span>
+              <span className="text-cyan-300 font-bold">{terramechanicsTelemetry.peakTractiveForceN.toFixed(1)} N</span>
+            </div>
+            <div className="flex items-center space-x-1 px-2 py-0.5 rounded bg-space-900 border border-space-700">
+              <span className="text-zinc-400">Max Slope:</span>
+              <span className="text-zinc-200 font-bold">{terramechanicsTelemetry.maxSlopeDeg.toFixed(1)}°</span>
+            </div>
+          </div>
+          <div className="flex items-center space-x-2">
+            <span className={`px-2 py-0.5 rounded text-[10px] font-bold flex items-center gap-1 border ${
+              terramechanicsTelemetry.isSafeTraverse
+                ? 'bg-emerald-950/80 text-emerald-400 border-emerald-500/40'
+                : 'bg-red-950/80 text-red-400 border-red-500/40'
+            }`}>
+              <Zap className="w-3 h-3" />
+              <span>{terramechanicsTelemetry.isSafeTraverse ? 'BEKKER TRAVERSE FEASIBLE' : 'SLOPE LIMIT EXCEEDED'}</span>
+            </span>
+          </div>
+        </div>
+      )}
 
       {/* 3D Viewport */}
       {viewDimension === '3d' && (

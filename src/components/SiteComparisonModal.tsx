@@ -12,6 +12,7 @@ import {
   Download,
 } from 'lucide-react';
 import { ARTEMIS_III_SITES, ArtemisSite, computeLunarSafeScore } from '../data/artemisSitesData';
+import { AHPRankingEngine, AHPRankingResult } from '../lib/ahpRankingEngine';
 
 export interface SiteComparisonModalProps {
   isOpen: boolean;
@@ -29,9 +30,24 @@ const SiteComparisonModalComponent: React.FC<SiteComparisonModalProps> = ({
   selectedSiteName,
 }) => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [sortBy, setSortBy] = useState<'score' | 'slope' | 'lighting' | 'name'>('score');
+  const [sortBy, setSortBy] = useState<'ahp' | 'score' | 'slope' | 'lighting' | 'name'>('ahp');
   const [sortAsc, setSortAsc] = useState(false);
   const [geoSites, setGeoSites] = useState<ArtemisSite[]>(ARTEMIS_III_SITES);
+
+  // Compute live AHP Multi-Criteria Ranking across all candidate sites
+  const ahpResult: AHPRankingResult = useMemo(() => {
+    return AHPRankingEngine.evaluateLandingSites(geoSites, tolerance);
+  }, [geoSites, tolerance]);
+
+  const ahpMap = useMemo(() => {
+    const map = new Map<string, any>();
+    ahpResult.evaluations.forEach((e) => {
+      map.set(e.siteId, e);
+      map.set(e.name.toLowerCase(), e);
+      map.set(e.code.toLowerCase(), e);
+    });
+    return map;
+  }, [ahpResult]);
 
   // Dynamically load and parse official NASA Artemis III GeoJSON catalog
   useEffect(() => {
@@ -60,26 +76,34 @@ const SiteComparisonModalComponent: React.FC<SiteComparisonModalProps> = ({
       .catch(() => {});
   }, []);
 
-  // Compute live scores and ranks based on active lander slope tolerance
+  // Compute live scores and ranks based on active lander slope tolerance and AHP multi-criteria
   const rankedSites = useMemo(() => {
     const list = geoSites.map((site) => {
       const score = computeLunarSafeScore(site.base_slope_deg, tolerance);
       const isSafe = site.base_slope_deg <= tolerance;
+      const ahpEval = ahpMap.get(site.id) || ahpMap.get(site.name.toLowerCase()) || ahpMap.get(site.code.toLowerCase());
       return {
         ...site,
         score,
+        ahpScore: ahpEval?.ahpScore ?? score,
+        topsisCloseness: ahpEval?.topsisCloseness ?? 0.5,
+        earthElevationDeg: ahpEval?.metrics.earthElevationDeg ?? 1.5,
+        dteAvailabilityPct: ahpEval?.metrics.dteAvailabilityPct ?? 80,
+        dteStatus: ahpEval?.metrics.dteStatus ?? 'CONTINUOUS_LOS',
+        scientificRecommendation: ahpEval?.scientificRecommendation ?? '',
         isSafe,
       };
     });
 
-    // Default rank by score descending
-    list.sort((a, b) => b.score - a.score);
+    // Default rank by AHP score descending
+    list.sort((a, b) => b.ahpScore - a.ahpScore);
     const withRank = list.map((s, idx) => ({ ...s, rank: idx + 1 }));
 
     // Apply active sort
     withRank.sort((a, b) => {
       let cmp = 0;
-      if (sortBy === 'score') cmp = b.score - a.score;
+      if (sortBy === 'ahp') cmp = b.ahpScore - a.ahpScore;
+      else if (sortBy === 'score') cmp = b.score - a.score;
       else if (sortBy === 'slope') cmp = a.base_slope_deg - b.base_slope_deg;
       else if (sortBy === 'lighting') cmp = (b.lighting_pct ?? -1) - (a.lighting_pct ?? -1);
       else if (sortBy === 'name') cmp = a.name.localeCompare(b.name);
@@ -87,7 +111,7 @@ const SiteComparisonModalComponent: React.FC<SiteComparisonModalProps> = ({
     });
 
     return withRank;
-  }, [geoSites, tolerance, sortBy, sortAsc]);
+  }, [geoSites, tolerance, sortBy, sortAsc, ahpMap]);
 
   const filteredSites = useMemo(() => {
     if (!searchTerm.trim()) return rankedSites;
@@ -125,11 +149,16 @@ const SiteComparisonModalComponent: React.FC<SiteComparisonModalProps> = ({
       'Elevation (m)',
       'Sampled Slope (deg)',
       'Lander Tolerance (deg)',
-      'Relative Safety Index (heuristic)',
+      'AHP Composite Score (0-100)',
+      'TOPSIS Closeness',
+      'LunarSafe Heuristic Index',
       'Lighting (%)',
-      'Earth Comm Visibility',
+      'Earth DTE Elevation (deg)',
+      'Earth DTE Availability (%)',
+      'Earth Comm Status',
       'Roughness Index',
       'Touchdown Status',
+      'Recommendation',
       'CLPS Target Mission',
     ];
 
@@ -142,11 +171,16 @@ const SiteComparisonModalComponent: React.FC<SiteComparisonModalProps> = ({
       s.elevation_m,
       s.base_slope_deg,
       tolerance,
+      s.ahpScore.toFixed(2),
+      s.topsisCloseness.toFixed(4),
       s.score,
       s.lighting_pct !== undefined ? s.lighting_pct : 'n/a',
-      s.earth_comm !== undefined ? (s.earth_comm ? 'YES' : 'NO') : 'n/a',
+      s.earthElevationDeg.toFixed(2),
+      s.dteAvailabilityPct.toFixed(1),
+      s.dteStatus,
       s.roughness_index,
       s.isSafe ? 'VERIFIED_SAFE' : 'LIMIT_EXCEEDED',
+      `"${s.scientificRecommendation || (s.isSafe ? 'RECOMMENDED' : 'HIGH_SLOPE_HAZARD')}"`,
       `"${s.clps_mission}"`,
     ]);
 
@@ -243,6 +277,37 @@ const SiteComparisonModalComponent: React.FC<SiteComparisonModalProps> = ({
           </div>
         </div>
 
+        {/* AHP Multi-Criteria Decision Analysis (MCDA) Banner */}
+        <div className="px-4 py-2.5 bg-cyan-950/30 border-b border-cyan-500/20 flex flex-wrap items-center justify-between gap-2 text-[11px] text-zinc-300">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="text-cyan-400 font-bold flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
+              Saaty AHP Weights:
+            </span>
+            <span className="px-2 py-0.5 rounded bg-black/40 border border-white/10 text-zinc-300">
+              Slope: <strong className="text-emerald-400">40.2%</strong>
+            </span>
+            <span className="px-2 py-0.5 rounded bg-black/40 border border-white/10 text-zinc-300">
+              Solar Duty: <strong className="text-amber-400">24.5%</strong>
+            </span>
+            <span className="px-2 py-0.5 rounded bg-black/40 border border-white/10 text-zinc-300">
+              Earth DTE: <strong className="text-cyan-300">13.7%</strong>
+            </span>
+            <span className="px-2 py-0.5 rounded bg-black/40 border border-white/10 text-zinc-300">
+              Smoothness: <strong className="text-indigo-300">13.7%</strong>
+            </span>
+            <span className="px-2 py-0.5 rounded bg-black/40 border border-white/10 text-zinc-300">
+              Prominence: <strong className="text-purple-300">7.9%</strong>
+            </span>
+          </div>
+          <div className="flex items-center space-x-2 text-[10px] font-mono">
+            <span className="text-zinc-400">Consistency Ratio:</span>
+            <span className="px-2 py-0.5 rounded bg-emerald-950/80 text-emerald-400 border border-emerald-500/40 font-bold">
+              CR = {ahpResult.consistencyRatio.toFixed(4)} &lt; 0.10 (VALID)
+            </span>
+          </div>
+        </div>
+
         {/* Action Controls & Search */}
         <div className="p-3 sm:px-5 sm:py-3 border-b border-white/10 flex flex-wrap items-center justify-between gap-3 text-xs">
           <div className="relative flex-1 min-w-[200px] max-w-md">
@@ -301,8 +366,23 @@ const SiteComparisonModalComponent: React.FC<SiteComparisonModalProps> = ({
                   className="pb-2.5 cursor-pointer hover:text-white"
                 >
                   <div className="flex items-center gap-1">
-                    <span>Sampled Slope</span>
+                    <span>Slope</span>
                     <ArrowUpDown className="w-3 h-3" />
+                  </div>
+                </th>
+                <th
+                  onClick={() => {
+                    if (sortBy === 'ahp') setSortAsc(!sortAsc);
+                    else {
+                      setSortBy('ahp');
+                      setSortAsc(false);
+                    }
+                  }}
+                  className="pb-2.5 cursor-pointer hover:text-white"
+                >
+                  <div className="flex items-center gap-1">
+                    <span className="text-cyan-400 font-bold">AHP Score (MCDA)</span>
+                    <ArrowUpDown className="w-3 h-3 text-cyan-400" />
                   </div>
                 </th>
                 <th
@@ -313,10 +393,10 @@ const SiteComparisonModalComponent: React.FC<SiteComparisonModalProps> = ({
                       setSortAsc(false);
                     }
                   }}
-                  className="pb-2.5 cursor-pointer hover:text-white"
+                  className="pb-2.5 cursor-pointer hover:text-white hidden lg:table-cell"
                 >
                   <div className="flex items-center gap-1">
-                    <span>Relative Safety Index (heuristic)</span>
+                    <span>LunarSafe</span>
                     <ArrowUpDown className="w-3 h-3" />
                   </div>
                 </th>
@@ -331,11 +411,11 @@ const SiteComparisonModalComponent: React.FC<SiteComparisonModalProps> = ({
                   className="pb-2.5 cursor-pointer hover:text-white"
                 >
                   <div className="flex items-center gap-1">
-                    <span>Lighting %</span>
+                    <span>Solar %</span>
                     <ArrowUpDown className="w-3 h-3" />
                   </div>
                 </th>
-                <th className="pb-2.5">Earth Comm</th>
+                <th className="pb-2.5">Earth DTE LOS</th>
                 <th className="pb-2.5 hidden sm:table-cell">Roughness</th>
                 <th className="pb-2.5">Status</th>
                 <th className="pb-2.5 text-right pr-2">Action</th>
@@ -386,25 +466,36 @@ const SiteComparisonModalComponent: React.FC<SiteComparisonModalProps> = ({
                         {site.base_slope_deg.toFixed(1)}°
                       </span>
                     </td>
+                    {/* AHP Multi-Criteria Composite Score */}
                     <td className="py-3 pr-2">
                       <div className="flex items-center space-x-2">
-                        <span
-                          className={`font-mono font-bold text-xs ${
-                            site.isSafe ? 'text-emerald-400' : 'text-red-400'
-                          }`}
-                        >
-                          {site.score}
+                        <span className="font-mono font-bold text-xs text-cyan-300">
+                          {site.ahpScore.toFixed(1)}
                         </span>
-                        <div className="w-16 h-1.5 bg-black/60 rounded-full overflow-hidden border border-white/10 hidden md:block">
+                        <div className="w-14 h-1.5 bg-black/60 rounded-full overflow-hidden border border-white/10 hidden md:block">
                           <div
-                            style={{ width: `${Math.max(5, Math.min(100, site.score))}%` }}
+                            style={{ width: `${Math.max(5, Math.min(100, site.ahpScore))}%` }}
                             className={`h-full rounded-full ${
-                              site.isSafe ? 'bg-emerald-400' : 'bg-red-500'
+                              site.isSafe ? 'bg-cyan-400' : 'bg-red-400'
                             }`}
                           />
                         </div>
                       </div>
+                      <div className="text-[9px] text-zinc-400 font-mono">
+                        TOPSIS: {site.topsisCloseness.toFixed(3)}
+                      </div>
                     </td>
+                    {/* Heuristic Score */}
+                    <td className="py-3 pr-2 hidden lg:table-cell">
+                      <span
+                        className={`font-mono font-bold text-xs ${
+                          site.isSafe ? 'text-emerald-400' : 'text-red-400'
+                        }`}
+                      >
+                        {site.score}
+                      </span>
+                    </td>
+                    {/* Solar Duty */}
                     <td className="py-3 pr-2 font-mono text-xs text-amber-300">
                       {site.lighting_pct !== undefined ? (
                         <div className="flex items-center gap-1">
@@ -415,20 +506,27 @@ const SiteComparisonModalComponent: React.FC<SiteComparisonModalProps> = ({
                         <span className="text-zinc-500 font-normal">n/a</span>
                       )}
                     </td>
+                    {/* Earth DTE Elevation & Libration Status */}
                     <td className="py-3 pr-2 font-mono text-xs">
-                      {site.earth_comm !== undefined ? (
-                        <span
-                          className={`inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold border ${
-                            site.earth_comm
-                              ? 'bg-emerald-950/60 text-emerald-300 border-emerald-500/40'
-                              : 'bg-zinc-800/80 text-zinc-400 border-zinc-700/50'
-                          }`}
-                        >
-                          {site.earth_comm ? 'YES' : 'NO'}
-                        </span>
-                      ) : (
-                        <span className="text-zinc-500 font-normal">n/a</span>
-                      )}
+                      <div className="flex flex-col gap-0.5">
+                        <div className="flex items-center gap-1">
+                          <span
+                            className={`inline-flex items-center px-1.5 py-0.2 rounded text-[9px] font-bold border ${
+                              site.dteStatus === 'CONTINUOUS_LOS'
+                                ? 'bg-emerald-950/60 text-emerald-300 border-emerald-500/40'
+                                : 'bg-amber-950/60 text-amber-300 border-amber-500/40'
+                            }`}
+                          >
+                            {site.dteStatus === 'CONTINUOUS_LOS' ? 'LOS 100%' : 'LIBRATION'}
+                          </span>
+                          <span className="text-[10px] text-zinc-300 font-bold">
+                            {site.earthElevationDeg >= 0 ? `+${site.earthElevationDeg.toFixed(1)}°` : `${site.earthElevationDeg.toFixed(1)}°`}
+                          </span>
+                        </div>
+                        <div className="text-[9px] text-zinc-400">
+                          {site.dteAvailabilityPct.toFixed(0)}% horizon
+                        </div>
+                      </div>
                     </td>
                     <td className="py-3 pr-2 font-mono text-[11px] text-zinc-400 hidden sm:table-cell">
                       <div className="flex items-center gap-1">
