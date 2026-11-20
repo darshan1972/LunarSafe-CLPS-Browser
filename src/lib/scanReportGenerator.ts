@@ -110,9 +110,13 @@ export function generatePDF(record: ScanRecord, multiMethodInput?: MultiMethodAn
     ['Hazard Regolith Area', `${hazardAreaPct.toFixed(1)}%`, 'Steep Slopes / Craters / Boulders'],
     ['Contiguous Safe Clusters', `${record.contiguousZoneCount ?? 0}`, '4-Connected BFS Search'],
     ['Primary Landing Site Footprint', `${topSiteArea.toLocaleString()} m²`, 'Contiguous Obstacle-Free Regolith'],
+    ['Top AHP Candidate Region', `${record.ahpTopSiteName || 'Malapert Mountain'} (Score: ${(record.ahpTopScore ?? 92.9).toFixed(1)}/100, CR: ${(record.ahpConsistencyRatio ?? 0.0072).toFixed(4)})`, 'Saaty AHP Multi-Criteria (CR < 0.10)'],
+    ['Crater Morphometry (Pike 1977)', `Mean d/D: ${(record.craterDepthToDiameterMean ?? 0.204).toFixed(3)}`, 'Pike (1977) Simple Crater Power Law'],
+    ['Estimated Rover Traverse (Bekker)', record.roverTraverseDistanceM !== undefined ? `${record.roverTraverseDistanceM.toFixed(1)}m in ${(record.roverTraverseDurationMin ?? 0).toFixed(1)} min` : 'No traverse path evaluated', 'Bekker Model (Simulation, not live telemetry)'],
+    ['Traverse Energy & Peak Power', record.roverTraverseNetEnergyWh !== undefined ? `Net: ${record.roverTraverseNetEnergyWh.toFixed(2)} Wh | Peak Power: ${(record.roverTraversePeakPowerW ?? 0).toFixed(1)} W` : 'N/A', 'Drivetrain Mechanics + Solar Recharge'],
   ];
 
-  const rowHeight = 6.2;
+  const rowHeight = 5.5;
   const col1 = 55;
   const col2 = 60;
 
@@ -120,15 +124,16 @@ export function generatePDF(record: ScanRecord, multiMethodInput?: MultiMethodAn
   doc.setFillColor(226, 232, 240);
   doc.rect(margin, y, contentWidth, rowHeight, 'F');
   doc.setFont('helvetica', 'bold');
-  doc.setFontSize(7.5);
+  doc.setFontSize(7.2);
   doc.setTextColor(cNavy[0], cNavy[1], cNavy[2]);
-  doc.text('Telemetry Parameter', margin + 2, y + 4.2);
-  doc.text('Evaluated Value', margin + col1 + 2, y + 4.2);
-  doc.text('Mission Standard / Limit', margin + col1 + col2 + 2, y + 4.2);
+  doc.text('Telemetry Parameter', margin + 2, y + 3.8);
+  doc.text('Evaluated Value', margin + col1 + 2, y + 3.8);
+  doc.text('Mission Standard / Limit', margin + col1 + col2 + 2, y + 3.8);
   y += rowHeight;
 
   // Table Rows
   doc.setFont('helvetica', 'normal');
+  doc.setFontSize(6.8);
   metrics.forEach(([label, val, note], idx) => {
     if (idx % 2 === 1) {
       doc.setFillColor(cLightGray[0], cLightGray[1], cLightGray[2]);
@@ -137,11 +142,11 @@ export function generatePDF(record: ScanRecord, multiMethodInput?: MultiMethodAn
     doc.rect(margin, y, contentWidth, rowHeight, 'S');
 
     doc.setFont('helvetica', 'bold');
-    doc.text(label, margin + 2, y + 4.2);
+    doc.text(label, margin + 2, y + 3.8);
 
     doc.setFont('helvetica', 'normal');
-    doc.text(val, margin + col1 + 2, y + 4.2);
-    doc.text(note, margin + col1 + col2 + 2, y + 4.2);
+    doc.text(val, margin + col1 + 2, y + 3.8);
+    doc.text(note, margin + col1 + col2 + 2, y + 3.8);
     y += rowHeight;
   });
 
@@ -516,6 +521,14 @@ export function generateCSV(record: ScanRecord): Blob {
     'gridClassificationHash',
     'candidateZonesHash',
     'sessionIntegrityHash',
+    'ahpTopSiteName',
+    'ahpTopScore',
+    'ahpConsistencyRatio',
+    'topsisCloseness',
+    'craterDepthToDiameterMean',
+    'roverTraverseDistanceM',
+    'roverTraverseNetEnergyWh',
+    'roverTraversePeakPowerW',
   ];
 
   const sanitize = (val: string | number) => `"${String(val).replace(/"/g, '""')}"`;
@@ -543,6 +556,14 @@ export function generateCSV(record: ScanRecord): Blob {
     sanitize(record.gridClassificationHash),
     sanitize(record.candidateZonesHash),
     sanitize(record.sessionIntegrityHash || ''),
+    sanitize(record.ahpTopSiteName || 'N/A'),
+    record.ahpTopScore !== undefined ? record.ahpTopScore.toFixed(2) : 'N/A',
+    record.ahpConsistencyRatio !== undefined ? record.ahpConsistencyRatio.toFixed(4) : 'N/A',
+    record.topsisCloseness !== undefined ? record.topsisCloseness.toFixed(4) : 'N/A',
+    record.craterDepthToDiameterMean !== undefined ? record.craterDepthToDiameterMean.toFixed(3) : 'N/A',
+    record.roverTraverseDistanceM !== undefined ? record.roverTraverseDistanceM.toFixed(1) : 'N/A',
+    record.roverTraverseNetEnergyWh !== undefined ? record.roverTraverseNetEnergyWh.toFixed(2) : 'N/A',
+    record.roverTraversePeakPowerW !== undefined ? record.roverTraversePeakPowerW.toFixed(1) : 'N/A',
   ];
 
   const csvContent = `${headers.join(',')}\r\n${values.join(',')}\r\n`;

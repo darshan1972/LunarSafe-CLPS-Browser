@@ -62,12 +62,19 @@ Hashes cannot be decoded; they are recomputed and compared. A passing check show
 
 ```mermaid
 graph TD
-    A[NASA LRO LOLA DEMs] --> B[3D Lunar Terrain Viewer]
-    A --> C[Horn 1981 Slope Calculator]
-    C --> D[Deterministic Safety Classification]
+    A[NASA LRO LOLA DEMs & ISRO TMC-2/OHRC] --> B[3D Lunar Terrain Viewer & 2D Hazard Canvas]
+    A --> C[Horn 1981 Finite-Difference Slope Engine]
+    C --> D[NASA 24m Grid Safety Classification]
     B --> D
-    D --> E[SHA-256 Cryptographic Ledger]
-    E --> F[Artemis III Rank Matrix & Mission Report]
+    
+    D --> H[AHP Multi-Criteria Decision Matrix - Saaty 1980]
+    D --> I[Pike 1977 Crater Morphometry & Ellipse Fitting]
+    D --> J[Bekker Terramechanics Rover Traverse Planner]
+    
+    H --> E[SHA-256 Cryptographic Ledger]
+    I --> E
+    J --> E
+    E --> F[Artemis III Decision Matrix & Mission PDF/CSV Reports]
     
     G[YOLOv5 AI Sidecar] -.->|Advisory Cross-Validation| C
 ```
@@ -142,6 +149,43 @@ graph TD
 > **Physical Slope vs. Intensity Proxy**: The Sobel-based slope computed from 2D panchromatic optical images is an intensity gradient proxy, not physical slope. Physical slope requires a Digital Elevation Model (DEM) and is computed via Horn's (1981) finite-difference method. Only the DEM/Horn path is physical.
 
 ---
+
+
+---
+
+## 🔬 Advanced Planetary Engineering Modules
+
+LunarSafe 2.0 incorporates three peer-reviewed planetary aerospace engineering capabilities that extend beyond classical obstacle detection to provide end-to-end mission landing site selection and surface traversal planning:
+
+### 1. AHP Multi-Criteria Landing Site Ranking Matrix (`src/lib/ahpRankingEngine.ts`)
+- **Mathematical Framework:** Implements Thomas L. Saaty's (1980) Analytic Hierarchy Process (AHP) combined with Hwang & Yoon's (1981) Technique for Order of Preference by Similarity to Ideal Solution (TOPSIS).
+- **Pairwise Comparison Matrix:** Evaluates 5 physical mission criteria with the normalized priority weight vector:
+  - **Calibrated Surface Slope (40.2%):** Land stability and rollover prevention based on Horn (1981) finite-difference gradients.
+  - **Solar Photovoltaic Duty Cycle (24.5%):** Sustained polar solar power availability for landed surface assets.
+  - **Direct-to-Earth (DTE) Communication (13.7%):** Geometric line-of-sight elevation angle and horizon clearance to Earth Deep Space Network (DSN) ground stations.
+  - **Regolith Surface Smoothness (13.7%):** Low RMS surface roughness and boulder absence.
+  - **Topographic Prominence (7.9%):** Ridge elevation advantage above local horizon shadows.
+- **Saaty Consistency Verification:** Principal eigenvalue $\lambda_{\max} = 5.032$, Consistency Index $CI = 0.0081$, and Consistency Ratio $CR = 0.0072 < 0.10$, mathematically guaranteeing transitivity and consistency in pairwise ranking.
+- **Direct-to-Earth (DTE) & Libration Envelope Analysis:** At extreme lunar polar latitudes ($-84^\circ$ to $-90^\circ\text{ S}$), Earth hovers within a narrow elevation window ($0^\circ$ to $7^\circ$) above the local lunar horizon. LunarSafe models the $\pm 6.7^\circ$ lunar libration envelope and local topographic horizon dip:
+  - Sites with elevation $\ge 3.0^\circ$ maintain `CONTINUOUS_LOS` (100% Earth visibility, e.g. Faustini Rim A).
+  - Sites between $0^\circ$ and $3.0^\circ$ exhibit `MARGINAL_LIBRATION` (Earth periodically dips below topographic ridges during the 27.3-day draconic/anomalistic libration cycle, e.g. Shackleton Peak).
+
+### 2. Crater Ellipse Fitting & Depth-to-Diameter ($d/D$) Calculator (`src/lib/craterMorphometry.ts`)
+- **Spatial Central Moment Tensor:** Fits 2nd-order image moment tensors ($\mu_{20}, \mu_{02}, \mu_{11}$) across detected crater boundaries to extract true geometric morphology:
+  $\theta = \frac{1}{2} \arctan\left(\frac{2\mu_{11}}{\mu_{20} - \mu_{02}}\right), \quad a = 2\sqrt{\lambda_1}, \quad b = 2\sqrt{\lambda_2}, \quad e = \sqrt{1 - \frac{b^2}{a^2}}$
+- **Pike (1977) Depth-to-Diameter Power Laws:** Employs empirical lunar impact crater scaling relations based on Apollo and Lunar Orbiter photogrammetry:
+  - Simple Bowl Craters ($D < 15\text{ km}$): $d = 0.196 \cdot D^{1.010}$ (with nominal depth-to-diameter ratio $d/D \approx 0.18\text{--}0.22$).
+  - Simple-to-Complex Transition ($D \ge 15\text{ km}$): $d = 1.044 \cdot D^{0.301}$ (accounting for central peak rebound and wall slumping).
+  - Micro-Craters ($D < 10\text{ m}$): Calibrated to regolith gardening equilibrium with wall slope angle estimation $\theta_{\text{wall}} = \arctan(2d/R)$.
+- **Dynamic 2D Canvas Overlays:** Draws rotated fitted ellipses with major/minor axis crosshairs, crater diameter ($\varnothing$), Pike depth ($d$), $d/D$ ratio, and degradation state flags (`FRESH` vs `DEGRADED`).
+
+### 3. Terramechanics-Aware Energy Traverse Planner (`src/lib/terramechanicsPlanner.ts`)
+- **Bekker-Wong Regolith Soil Mechanics:** Simulates rover-regolith physical interaction using classical Bekker theory (Bekker 1969; Wong 2008; Carrier et al. 1991, *Lunar Sourcebook*):
+  - **Gravitational Grade Resistance:** $F_{\text{grade}} = m \cdot g_{\text{moon}} \cdot \sin\theta$ ($g_{\text{moon}} = 1.62\text{ m/s}^2$).
+  - **Regolith Rolling Resistance:** $F_{\text{roll}} = \mu_0 \cdot m \cdot g_{\text{moon}} \cdot \cos\theta$ with coefficient of rolling resistance $\mu_0 = 0.08$ on compacted lunar regolith.
+  - **Wheel Sinkage Compaction Resistance:** Bekker pressure-sinkage formulation $p = (k_c/b + k_\phi) z^n$ ($n = 1.0$, $k_c = 1.4\text{ kPa}$, $k_\phi = 820\text{ kPa/m}$).
+- **Photovoltaic Solar Harvesting Model:** Models incident solar irradiance under low-angle polar illumination ($1361\text{ W/m}^2$, GaAs $28\%$ multi-junction solar panel efficiency) during traversal.
+- **Energy-Optimal A\* Pathfinding:** Discovers least-energy traversal corridors from touchdown zones across digital elevation grids, computing real-time energy consumption (Wh), battery State-of-Charge (%), peak tractive resistance (N), and traverse duration. Explicitly labeled in UI and reports as an **Estimated Energy Traverse (Bekker Model)** simulation.
 
 ## 1. System Architecture
 

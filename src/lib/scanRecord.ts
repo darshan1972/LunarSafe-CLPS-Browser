@@ -66,5 +66,17 @@ export interface ScanRecord {
   rawImageDataUrl: string;
   hazardOverlayDataUrl: string;
   multiMethodInput?: MultiMethodAnalysisInput;
+  // Advanced Planetary Engineering Metrics (AHP, Pike 1977, Bekker 1969)
+  ahpTopSiteName?: string;
+  ahpTopScore?: number;
+  ahpConsistencyRatio?: number;
+  topsisCloseness?: number;
+  craterDepthToDiameterMean?: number;
+  craterCountEvaluated?: number;
+  roverTraverseDistanceM?: number;
+  roverTraverseNetEnergyWh?: number;
+  roverTraversePeakPowerW?: number;
+  roverTraverseDurationMin?: number;
+  roverTraverseFeasible?: boolean;
 }
 

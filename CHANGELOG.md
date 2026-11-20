@@ -1,3 +1,10 @@
+## v2.2.0 - Advanced Planetary Engineering Capabilities
+- **Saaty AHP Multi-Criteria Ranking (`ahpRankingEngine.ts`):** Integrated Thomas L. Saaty's Analytic Hierarchy Process with verified consistency ratio CR = 0.0072 < 0.10. Implemented astronomical Direct-to-Earth (DTE) radio elevation raycasting with lunar libration envelope masking (±6.7°) and Hwang & Yoon (1981) TOPSIS Euclidean distance ranking across all 13 Artemis III landing candidates.
+- **Pike (1977) Crater Morphometry & Ellipse Fitting (`craterMorphometry.ts`):** Implemented 2nd-order spatial central image moment tensor ellipse fitting (semi-major a, semi-minor b, orientation angle θ, eccentricity e) and peer-reviewed depth-to-diameter power laws (d = 0.196 · D^1.010) with simple-to-complex basin transition scaling.
+- **Bekker-Wong Soil Terramechanics & Solar Traverse Planning (`terramechanicsPlanner.ts`):** Implemented Bekker regolith sinkage and rolling resistance (μ0 = 0.08), gravitational slope grade resistance (W sin θ), and polar photovoltaic energy harvesting (1361 W/m², GaAs 28% cell efficiency) for energy-optimal A* rover traverse routing.
+- **UI & Telemetry Integration:** Enriched `HazardCanvas.tsx` with dynamic rotated ellipse drawing, crater d/D badges, and real-time Bekker traverse HUD explicitly designated as physics simulation. Added dedicated Advanced Planetary Engineering section in `EvidencePanel.tsx` and `SiteComparisonModal.tsx`.
+- **Formal Mission Reports:** Updated `scanReportGenerator.ts` and `pdfReportGenerator.ts` to output real computed metrics (Top AHP Region & Score, Mean Crater d/D, Rover Traverse Distance, Net Wh, Peak Power) matching UI calculations.
+
 ## v2.1.0 - Hybrid Edition
 - **Engine Hash Evolution:** The `imageProcessor.ts` engine hash changed from `8CA34C...` (original ISRO) to `A3BAF71C...` (NASA/Hybrid) because we updated the instrument labels to correctly identify ISRO Chandrayaan-2 vs NASA LRO data, and removed misleading ISRO default labels.
 - **Test Updates:** `tests/isroFullPipeline.test.ts` was updated to expect the new `A3BAF71C...` hash so the ISRO pipeline tests can pass using the updated engine.

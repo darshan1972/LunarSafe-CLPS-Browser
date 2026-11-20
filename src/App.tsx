@@ -28,6 +28,10 @@ import { compareDetections, Detection, ComparisonResult } from './lib/comparison
 import { getWorkflowRecommendation } from './lib/workflowSelector';
 import { generatePDF, MultiMethodAnalysisInput } from './lib/scanReportGenerator';
 import { ScanRecord } from './lib/scanRecord';
+import { CraterMorphometryService } from './lib/craterMorphometry';
+import { TerramechanicsPlannerService, DEFAULT_ROVER_SPECS } from './lib/terramechanicsPlanner';
+import { AHPRankingEngine } from './lib/ahpRankingEngine';
+import { ARTEMIS_III_SITES } from './data/artemisSitesData';
 import {
   ProcessedAnalysisResult,
   DataSourceStatus,
@@ -226,8 +230,79 @@ export const App: React.FC = () => {
 
     const gsd = analysis.pixelScaleMeters || 5.0;
     const isTmc2Calibrated = Math.abs(gsd - 6.4) < 0.1 || selectedSample === 'isro_calibrated_tmc2';
-    const activeScan: ScanRecord = scans[0] || {
-      id: `SCAN_${Date.now()}`,
+
+    // Safely compute real advanced planetary engineering metrics for the formal report
+    let ahpTopSiteName: string | undefined;
+    let ahpTopScore: number | undefined;
+    let ahpConsistencyRatio: number | undefined;
+    let topsisCloseness: number | undefined;
+    let craterDepthToDiameterMean: number | undefined;
+    let roverTraverseDistanceM: number | undefined;
+    let roverTraverseNetEnergyWh: number | undefined;
+    let roverTraversePeakPowerW: number | undefined;
+    let roverTraverseDurationMin: number | undefined;
+    let roverTraverseFeasible: boolean | undefined;
+
+    try {
+      const ahpResult = AHPRankingEngine.evaluateLandingSites(ARTEMIS_III_SITES, maxSlopeTolerance);
+      if (ahpResult && ahpResult.evaluations.length > 0) {
+        ahpTopSiteName = ahpResult.evaluations[0].name;
+        ahpTopScore = ahpResult.evaluations[0].ahpScore;
+        ahpConsistencyRatio = ahpResult.consistencyRatio;
+        topsisCloseness = ahpResult.evaluations[0].topsisCloseness;
+      }
+    } catch (e) {
+      console.warn('AHP evaluation fallback in report:', e);
+    }
+
+    try {
+      if (analysis.craters && analysis.craters.length > 0) {
+        const enriched = CraterMorphometryService.enrichDetections(analysis.craters, gsd);
+        if (enriched.length > 0) {
+          const sumDToD = enriched.reduce((acc, c) => acc + c.ellipse.depthToDiameterRatio, 0);
+          craterDepthToDiameterMean = Number((sumDToD / enriched.length).toFixed(3));
+        }
+      }
+    } catch (e) {
+      console.warn('Crater morphometry fallback in report:', e);
+    }
+
+    try {
+      let traversePlan = null;
+      if (analysis.roverPath && analysis.roverPath.waypoints && analysis.roverPath.waypoints.length > 1) {
+        traversePlan = TerramechanicsPlannerService.evaluateTraverse(
+          analysis.roverPath.waypoints,
+          analysis.slopeMap,
+          analysis.width || 512,
+          gsd
+        );
+      } else if (analysis.gridCells && analysis.safeZones && analysis.safeZones.length >= 1) {
+        traversePlan = TerramechanicsPlannerService.planTraverse(
+          analysis.gridCells,
+          analysis.gridCols,
+          analysis.gridRows,
+          Math.max(1, Math.round(24 / gsd) * gsd),
+          analysis.safeZones[0],
+          analysis.safeZones[1] || undefined,
+          sunAngleDeg,
+          DEFAULT_ROVER_SPECS
+        );
+      }
+
+      if (traversePlan) {
+        roverTraverseDistanceM = traversePlan.totalDistanceM;
+        roverTraverseNetEnergyWh = traversePlan.netEnergyWh;
+        roverTraversePeakPowerW = traversePlan.peakPowerWatts;
+        roverTraverseDurationMin = traversePlan.traverseDurationMin;
+        roverTraverseFeasible = traversePlan.isSafeTraverse;
+      }
+    } catch (e) {
+      console.warn('Terramechanics evaluation fallback in report:', e);
+    }
+
+    const activeScan: ScanRecord = {
+      ...(scans[0] || {}),
+      id: scans[0]?.id || `SCAN_${Date.now()}`,
       timestamp: analysis.evidence?.timestamp || new Date().toISOString(),
       instrument:
         selectedSample?.toLowerCase().includes('lroc') || pds4Metadata?.instrumentName?.includes('LROC') || pds4Metadata?.instrumentName === 'LROC-NAC'
@@ -265,6 +340,16 @@ export const App: React.FC = () => {
       })),
       rawImageDataUrl: '',
       hazardOverlayDataUrl: '',
+      ahpTopSiteName,
+      ahpTopScore,
+      ahpConsistencyRatio,
+      topsisCloseness,
+      craterDepthToDiameterMean,
+      roverTraverseDistanceM,
+      roverTraverseNetEnergyWh,
+      roverTraversePeakPowerW,
+      roverTraverseDurationMin,
+      roverTraverseFeasible,
     };
 
     const multiInput = buildCurrentMultiMethodInput() || activeScan.multiMethodInput;

@@ -14,7 +14,7 @@ import {
 import { ProcessedAnalysisResult, GridCell } from '../types';
 import { Terrain3DViewer } from './Terrain3DViewer';
 import { CraterMorphometryService, EnrichedCraterDetection } from '../lib/craterMorphometry';
-import { TerramechanicsPlannerService, TerramechanicsPlanResult } from '../lib/terramechanicsPlanner';
+import { TerramechanicsPlannerService, TerramechanicsPlanResult, DEFAULT_ROVER_SPECS } from '../lib/terramechanicsPlanner';
 
 interface HazardCanvasProps {
   analysis: ProcessedAnalysisResult | null;
@@ -67,25 +67,46 @@ export const HazardCanvas: React.FC<HazardCanvasProps> = ({
 
   // Memoize crater morphometry calculations (Pike 1977 scaling + moment tensor ellipse fitting)
   const enrichedCraters: EnrichedCraterDetection[] = useMemo(() => {
-    if (!analysis?.craters || analysis.craters.length === 0) return [];
-    return CraterMorphometryService.enrichDetections(
-      analysis.craters,
-      analysis.pixelScaleMeters || 0.25
-    );
+    try {
+      if (!analysis?.craters || analysis.craters.length === 0) return [];
+      return CraterMorphometryService.enrichDetections(
+        analysis.craters,
+        analysis.pixelScaleMeters || 0.25
+      );
+    } catch (err) {
+      console.warn('Crater morphometry calculation error:', err);
+      return [];
+    }
   }, [analysis?.craters, analysis?.pixelScaleMeters]);
 
   // Memoize terramechanics traversal telemetry for active A* rover path
   const terramechanicsTelemetry: TerramechanicsPlanResult | null = useMemo(() => {
-    if (!analysis?.roverPath || !analysis.roverPath.waypoints || analysis.roverPath.waypoints.length < 2) {
+    try {
+      if (analysis?.roverPath && analysis.roverPath.waypoints && analysis.roverPath.waypoints.length >= 2) {
+        return TerramechanicsPlannerService.evaluateTraverse(
+          analysis.roverPath.waypoints,
+          analysis.slopeMap,
+          analysis.width || 512,
+          analysis.pixelScaleMeters || 0.25
+        );
+      } else if (analysis?.gridCells && analysis.safeZones && analysis.safeZones.length >= 1) {
+        return TerramechanicsPlannerService.planTraverse(
+          analysis.gridCells,
+          analysis.gridCols,
+          analysis.gridRows,
+          Math.max(1, 24),
+          analysis.safeZones[0],
+          analysis.safeZones[1] || undefined,
+          20.0,
+          DEFAULT_ROVER_SPECS
+        );
+      }
+      return null;
+    } catch (err) {
+      console.warn('Terramechanics calculation error:', err);
       return null;
     }
-    return TerramechanicsPlannerService.evaluateTraverse(
-      analysis.roverPath.waypoints,
-      analysis.slopeMap,
-      analysis.width || 512,
-      analysis.pixelScaleMeters || 0.25
-    );
-  }, [analysis?.roverPath, analysis?.slopeMap, analysis?.width, analysis?.pixelScaleMeters]);
+  }, [analysis?.roverPath, analysis?.gridCells, analysis?.gridCols, analysis?.gridRows, analysis?.safeZones, analysis?.slopeMap, analysis?.width, analysis?.pixelScaleMeters]);
 
   // Render on canvas whenever analysis, bitmap, zoom, or layer visibility changes
   useEffect(() => {
@@ -348,8 +369,16 @@ export const HazardCanvas: React.FC<HazardCanvasProps> = ({
     }
 
     // 7. A* Rover / Descent Traversal Path (Terramechanics-Aware)
-    if (layers.roverPath && analysis.roverPath && analysis.roverPath.waypoints.length > 1) {
-      const pts = analysis.roverPath.waypoints;
+    const pts = (analysis.roverPath && analysis.roverPath.waypoints && analysis.roverPath.waypoints.length > 1)
+      ? analysis.roverPath.waypoints
+      : (terramechanicsTelemetry?.waypoints && terramechanicsTelemetry.waypoints.length > 1)
+      ? terramechanicsTelemetry.waypoints.map(w => [
+          w.xMeters / (analysis.pixelScaleMeters || 0.25),
+          w.yMeters / (analysis.pixelScaleMeters || 0.25),
+        ] as [number, number])
+      : null;
+
+    if (layers.roverPath && pts && pts.length > 1) {
       ctx.beginPath();
       ctx.moveTo(pts[0][0], pts[0][1]);
       for (let i = 1; i < pts.length; i++) {
@@ -606,12 +635,12 @@ export const HazardCanvas: React.FC<HazardCanvasProps> = ({
       </div>
 
       {/* Bekker Terramechanics Traverse Telemetry HUD */}
-      {terramechanicsTelemetry && (
+      {terramechanicsTelemetry ? (
         <div className="bg-space-950 border-b border-space-700/80 px-4 py-2 flex flex-wrap items-center justify-between gap-2 text-xs font-mono">
           <div className="flex flex-wrap items-center gap-2.5">
             <span className="text-amber-400 font-bold flex items-center gap-1.5">
               <Compass className="w-3.5 h-3.5 text-amber-400" />
-              <span>BEKKER ROVER TRAVERSE:</span>
+              <span>ESTIMATED ENERGY TRAVERSE (BEKKER MODEL):</span>
             </span>
             <div className="flex items-center space-x-1 px-2 py-0.5 rounded bg-space-900 border border-space-700">
               <span className="text-zinc-400">Distance:</span>
@@ -637,6 +666,9 @@ export const HazardCanvas: React.FC<HazardCanvasProps> = ({
             </div>
           </div>
           <div className="flex items-center space-x-2">
+            <span className="text-[10px] text-zinc-500 font-mono hidden md:inline">
+              (Physics simulation — not live telemetry)
+            </span>
             <span className={`px-2 py-0.5 rounded text-[10px] font-bold flex items-center gap-1 border ${
               terramechanicsTelemetry.isSafeTraverse
                 ? 'bg-emerald-950/80 text-emerald-400 border-emerald-500/40'
@@ -647,7 +679,16 @@ export const HazardCanvas: React.FC<HazardCanvasProps> = ({
             </span>
           </div>
         </div>
-      )}
+      ) : analysis ? (
+        <div className="bg-space-950/80 border-b border-space-700/80 px-4 py-1.5 flex items-center justify-between text-[11px] font-mono text-zinc-400">
+          <div className="flex items-center space-x-2">
+            <Compass className="w-3.5 h-3.5 text-zinc-500" />
+            <span className="text-zinc-300 font-bold">ESTIMATED ENERGY TRAVERSE (BEKKER MODEL):</span>
+            <span>No safe traverse path feasible across active obstacle threshold</span>
+          </div>
+          <span className="text-[10px] text-zinc-500 italic">Physics-based simulation</span>
+        </div>
+      ) : null}
 
       {/* 3D Viewport */}
       {viewDimension === '3d' && (
